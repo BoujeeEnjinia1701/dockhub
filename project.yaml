@@ -1,0 +1,17 @@
+# Card metadata consumed by https://designmolecule.com
+name: DockHub
+slug: dockhub
+area: Smart Cities
+status: concept          # concept | design | prototype | tested | released
+shortlisted: false
+pitch: >-
+  A street-side battery swap and charging station for SwapCell packs, serving e-bikes, cargo trikes and delivery riders with charged batteries in seconds.
+problem: >-
+  Light electric vehicle riders lose working time to charging, and charging lithium packs in homes and hostels causes fires.
+budget_usd: 1200
+difficulty: 4  # 1 easiest, 5 hardest
+hero_image: media/hero.png
+licenses:
+  hardware: CERN-OHL-S-2.0
+  software: MIT
+tags: [smart-cities, open-hardware, cern-ohl-s]
