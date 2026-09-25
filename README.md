@@ -1,6 +1,8 @@
 # DockHub
 
-**Area:** Smart Cities · **Status:** Concept · **Prototype budget:** about $1,200 USD · **Difficulty:** 4 of 5
+![TRL 2](https://img.shields.io/badge/TRL-2%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
+
+**Area:** Smart Cities · **TRL:** 2 of 9 (concept formulated) · **Prototype budget:** about $1,200 USD · **Difficulty:** 4 of 5
 
 A street-side battery swap and charging station for SwapCell packs, serving e-bikes, cargo trikes and delivery riders with charged batteries in seconds.
 
@@ -67,6 +69,10 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 | `firmware/` | Microcontroller code |
 | `media/` | Renders, perspectives and photos |
 | `build-log/` | Dated prototyping notes |
+
+## Documentation
+
+Controlled documents follow the portfolio [documentation standard](.kit/STANDARDS.md). Each carries a document ID (DKH-PRC-001 for the precis), a version and a revision history. Branded PDFs are built with `python .kit/render.py` and attached to GitHub Releases when a document is tagged, for example `DKH-PRC-001/v1.0`.
 
 ## Licenses
 
