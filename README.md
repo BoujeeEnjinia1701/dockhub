@@ -1,14 +1,14 @@
 # DockHub
 
-![TRL 2](https://img.shields.io/badge/TRL-2%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
+![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
 
-**Area:** Smart Cities · **TRL:** 2 of 9 (concept formulated) · **Prototype budget:** about $1,200 USD · **Difficulty:** 4 of 5
+**Area:** Smart Cities · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** about $1,200 USD (four-bay cabinet, two bays fitted) · **Difficulty:** 4 of 5
 
 A street-side battery swap and charging station for SwapCell packs, serving e-bikes, cargo trikes and delivery riders with charged batteries in seconds.
 
 ![DockHub concept](media/hero.png)
 
-[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [Review note](docs/REVIEW.md)
+[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement DKH-DWG-001 (PDF)](cad/drawings/DKH-DWG-001.pdf) · [Sizing note](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
 
 ## Concept rationale
 
@@ -58,24 +58,27 @@ Full problem statement: [docs/01-problem.md](docs/01-problem.md)
 
 ## Concept
 
-A street-side battery swap and charging station for SwapCell packs, serving e-bikes, cargo trikes and delivery riders with charged batteries in seconds. Four lockable bays at hand height each hold and charge one pack; a rider taps a card, returns a flat pack and takes a charged one in about 30 seconds. First-order estimates: about 1.2 h to charge a pack from 20 to 80 %, up to about 38 swaps a day, about 1.25 kW peak from one single-phase circuit, and about 13 % of the energy from the 400 W solar canopy.
+A street-side battery swap and charging station for SwapCell packs, serving e-bikes, cargo trikes and delivery riders with charged batteries in seconds. Four lockable bays at hand height each hold and charge one pack; a rider taps a card, returns a flat pack to the empty bay and takes a charged one in about 31 seconds. Because one bay is always empty, four bays run with three packs.
 
-Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md)
+The TRL 3 sizing note (DKH-CAL-001) finds 1.2 h to charge a pack from 20 to 80 %, all 20 riders served on the design day (up to 36 swaps a day), 1.25 kW peak from one single-phase circuit with power-factor-corrected chargers, and a mass of about 205 kg for the two-bay prototype. Two requirements are not met: the 400 W canopy supplies 9.3 % of the charging energy against a relaxed 10 % target, and the SwapCell pack's 45 °C charge limit pauses charging when ambient air is above about 29 to 39 °C. Fire containment, anchoring and cost are at risk.
+
+Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Decisions: [docs/decisions/0001-trl2-review-decisions.md](docs/decisions/0001-trl2-review-decisions.md)
 
 ## Key components
 
-- Galvanized steel cabinet, 1.0 x 0.5 m footprint, with four lockable SwapCell bays in separate steel compartments
-- Certified 54.6 V 5 A charger per bay, switched by the controller
+- Galvanized steel cabinet, 1.0 x 0.5 m footprint, with four lockable SwapCell bays (interface v0.3) in separate steel compartments; the first prototype fits two
+- Certified 54.6 V 5 A charger per bay with power factor correction, switched by the controller
 - ESP32 dock controller with one CAN channel per bay and an LTE-M modem
 - NFC access panel with display and status lights
 - Heat and smoke detection, aerosol suppression and a rear vent plenum
-- 400 W solar canopy with MPPT controller, and a single-phase grid input with RCD protection
+- 400 W solar canopy with MPPT controller feeding bay 1, and a single-phase grid input with RCD protection
+- Steel plinth anchored to a concrete pad; the canopy makes anchoring mandatory
 
-The working bill of materials is in [bom/bom.csv](bom/bom.csv). Parts cost is about $1,423 with all four bays fitted, above the $1,200 budget; with two of four bays fitted it is about $1,199. SwapCell packs are not included.
+The priced bill of materials is in [bom/bom.csv](bom/bom.csv). The budget covers the four-bay cabinet with two bays fitted: $1,199 against $1,200, so cost is at risk on indicative prices. All four bays fitted cost $1,423. SwapCell packs are not included. The parametric model is [cad/src/model.py](cad/src/model.py), with STEP and STL exports in `cad/step/` and `cad/stl/`.
 
 ## Safety
 
-> Lithium cells can overheat, vent and burn. DockHub holds up to four packs of about 468 Wh each beside a public walkway. Charge only packs that pass the SwapCell CAN check, keep faulted packs locked in their bay, and never leave a first build charging unattended. Mains wiring must be done or checked by a qualified electrician and follow local electrical code, with RCD (GFCI) protection. Fire detection and venting are in every bay, but fire containment is not yet proven. Anchor the cabinet: the canopy catches wind.
+> Lithium cells can overheat, vent and burn. DockHub holds up to four packs of about 468 Wh each beside a public walkway. Charge only packs that pass the SwapCell CAN check, keep faulted packs locked in their bay, and never leave a first build charging unattended. Mains wiring must be done or checked by a qualified electrician and follow local electrical code, with RCD (GFCI) protection. Fire detection and venting are in every bay, but fire containment is not yet proven. Anchor the cabinet to a concrete pad: in a 30 m/s gust the canopy lifts and tips it (DKH-CAL-001). Charging pauses in hot weather because the packs may not charge above 45 °C.
 
 ## Repository layout
 

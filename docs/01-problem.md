@@ -3,7 +3,7 @@ doc_id: DKH-PRB-001
 title: DockHub problem statement
 project: DockHub
 doc_type: Problem statement
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Populate to TRL 2 (problem, users, context, constraints, prior work)
+- version: "0.3"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: TRL 3. Budget scope (four-bay cabinet, two bays fitted) and SwapCell interface v0.3 per DKH-DDR-001; open questions updated from DKH-CAL-001
 ---
 
 # DockHub problem statement
@@ -51,9 +55,9 @@ Commercial swap networks exist, but each is closed: the pack, cabinet, protocol 
 
 ## Constraints
 
-- Garage-buildable prototype, about $1,200 USD in parts, excluding SwapCell packs.
+- Garage-buildable prototype, about $1,200 USD in parts for the four-bay cabinet with two bays fitted, excluding SwapCell packs (DKH-DDR-001 item 1, adopted for TRL 3 and open for Amish's review).
 - Built from folded sheet steel, off-the-shelf certified chargers and hobby-grade controllers; no custom mains electronics.
-- Must build to the SwapCell interface v0.2 (envelope, connector, CAN message set) without changing it; conflicts are raised with the SwapCell project.
+- Must build to SwapCell interface v0.3 (envelope, coded connector, latch class, CAN message set) without changing it; conflicts are raised with the SwapCell project.
 - No cameras or microphones. The station records pack identity, energy and a rider token, not personal data beyond what access requires.
 - Siting on public land needs permission from the city and the power utility; the prototype is for a private forecourt or a supervised pilot.
 
@@ -83,4 +87,6 @@ This design is for communities the author is not part of, so requirements come f
 
 - Which first site and partner: a rider cooperative or workers' center in a high-income city, or a moto-taxi hub in East Africa? Proposed, awaiting Amish.
 - Who owns the packs in circulation: the station operator (subscription), the riders (deposit and exchange) or a fleet? This drives cost and the access design. Proposed, awaiting Amish.
-- How far do riders travel in a shift, and how many swaps a day does one station need to serve? The 20 swaps a day used in DKH-PRC-001 is an assumption to test.
+- How far do riders travel in a shift, and how many swaps a day does one station need to serve, at what hours? The 20 swaps a day and the lunch and dinner peaks used in DKH-CAL-001 are assumptions to test.
+- How long will a rider wait for a charged pack before leaving? DKH-CAL-001 assumes 15 min.
+- How hot does the first pilot site get? The SwapCell pack does not charge above 45 °C, so in hot afternoons DockHub pauses charging (DKH-CAL-001 section 7).
