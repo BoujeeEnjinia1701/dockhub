@@ -3,7 +3,7 @@ doc_id: DKH-REQ-001
 title: DockHub requirements
 project: DockHub
 doc_type: Requirements
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -21,11 +21,15 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: TRL 3. R6 relaxed to 10 % and R16 redefined to the two-bay fit (DKH-DDR-001); R2 to SwapCell interface v0.3; status from DKH-CAL-001
+- version: "0.4"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002)
 ---
 
 # DockHub requirements
 
-These requirements are checked by calculation in DKH-CAL-001 (TRL 3). They are not yet validated with riders, hosts or a city and will be revised after co-design sessions (see DKH-PRB-001). Under Amish's instruction of 2026-09-25, two TRL 2 review recommendations are adopted for TRL 3 work and stay open for his review (DKH-DDR-001): R6 is relaxed from 20 % to 10 %, and R16 now covers the four-bay cabinet with two bays fitted. R2 now cites SwapCell interface v0.3 (DKH-DDR-001 item 12, open for review). Every other target remains as proposed at TRL 2, awaiting Amish.
+These requirements are checked by calculation in DKH-CAL-001 (TRL 3). They are not yet validated with riders, hosts or a city and will be revised after co-design sessions (see DKH-PRB-001). On 2026-09-25 Amish accepted the review recommendations (DKH-DDR-001, DKH-DDR-002): R6 is relaxed from 20 % to 10 %, R16 covers the four-bay cabinet with two bays fitted, and R2 cites SwapCell interface v0.3 (DKH-DDR-001 item 12). These are decided. Every other target remains as proposed at TRL 2 and will be revised after co-design.
 
 On paper, 9 of 16 requirements are met. **R6 and R9 are not met**; R8, R15 and R16 are at risk; R7 and R14 cannot be verified until hardware exists.
 

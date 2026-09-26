@@ -48,7 +48,7 @@ P_CHG_IN_PEAK = V_MAX * I_CHG / ETA_CHG   # 303 W at the end of CC
 # Duty case (DKH-REQ-001)
 SWAPS = 20
 SOC_RETURN = 0.15
-SOC_RELEASE = 0.80               # proposed minimum state of charge for releasing a pack
+SOC_RELEASE = 0.80               # minimum state of charge (decided, DKH-DDR-002) for releasing a pack
 # Demand profile: 20 arrival times (h) with a lunch and a dinner peak (assumption to test with riders)
 ARRIVALS = [7.5, 8.5, 9.5, 11.0, 11.75, 12.25, 12.75, 13.25, 14.0, 15.5,
             16.5, 17.5, 18.0, 18.5, 19.0, 19.5, 20.0, 20.5, 21.25, 22.5]

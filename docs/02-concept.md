@@ -3,7 +3,7 @@ doc_id: DKH-PRC-001
 title: DockHub design precis
 project: DockHub
 doc_type: Design precis
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -21,6 +21,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: TRL 3. Record the TRL 2 review items adopted under Amish's 2026-09-25 instruction (DKH-DDR-001); SwapCell interface v0.3; numbers checked against DKH-CAL-001; media from the parametric model
+- version: "0.4"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002)
 ---
 
 # DockHub design precis
@@ -105,18 +109,18 @@ Table 2. Key numbers.
 
 ## Key design choices
 
-Items 1 to 8 are the TRL 2 recommendations, adopted as recommended for TRL 3 under Amish's 2026-09-25 instruction and open for his review (DKH-DDR-001).
+Items 1 to 8 are the TRL 2 recommendations, decided by Amish on 2026-09-25: go with recommendation (DKH-DDR-001, DKH-DDR-002).
 
 1. **One SwapCell dock per bay, in a shared cabinet.** Each bay reuses the SwapCell dock cradle, charger and handshake, so DockHub adds only the cabinet, access, safety and energy supply. One certified charger and one CAN channel per bay, rather than a shared charger matrix.
 2. **Four bays in one row at hand height.** Keeps the footprint to 1.0 x 0.5 m and every handle within reach (0.73 to 1.10 m). The first prototype fits bays 1 and 2 to meet the budget; the cabinet is built for four.
 3. **Separate steel compartment per bay with a rear plenum.** A venting pack's gas and flame go to the back and up through the roof louver, not out of the door the user is standing at, and each pack is separated from its neighbors by two steel walls and an air gap.
 4. **Doors stay locked during a fire alarm.** Keeps people from opening a bay with a pack in runaway; the fire service opens the cabinet with a key. The trade-off is that a rider cannot retrieve a returned pack during an alarm; a warning light and a sign explain why.
-5. **Grid first, solar as a supplement.** The 400 W canopy stays as shade and supplement, and R6 is relaxed to 10 %. DKH-CAL-001 finds 9.3 %, so R6 is still not met; the options are open for Amish (see Open questions).
+5. **Grid first, solar as a supplement.** The 400 W canopy stays as shade and supplement, and R6 is relaxed to 10 %. DKH-CAL-001 finds 9.3 %, so R6 is still not met; how to close the gap has no recommendation and is open for Amish (see Open questions).
 6. **Solar feeds one bay directly through an MPPT controller.** Avoids an inverter and keeps all mains parts certified. It is also why the solar share is low: bay 1 can use the sun only while it holds a pack that needs charge.
 7. **Offline-first access with NFC tokens.** The station keeps a token list and a log and syncs over LTE-M when it can, with an optional phone app.
 8. **Pack health gate.** Packs below 70 % state of health, with a fault record or outside the charge temperature window are held for a technician, using the SwapCell in-pack log.
 
-Engineering proposals made at TRL 3, awaiting Amish's confirmation (DKH-DDR-001 items 12 and 13): build to SwapCell interface v0.3; release packs at 80 % state of charge or more; specify chargers with a power factor of 0.9 or better; a plinth flush with the body.
+Engineering proposals made at TRL 3, decided by Amish on 2026-09-25: go with recommendation (DKH-DDR-001 items 12 and 13, DKH-DDR-002): build to SwapCell interface v0.3; release packs at 80 % state of charge or more; specify chargers with a power factor of 0.9 or better; a plinth flush with the body.
 
 ## Relationship to other lab projects
 

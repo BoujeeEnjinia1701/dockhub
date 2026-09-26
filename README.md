@@ -48,7 +48,7 @@ At the same time, the number of electric two- and three-wheelers keeps growing: 
 
 ## What sparked the idea
 
-It came out of a September 2026 review of Design Molecule's applied research areas against the open projects already in the lab. It builds on SwapCell. The review coincided with the US Consumer Product Safety Commission's June 2026 proposed standard for micromobility batteries, which found that most incidents happen while charging ([Federal Register](https://www.federalregister.gov/documents/2026/06/24/2026-12749/safety-standard-for-lithium-ion-batteries-used-in-micromobility-products-and-electrical-systems-of)), and with London's record year for e-bike fires in 2025.
+The starting point was New York City's public e-bike battery charging pilot. From February to August 2024 the city's Department of Transportation put swap cabinets and charging docks from three vendors on the street for 118 delivery workers, who made more than 12,000 battery swaps; at-home charging among participants fell by 35 percent, and no safety issues were reported at any pilot site ([NYC DOT, 21 November 2024](https://www.nyc.gov/html/dot/html/pr2024/report-e-bike-battery-change-pilot.shtml)). The pilot showed that a curbside cabinet can take charging out of homes. DockHub asks what the same cabinet looks like when it is built to an open pack interface (SwapCell), so that a city, a cooperative or a small fleet can build and run it without tying riders to one vendor's batteries.
 
 ## Problem
 
@@ -62,7 +62,7 @@ A street-side battery swap and charging station for SwapCell packs, serving e-bi
 
 The TRL 3 sizing note (DKH-CAL-001) finds 1.2 h to charge a pack from 20 to 80 %, all 20 riders served on the design day (up to 36 swaps a day), 1.25 kW peak from one single-phase circuit with power-factor-corrected chargers, and a mass of about 205 kg for the two-bay prototype. Two requirements are not met: the 400 W canopy supplies 9.3 % of the charging energy against a relaxed 10 % target, and the SwapCell pack's 45 °C charge limit pauses charging when ambient air is above about 29 to 39 °C. Fire containment, anchoring and cost are at risk.
 
-Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Decisions: [docs/decisions/0001-trl2-review-decisions.md](docs/decisions/0001-trl2-review-decisions.md)
+Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Decisions: [docs/decisions/0001-trl2-review-decisions.md](docs/decisions/0001-trl2-review-decisions.md), [docs/decisions/0002-recommendations-accepted.md](docs/decisions/0002-recommendations-accepted.md)
 
 ## Key components
 
@@ -103,4 +103,4 @@ Controlled documents follow the portfolio [documentation standard](.kit/STANDARD
 - **Hardware** (CAD, drawings, BOM, electronics): [CERN-OHL-S v2](LICENSE)
 - **Software** (firmware, scripts, notebooks): [MIT](LICENSE-SOFTWARE)
 
-A project of the [Design Molecule](https://designmolecule.com) lab. Smart cities set.
+A project of the [Design Molecule](https://designmolecule.com) lab.

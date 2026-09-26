@@ -3,7 +3,7 @@ doc_id: DKH-CAL-001
 title: DockHub sizing calculations
 project: DockHub
 doc_type: Calculation note
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -13,6 +13,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: First TRL 3 sizing note (charging, swap time, throughput and solar day model, grid, thermal, fire timing, geometry, mass, wind and anchoring, cost) against SwapCell interface v0.3
+- version: "0.2"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002)
 ---
 
 # DockHub sizing calculations
@@ -33,12 +37,12 @@ Every number here is printed by `docs/04-calcs/sizing.py` (run from the repo roo
 | Pack heat path | 1.17 W/K to the surrounding air, 32 min time constant | SWC-CAL-001 (open air) |
 | Charger | 5 A CC to 85 %, then CV tapering linearly to 1 A (0.6 h); 90 % efficient; 303 W input at the end of CC | SWC-CAL-001; certified charger |
 | Cell charge efficiency | 95 % for energy accounting; heat in the pack between I²R (2.75 W) and all of the 5 % loss (13.7 W) | SWC-CAL-001 |
-| Duty case | 20 swaps a day, packs returned at 15 %, released at 80 % or more (fullest first) | DKH-REQ-001; release threshold proposed here |
+| Duty case | 20 swaps a day, packs returned at 15 %, released at 80 % or more (fullest first) | DKH-REQ-001; release threshold decided by Amish, 2026-09-25 (DKH-DDR-002) |
 | Demand profile | Arrivals at 07:30, 08:30, 09:30, 11:00, 11:45, 12:15, 12:45, 13:15, 14:00, 15:30, 16:30, 17:30, 18:00, 18:30, 19:00, 19:30, 20:00, 20:30, 21:15 and 22:30; a rider leaves after waiting 15 min | Lunch and dinner peaks; to be tested with riders |
 | Cabinet loads | 30 W average, 40 W peak | Controller, modem, display, lights, fans, locks |
 | Charger power factor | 0.95 with power factor correction, 0.6 without | Typical ranges; the chosen charger must be checked |
 | Branch circuit | 120 V 15 A or 230 V 10 A, continuous load 80 % of the rating | Common practice for continuous loads |
-| Solar | 400 W, 4.5 peak sun hours on a sine profile from 06:00 to 18:00, 0.8 derate, MPPT 96 %, 50 V mean charging voltage; bay 1 uses the MPPT when it offers 50 W or more, otherwise its AC charger | Clear day in a sunny city; control rule proposed here |
+| Solar | 400 W, 4.5 peak sun hours on a sine profile from 06:00 to 18:00, 0.8 derate, MPPT 96 %, 50 V mean charging voltage; bay 1 uses the MPPT when it offers 50 W or more, otherwise its AC charger | Clear day in a sunny city; control rule for the MPPT to bay 1 decided by Amish, 2026-09-25 (DKH-DDR-002) |
 | Cabinet heat transfer | Film coefficients 17 W/(m² K) outside and 8 W/(m² K) inside; two 120 mm fans at 90 m³/h free air each, half lost to the filter and louver | Still air with light wind; typical fans |
 | Sun on the cabinet | 500 W/m² on the front and one end wall, absorptance 0.35 (light powder coat); roof shaded by the canopy | Afternoon sun |
 | Wind | 30 m/s gust, air 1.225 kg/m³; panel force coefficient 1.5 normal to the panel with the centre of pressure a quarter of the panel depth from its centre; body drag coefficient 1.3; posts 2.0; load factor 1.5 for the anchors; friction 0.4 | TRL 2 assumption for the panel; typical values otherwise |

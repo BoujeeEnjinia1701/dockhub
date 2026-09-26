@@ -1,5 +1,49 @@
 # Review note: DockHub
 
+## Session 2026-09-25: recommendations accepted
+
+Amish wrote on 2026-09-25: "i accept all your recommendations, go with them across all repos." Recorded in `docs/decisions/0002-recommendations-accepted.md` (DKH-DDR-002 v0.1).
+
+### Decisions applied and what changed
+
+Twelve items are now **Decided by Amish, 2026-09-25: go with recommendation**: DKH-DDR-001 items 1 to 9, 12 and 13, and the two-bay first prototype (with item 1). All were already built into the TRL 3 model, BOM, drawing and calculations, so no number or geometry changes:
+
+| Item | Before | After |
+| --- | --- | --- |
+| Budget (R16) | $1,200, four-bay cabinet with two bays fitted, adopted pending review | $1,200, same scope, decided; parts $1,199 (unchanged) |
+| Solar target (R6) | 10 % (relaxed from 20 %), adopted pending review | 10 %, decided; calculated 9.3 % (unchanged) |
+| Release threshold, charger power factor, flush plinth, demand profile | Engineering proposals | Decided: 80 % state of charge, power factor 0.9 or better, 1,000 x 500 mm plinth, 15 min patience |
+| Items 3 to 9 (one row of four bays, charger and CAN per bay, steel compartments and plenum, doors locked in alarm, MPPT to bay 1, offline NFC, 70 % health gate) and SwapCell interface v0.3 | Adopted pending review | Decided |
+
+Files changed: DKH-DDR-001 v0.2, DKH-PRC-001 v0.4, DKH-REQ-001 v0.4, DKH-CAL-001 v0.2 (wording only; `sizing.py` rerun, results unchanged), `bom/bom-notes.md`, `project.yaml` (evidence list), `README.md` (decision link and a new "What sparked the idea" based on the NYC DOT 2024 battery charging pilot). `budget_usd`, pitch and problem are unchanged. DKH-DWG-001 was regenerated at Rev P1 (no geometry or note change). All PDFs, drawings and media were regenerated for the designmolecule.com footer.
+
+### Requirement status (unchanged by the decisions)
+
+| Status | Requirements |
+| --- | --- |
+| Not met | R6 (9.3 % solar against 10 %), R9 (charging pauses above about 29 to 39 °C ambient) |
+| At risk | R8 (containment needs a propagation test), R15 (anchors and pad not chosen), R16 ($1,199 against $1,200) |
+| Not verifiable at TRL 3 | R7, R14 |
+| Met | R1, R2, R3, R4, R5, R10, R11, R12, R13 |
+
+### Still awaiting Amish (no recommendation was made)
+
+- Pack ownership model (station pool, rider exchange or fleet packs).
+- First pilot site and partner.
+- How to close R6: accept about 9 %, route flat packs to bay 1 in daylight, feed more bays from the sun, or drop the target.
+- How to close R9: accept daytime pauses, add active cooling, narrow the design ambient, or raise the charge temperature limit with SwapCell.
+
+### Cross-repo actions
+
+- SwapCell: ask for the pack wake time on the coded INTERLOCK loop, which sets DockHub's 2 s return check.
+- SwapCell: note that multi-bay hosts need a CAN channel per bay because packs default to node 0.
+
+No other repo was edited.
+
+### TRL 4
+
+TRL 4 remains on hold by Amish's instruction. No build, test, PCB, firmware or purchasing was started; `trl` and `trl_target` stay at 3.
+
 ## Session 2026-09-25: TRL 3
 
 ### What was done
@@ -39,7 +83,7 @@ Findings that change the TRL 2 picture:
 
 ### Decisions recorded (DKH-DDR-001)
 
-Adopted as recommended for TRL 3 under Amish's 2026-09-25 instruction, open for his review: build the four-bay cabinet and fit two bays for the first prototype, with `budget_usd` unchanged at $1,200 and redefined to that fit (option (b), $1,450, was not recommended and is not adopted); keep the 400 W canopy and relax R6 to 10 %; four bays in one row; one charger and CAN channel per bay; per-bay steel compartments with a rear plenum; doors locked during a fire alarm; MPPT to bay 1; offline-first NFC access; a 70 % state-of-health gate. The pitch and problem lines had no recommended rewording, so `project.yaml` and the README pitch are unchanged.
+Decided by Amish, 2026-09-25: go with recommendation (first adopted for TRL 3 pending his review; see DKH-DDR-002): build the four-bay cabinet and fit two bays for the first prototype, with `budget_usd` unchanged at $1,200 and redefined to that fit (option (b), $1,450, was not recommended and is not adopted); keep the 400 W canopy and relax R6 to 10 %; four bays in one row; one charger and CAN channel per bay; per-bay steel compartments with a rear plenum; doors locked during a fire alarm; MPPT to bay 1; offline-first NFC access; a 70 % state-of-health gate. The pitch and problem lines had no recommended rewording, so `project.yaml` and the README pitch are unchanged.
 
 ### Still awaiting Amish
 
@@ -47,8 +91,8 @@ Adopted as recommended for TRL 3 under Amish's 2026-09-25 instruction, open for 
 - First pilot site and partner (no recommendation at TRL 2).
 - R6 is still not met at 10 %: accept about 9 %, route packs to bay 1 in daylight and accept occasional waits, feed more bays from the sun, or drop the target. No recommendation made.
 - R9 is not met: accept daytime charging pauses in hot climates, add active cooling, narrow the design ambient, or raise the charge temperature limit with SwapCell. No recommendation made.
-- Whether a two-bay first prototype that cannot run the duty case is acceptable.
-- Engineering proposals from this session (DKH-DDR-001 items 12 and 13): SwapCell interface v0.3, an 80 % release level, chargers with a power factor of 0.9 or better, the flush plinth, and the demand profile and 15 min rider patience used in the day model.
+- Whether a two-bay first prototype that cannot run the duty case is acceptable. Decided by Amish, 2026-09-25, with item 1 (two bays fitted): go with recommendation.
+- Engineering proposals from this session (DKH-DDR-001 items 12 and 13): SwapCell interface v0.3, an 80 % release level, chargers with a power factor of 0.9 or better, the flush plinth, and the demand profile and 15 min rider patience used in the day model. Decided by Amish, 2026-09-25: go with recommendation.
 
 ### Safety concerns
 
@@ -104,17 +148,17 @@ Requirements not met or at risk: R6 (solar share), R9 (charging at 45 °C ambien
 
 ### Proposed, awaiting Amish
 
-1. **Budget (R16).** Options: (a) build the four-bay cabinet but fit two bays for the first prototype, about $1,199; (b) raise `budget_usd` to $1,450; (c) a two-bay cabinet. Recommendation: (a). `project.yaml` is unchanged.
-2. **Solar target (R6).** Options: keep the 400 W canopy as shade and supplement and relax R6 to 10 %; drop the canopy; or add an off-cabinet array. Recommendation: relax R6 to 10 %.
-3. **Pack ownership model:** station-owned pool, rider-owned one-for-one exchange, or fleet packs. The pack pool (about $370 per pack) costs far more than the station. No recommendation until co-design.
-4. Four bays in one row at hand height rather than eight in two rows.
-5. One certified charger and one CAN channel per bay rather than a shared charger matrix.
-6. Separate steel compartment per bay with a rear plenum venting through the roof.
-7. Bay doors stay locked during a fire alarm.
-8. Solar through an MPPT controller to bay 1 rather than a hybrid inverter.
-9. Offline-first NFC access with an optional app.
-10. State-of-health gate at 70 % for releasing packs to riders.
-11. First pilot site and partner (a delivery-worker group in a high-income city, or a moto-taxi hub in East Africa).
+1. **Budget (R16).** Options: (a) build the four-bay cabinet but fit two bays for the first prototype, about $1,199; (b) raise `budget_usd` to $1,450; (c) a two-bay cabinet. Recommendation: (a). `project.yaml` is unchanged. **Decided by Amish, 2026-09-25: go with recommendation.**
+2. **Solar target (R6).** Options: keep the 400 W canopy as shade and supplement and relax R6 to 10 %; drop the canopy; or add an off-cabinet array. Recommendation: relax R6 to 10 %. **Decided by Amish, 2026-09-25: go with recommendation.**
+3. **Pack ownership model:** station-owned pool, rider-owned one-for-one exchange, or fleet packs. The pack pool (about $370 per pack) costs far more than the station. No recommendation until co-design. Still proposed, awaiting Amish (no recommendation).
+4. Four bays in one row at hand height rather than eight in two rows. **Decided by Amish, 2026-09-25: go with recommendation.**
+5. One certified charger and one CAN channel per bay rather than a shared charger matrix. **Decided by Amish, 2026-09-25: go with recommendation.**
+6. Separate steel compartment per bay with a rear plenum venting through the roof. **Decided by Amish, 2026-09-25: go with recommendation.**
+7. Bay doors stay locked during a fire alarm. **Decided by Amish, 2026-09-25: go with recommendation.**
+8. Solar through an MPPT controller to bay 1 rather than a hybrid inverter. **Decided by Amish, 2026-09-25: go with recommendation.**
+9. Offline-first NFC access with an optional app. **Decided by Amish, 2026-09-25: go with recommendation.**
+10. State-of-health gate at 70 % for releasing packs to riders. **Decided by Amish, 2026-09-25: go with recommendation.**
+11. First pilot site and partner (a delivery-worker group in a high-income city, or a moto-taxi hub in East Africa). Still proposed, awaiting Amish (no recommendation).
 12. `project.yaml` pitch and problem were checked against the sources and left unchanged.
 
 ### Safety concerns
