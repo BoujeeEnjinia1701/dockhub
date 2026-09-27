@@ -179,3 +179,34 @@ Requirements not met or at risk: R6 (solar share), R9 (charging at 45 °C ambien
 ### Recommended next step
 
 Review this note and the media, then decide items 1 to 3. If approved, run `/advance-trl3` to check the thermal, wind, energy and throughput estimates by calculation, and produce the parametric model and drawing sheet.
+
+## Session 2026-09-26: product appearance model and photoreal renders
+
+Amish chose this repo for the first batch of product renders on 2026-09-26.
+
+### What was added
+
+`cad/src/product_model.py` exposes `product_parts()` (118 parts: 64 shell, 34 internal, 8 accessory, 12 context), `TITLE` and `RENDER_VIEWS` (hero, exploded and a detail view of the cabinet without canopy or street). It imports PARAMS, `bay_x()`, `pack_z0()` and the box helper from `cad/src/model.py`; the cabinet, plinth, bay openings, doors and handles, bay compartments, SwapCell v0.3 pack envelope (plug, handle, latch pawl), access panel, chargers, controller, grid unit, MPPT controller, fire unit, plenum, fans, louver, canopy and service door keep the model.py sizes and positions. It adds:
+
+- Cabinet: rounded vertical corners and top edges, fold seams on the sides, rivet rows, filtered intake slots with filter pads, EPDM gasket outlines round every door, and a dark header sign with raised "DockHub" lettering and a teal accent band.
+- Bay doors: teal steel doors with a clear polycarbonate window and gasket, metal pull handle, hinges, lock indicator, raised bay number and a status light (bay 2 and 3 green, bay 4 amber, lit). Bay 1 is shown open and empty.
+- Bay compartments split into liners, cradles, receptacles with contact pins, side guides and class D catches; SwapCell packs with filleted cases, a parting line, rubber handle, teal stripe, label, wake button and a lit charge gauge.
+- Access panel: steel bezel with security screws, display with lit screen content (title bar, "Tap to swap" and four bay tiles), NFC reader with a lit ring and contactless symbol, four bay status lights and a buzzer grille.
+- Service door with intake louvers and filter, cam lock, hinges, a lithium battery warning label and an operator information plate; plinth with a shadow line under the body.
+- Roof louver with rain hood and insect mesh; canopy with an aluminium-framed solar panel showing its cell grid, junction box, rails, posts, base plates and bolts (group "accessory").
+- Technical compartment for the exploded view: chargers with heat sink fins and labels on their rack, controller enclosure with status lights and LTE-M antenna, grid unit with breakers and a red isolator, MPPT controller with fins and display, aerosol unit with straps, detector, plenum wall with vent ports, fans and guards.
+- Context (not in the BOM): a paved sidewalk patch with a granite curb and the shared clay mannequin (1.75 m, "stand" with the right arm overridden) at bay 1, holding a charged pack by its handle bar.
+
+`README.md` now shows `media/render-hero.png` and links `media/render-exploded.png`; the orchestrator produces both files.
+
+### Differences from model.py (Proposed, awaiting Amish)
+
+1. **Clear windows in the bay doors.** BOM line 2 specifies plain steel doors. The appearance model puts a polycarbonate window (about 102 x 245 mm) in each door so a rider can see a pack is present and the status light, and the renders show the internals. Proposed, awaiting Amish. Recommendation: keep solid steel doors for the build, because a window weakens the door as a fire and vandal barrier (R8, R10), and treat the windows as render-only; option: fire-rated glazing, which would need pricing against R16.
+2. **Which bay is empty.** model.py leaves the last fitted bay (bay 4) empty; the hero shows the moment after a swap, with bay 1 open and its pack in the rider's hand and packs in bays 2 to 4. Proposed, awaiting Amish. Recommendation: accept as a render scene state; no geometry changes.
+3. **Header sign, labels and markings.** The header sign, bay numbers, warning label and information plate are appearance detail on the cabinet (BOM lines 1 and 16); no new BOM lines are implied. Proposed, awaiting Amish. Recommendation: accept, and settle sign wording with the branding decision.
+4. **Louver rain hood and base plates.** BOM line 10 names a rain hood and line 12 says the posts bolt to the roof frame; model.py shows neither. The appearance model adds a 6 mm hood over the louver and 8 mm post base plates. Proposed, awaiting Amish. Recommendation: accept; the canopy heights and the 2.45 m front edge are unchanged.
+5. **Four-bay fit.** As in the concept media, the renders show all four bays fitted, not the two-bay first prototype. Proposed, awaiting Amish. Recommendation: say "four-bay fit shown" in the caption.
+
+### Status
+
+This is an appearance model only: no tolerances, no fabrication detail, nothing past TRL 3. `trl: 3` and `trl_target: 3` are unchanged, and TRL 4 remains on hold. model.py, the BOM and the other documents were not edited.
