@@ -8,7 +8,7 @@ A street-side battery swap and charging station for SwapCell packs, serving e-bi
 
 ![DockHub: street-side battery swap and charging station, product render](media/render-hero.png)
 
-[Exploded render](media/render-exploded.png) · [Detail render](media/render-detail.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement DKH-DWG-001 (PDF)](cad/drawings/DKH-DWG-001.pdf) · [Sizing note](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
+[Exploded render](media/render-exploded.png) · [Detail render](media/render-detail.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement DKH-DWG-001 (PDF)](cad/drawings/DKH-DWG-001.pdf) · [Sizing note](docs/04-calcs/01-sizing.md) · [Prototype build plan](docs/05-build-plan.md) · [Design decisions](docs/06-design-decisions.md) · [Review note](docs/REVIEW.md)
 
 ## Concept rationale
 
@@ -60,9 +60,9 @@ Full problem statement: [docs/01-problem.md](docs/01-problem.md)
 
 A street-side battery swap and charging station for SwapCell packs, serving e-bikes, cargo trikes and delivery riders with charged batteries in seconds. Four lockable bays at hand height each hold and charge one pack; a rider taps a card, returns a flat pack to the empty bay and takes a charged one in about 31 seconds. Because one bay is always empty, four bays run with three packs.
 
-The TRL 3 sizing note (DKH-CAL-001) finds 1.2 h to charge a pack from 20 to 80 %, all 20 riders served on the design day (up to 36 swaps a day), 1.25 kW peak from one single-phase circuit with power-factor-corrected chargers, and a mass of about 205 kg for the two-bay prototype. Two requirements are not met: the 400 W canopy supplies 9.3 % of the charging energy against a relaxed 10 % target, and the SwapCell pack's 45 °C charge limit pauses charging when ambient air is above about 29 to 39 °C. Fire containment, anchoring and cost are at risk.
+The TRL 3 sizing note (DKH-CAL-001) finds 1.2 h to charge a pack from 20 to 80 %, all 20 riders served on the design day (up to 36 swaps a day), 1.25 kW peak from one single-phase circuit with power-factor-corrected chargers, and a mass of about 217 kg for the two-bay prototype. Three requirements are not met: the 400 W canopy supplies 9.3 % of the charging energy against a relaxed 10 % target, the SwapCell pack's 45 °C charge limit pauses charging when ambient air is above about 29 to 39 °C, and the parts added to make the design buildable bring the cost to $1,214 against $1,200. Fire containment and anchoring are at risk.
 
-Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Decisions: [docs/decisions/0001-trl2-review-decisions.md](docs/decisions/0001-trl2-review-decisions.md), [docs/decisions/0002-recommendations-accepted.md](docs/decisions/0002-recommendations-accepted.md)
+Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Decisions: [docs/decisions/0001-trl2-review-decisions.md](docs/decisions/0001-trl2-review-decisions.md), [docs/decisions/0002-recommendations-accepted.md](docs/decisions/0002-recommendations-accepted.md), [docs/decisions/0003-design-for-construction.md](docs/decisions/0003-design-for-construction.md)
 
 ## Key components
 
@@ -74,7 +74,13 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [d
 - 400 W solar canopy with MPPT controller feeding bay 1, and a single-phase grid input with RCD protection
 - Steel plinth anchored to a concrete pad; the canopy makes anchoring mandatory
 
-The priced bill of materials is in [bom/bom.csv](bom/bom.csv). The budget covers the four-bay cabinet with two bays fitted: $1,199 against $1,200, so cost is at risk on indicative prices. All four bays fitted cost $1,423. SwapCell packs are not included. The parametric model is [cad/src/model.py](cad/src/model.py), with STEP and STL exports in `cad/step/` and `cad/stl/`.
+The priced bill of materials is in [bom/bom.csv](bom/bom.csv). The budget covers the four-bay cabinet with two bays fitted: $1,214 against $1,200, so cost is not met on indicative prices; whether to raise the budget is an open decision. All four bays fitted cost $1,438. SwapCell packs are not included. The parametric model is [cad/src/model.py](cad/src/model.py), with STEP and STL exports in `cad/step/` and `cad/stl/`.
+
+## Building the prototype
+
+The [prototype build plan](docs/05-build-plan.md) (DKH-BLD-001) shows how to make each of the cabinet's components and put them together in 22 steps, with a making sketch for every made part and a picture for every step. The cabinet is a shell of folded 1.5 mm galvanized panels joined with blind rivets on a welded channel plinth, with a roof frame of steel angle carrying the canopy posts. Making the concept buildable changed some details, such as the 150 mm door openings, the vent hood over the roof fans and the roof beams, all listed in [DKH-DDR-003](docs/decisions/0003-design-for-construction.md) for Amish's review. It is a plan: nothing has been built.
+
+![DockHub prototype: every component, pulled apart and numbered in build order](docs/05-build-plan/overview.png)
 
 ## Safety
 

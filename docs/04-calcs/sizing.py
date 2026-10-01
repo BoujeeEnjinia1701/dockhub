@@ -1,4 +1,4 @@
-"""DockHub sizing calculations, DKH-CAL-001 v0.1 (TRL 3).
+"""DockHub sizing calculations, DKH-CAL-001 v0.3 (TRL 3, constructable design DKH-DDR-003).
 
 Run from the repo root:  python docs/04-calcs/sizing.py
 Prints every number quoted in docs/04-calcs/01-sizing.md and writes docs/04-calcs/results.csv.
@@ -345,8 +345,9 @@ print(f"Electronic detection latency {t_detect:.1f} s, leaving {10 - t_detect:.1
       f"fault arrives on change over CAN. Contactor: decision 0.10 s + drop-out 0.05 s = {t_open:.2f} s")
 port = 60 * 60 / 1e6
 plenum = (P["W"] - 2 * P["sheet_t"]) * (P["D"] / 2 - P["sheet_t"] - P["liner_y1"] - P["plenum_t"]) / 1e6
-louver = 9 * 50 * 35 / 1e6
-print(f"Vent path: bay port {port * 1e4:.0f} cm2, plenum section {plenum * 1e4:.0f} cm2, louver free area {louver * 1e4:.0f} cm2; "
+n_sl, w_sl, h_sl = P["hood_slots"]
+louver = n_sl * w_sl * h_sl / 1e6   # slots in the back face of the vent hood (DKH-DDR-003)
+print(f"Vent path: bay port {port * 1e4:.0f} cm2, plenum section {plenum * 1e4:.0f} cm2, hood slot free area {louver * 1e4:.0f} cm2; "
       f"fan air speed through the louver {flow / 3600 / louver:.1f} m/s")
 res("R7", f"Electronic latency {t_detect:.1f} s; contactor {t_open:.2f} s; vent path to the roof louver by design",
     "Detect in 10 s; contactor in 1 s", "Not verifiable at TRL 3")
@@ -368,7 +369,7 @@ print(f"Operable range {lo:.0f} to {hi:.0f} mm (door handles {kh['door handle']}
       f"pack from {pz:.0f} to {kh['pack handle top']:.0f} mm)")
 res("R11", f"Operable parts {lo / 1000:.2f} to {hi / 1000:.2f} m", "0.38 to 1.22 m", "Met" if lo >= 380 and hi <= 1220 else "Not met")
 zr, zf, yf, yr = canopy_heights()
-Z_RAIL_OUT = 2179.0              # lowest canopy point outside the footprint, printed by cad/src/model.py
+Z_RAIL_OUT = 2171.0              # lowest canopy point outside the footprint, printed by cad/src/model.py
 print(f"Footprint {P['W']:.0f} x {P['D']:.0f} mm (plinth flush; handles add 22 mm at the front); panel rear edge underside {zr:.0f} mm, "
       f"front edge top {zf:.0f} mm; lowest rail point over the sidewalk {Z_RAIL_OUT:.0f} mm (model.py)")
 res("R13", f"{P['W'] / 1000:.1f} x {P['D'] / 1000:.1f} m; canopy lowest point over the sidewalk {Z_RAIL_OUT / 1000:.2f} m",
@@ -387,6 +388,19 @@ res("R12", f"{SWAPS * rec_b / 1000:.2f} kB of log a day; offline token list {100
 h("10. Mass")
 
 
+def roof_frame_mass(n_fit):
+    """Steel added for construction (DKH-DDR-003), kg."""
+    bw, bt = P["beam"]
+    angle = (2 * bw - bt) * bt * 1e-6 * RHO_STEEL            # kg/m of 40 x 40 x 4 angle
+    beams = 2 * 0.494 * angle + 4 * 2 * 0.036 * (bw * bt * 1e-6 * RHO_STEEL)
+    bpw, bpl, bpt = P["base_plate"]
+    plates = 4 * (bpw * bpl * bpt + P["post"] * 70 * P["cap_t"]) * 1e-9 * RHO_STEEL
+    hinges = (n_fit + 1) * 0.3
+    clamps = 4 * 0.1
+    catches = n_fit * 0.06 * 0.55 * 0.003 * RHO_STEEL
+    return beams + plates + hinges + clamps + catches
+
+
 def cabinet_mass(n_fit, n_packs):
     sheet = {
         "Body shell": area_cab,
@@ -394,7 +408,8 @@ def cabinet_mass(n_fit, n_packs):
         "Bay liners": n_fit * (2 * 0.3585 * 0.53 + 2 * 0.18 * 0.3585 + 0.18 * 0.53),
         "Plenum wall": W * (P["roof_z"] - P["bay_z0"]) / 1000,
         "Doors and blank plates": N_BAYS * 0.18 * 0.52 + 0.96 * 0.52,
-        "Charger rack": 0.94 * 0.29,
+        "Charger shelf": 0.994 * 0.33,
+        "Vent hood": 0.85 * 0.143 + 2 * 0.85 * 0.07 + 2 * 0.13 * 0.07,
     }
     a = sum(sheet.values())
     m_sheet = a * t * RHO_STEEL * HEM
@@ -403,6 +418,7 @@ def cabinet_mass(n_fit, n_packs):
         f"Sheet steel ({a:.2f} m2, 1.5 mm, +15 % hems)": m_sheet,
         "Plinth, 4.0 m of 100 x 50 x 5 channel": 4.0 * (100 + 2 * 45) * 5e-6 * RHO_STEEL,
         "Canopy posts and rails": 4 * post_l * 564e-6 * RHO_STEEL + 2 * 1.054 * 504e-6 * RHO_STEEL,
+        "Roof beams and cleats, post base and cap plates, hinges, end clamps, catch brackets": roof_frame_mass(n_fit),
         "Solar panel": 21.0,
         "Chargers": 1.2 * n_fit,
         "Cradles and receptacles": 0.5 * n_fit,
@@ -464,7 +480,7 @@ per_bay = sum(float(r["unit_cost_usd"]) for r in bom if r["item"].split()[0] in 
 full = total + per_bay * (N_BAYS - N_FIT)
 for r in bom:
     print(f"  {r['item']:45s} {float(r['qty']):3.0f} x {float(r['unit_cost_usd']):7.2f} = {float(r['qty']) * float(r['unit_cost_usd']):8.2f}")
-print(f"Total with {N_FIT} bays fitted ${total:,.0f} against ${budget:,.0f} (margin ${budget - total:,.0f}); "
+print(f"Total with {N_FIT} bays fitted ${total:,.0f} against ${budget:,.0f} ({'margin $' + format(budget - total, ',.0f') if total <= budget else 'over by $' + format(total - budget, ',.0f')}); "
       f"each further bay ${per_bay:.0f}; all four fitted ${full:,.0f}. Resident packs (not in cost): "
       f"{N_FIT - 1} x ${PACK_COST:.0f} for the prototype, {N_BAYS - 1} x ${PACK_COST:.0f} for four bays")
 res("R16", f"${total:,.0f} with 2 of 4 bays fitted (${full:,.0f} with 4)", "$1,200, packs excluded (two bays fitted, DKH-DDR-001)",

@@ -3,7 +3,7 @@ doc_id: DKH-CAL-001
 title: DockHub sizing calculations
 project: DockHub
 doc_type: Calculation note
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -17,13 +17,17 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002)
+- version: "0.3"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Constructable design (DKH-DDR-003). Mass, wind, vent path, canopy height and cost rerun; R16 now not met ($1,214)
 ---
 
 # DockHub sizing calculations
 
-On paper, the four-bay DockHub meets nine of its sixteen requirements. **Two are not met.** R6: the 400 W canopy supplies 9.3 % of the charging energy at the duty case, below even the relaxed 10 % target. R9: the SwapCell pack refuses charge above 45 °C, so charging pauses whenever ambient air exceeds about 29 to 39 °C, well below the 45 °C design ambient. Three are **at risk**: R8 (fire containment, only a propagation test can show it), R15 (the canopy makes the cabinet overturn unless anchored; the anchors and pad are not yet chosen) and R16 ($1,199 against $1,200 with two bays fitted). R7 and R14 cannot be verified until hardware exists.
+On paper, the four-bay DockHub meets nine of its sixteen requirements. **Three are not met.** R6: the 400 W canopy supplies 9.3 % of the charging energy at the duty case, below even the relaxed 10 % target. R9: the SwapCell pack refuses charge above 45 °C, so charging pauses whenever ambient air exceeds about 29 to 39 °C, well below the 45 °C design ambient. R16: the parts added to make the design buildable (DKH-DDR-003) bring the two-bay prototype to $1,214 against the $1,200 budget. Two are **at risk**: R8 (fire containment, only a propagation test can show it) and R15 (the canopy makes the cabinet overturn unless anchored; the anchors and pad are not yet chosen). R7 and R14 cannot be verified until hardware exists.
 
-Two findings change the TRL 2 picture. First, a swap needs an empty bay for the returned pack, so a station with *n* bays holds *n* - 1 packs. The four-bay station has three working packs (36 swaps a day at most, released full), and the two-bay first prototype has one, which serves only 9 of the 20 duty-case swaps. Second, the cabinet with its canopy frame weighs about 205 to 234 kg, not 150 to 170 kg.
+Two findings change the TRL 2 picture. First, a swap needs an empty bay for the returned pack, so a station with *n* bays holds *n* - 1 packs. The four-bay station has three working packs (36 swaps a day at most, released full), and the two-bay first prototype has one, which serves only 9 of the 20 duty-case swaps. Second, the cabinet with its canopy frame weighs about 217 to 247 kg, not 150 to 170 kg.
 
 Every number here is printed by `docs/04-calcs/sizing.py` (run from the repo root: `python docs/04-calcs/sizing.py`), which also writes `docs/04-calcs/results.csv`. The script reads the geometry parameters from `cad/src/model.py` and the costs from `bom/bom.csv`. All values are first-principles estimates; nothing is measured.
 
@@ -43,7 +47,7 @@ Every number here is printed by `docs/04-calcs/sizing.py` (run from the repo roo
 | Charger power factor | 0.95 with power factor correction, 0.6 without | Typical ranges; the chosen charger must be checked |
 | Branch circuit | 120 V 15 A or 230 V 10 A, continuous load 80 % of the rating | Common practice for continuous loads |
 | Solar | 400 W, 4.5 peak sun hours on a sine profile from 06:00 to 18:00, 0.8 derate, MPPT 96 %, 50 V mean charging voltage; bay 1 uses the MPPT when it offers 50 W or more, otherwise its AC charger | Clear day in a sunny city; control rule for the MPPT to bay 1 decided by Amish, 2026-09-25 (DKH-DDR-002) |
-| Cabinet heat transfer | Film coefficients 17 W/(m² K) outside and 8 W/(m² K) inside; two 120 mm fans at 90 m³/h free air each, half lost to the filter and louver | Still air with light wind; typical fans |
+| Cabinet heat transfer | Film coefficients 17 W/(m² K) outside and 8 W/(m² K) inside; two 120 mm fans at 90 m³/h free air each, half lost to the filter and the vent hood | Still air with light wind; typical fans |
 | Sun on the cabinet | 500 W/m² on the front and one end wall, absorptance 0.35 (light powder coat); roof shaded by the canopy | Afternoon sun |
 | Wind | 30 m/s gust, air 1.225 kg/m³; panel force coefficient 1.5 normal to the panel with the centre of pressure a quarter of the panel depth from its centre; body drag coefficient 1.3; posts 2.0; load factor 1.5 for the anchors; friction 0.4 | TRL 2 assumption for the panel; typical values otherwise |
 | Steel | 7,850 kg/m³, 1.5 mm sheet, 15 % added for hems and flanges | Decided sheet gauge (R10) |
@@ -116,13 +120,13 @@ That does not rescue R9, because the pack itself refuses to charge above 45 °C.
 
 The electronic part of the detection chain takes about **3.1 s**: a 1 s NTC sample period, two confirming samples and a 0.1 s controller loop, leaving 6.9 s of the 10 s target for the sensor's own thermal lag. A pack's over-temperature fault arrives on CAN as soon as it changes. Opening the bay contactor takes about **0.15 s** (0.10 s decision and 0.05 s drop-out), inside the 1 s target. Smoke transport to the plenum detector and the sensor lag can only be measured, so R7 is **not verifiable at TRL 3**.
 
-The vent path widens from each 36 cm² bay port into a 1,281 cm² plenum and out through 158 cm² of louver, where the fans move air at about 1.6 m/s. Whether this path, two 1.5 mm steel walls and the air gap stop a runaway from spreading for 30 min (R8) can be shown only by a propagation test, which is TRL 4 work and on hold. R8 stays **at risk**.
+The vent path widens from each 36 cm² bay port into a 1,366 cm² plenum, through the two roof fans and out through 240 cm² of slots in the back face of the vent hood, where the fans move air at about 1.0 m/s. Whether this path, two 1.5 mm steel walls and the air gap stop a runaway from spreading for 30 min (R8) can be shown only by a propagation test, which is TRL 4 work and on hold. R8 stays **at risk**.
 
 ## 9. Geometry (R2, R11, R13)
 
-The model places the pack's connector face on the cradle at 730 mm and its handle top at 1,105 mm. The door opening is 510 x 172 mm against the 393 mm overall pack, leaving 115 mm above the handle for the hand; the rider lifts the pack 19 mm to clear the receptacle. Every operable part lies between 0.73 and 1.10 m (door handles 0.94 to 0.98 m, reader 0.90 to 0.99 m), inside the 0.38 to 1.22 m range: **R11 met**.
+The model places the pack's connector face on the cradle at 730 mm and its handle top at 1,105 mm. The door opening is 510 x 150 mm (narrowed from 172 mm to leave room for the door hinges, DKH-DDR-003) against the 393 mm overall pack, leaving 110 mm above the handle for the hand and 30 mm each side of the pack; the rider lifts the pack 19 mm to clear the receptacle. Every operable part lies between 0.73 and 1.10 m (door handles 0.94 to 0.98 m, reader 0.90 to 0.99 m), inside the 0.38 to 1.22 m range: **R11 met**.
 
-The plinth is now flush with the body, so the footprint is 1,000 x 500 mm (door handles add 22 mm at the front); at TRL 2 it was 1,020 x 520 mm, which broke the 1.0 m width limit. The panel's rear edge underside is at 2,214 mm and its front top edge at 2,446 mm; the lowest canopy point over the sidewalk is a rail end at 2,179 mm (printed by `cad/src/model.py`). **R13 met.**
+The plinth is now flush with the body, so the footprint is 1,000 x 500 mm (door handles add 22 mm at the front); at TRL 2 it was 1,020 x 520 mm, which broke the 1.0 m width limit. The panel's rear edge underside is at 2,214 mm and its front top edge at 2,446 mm; the lowest canopy point over the sidewalk is the rear end of a rail at 2,171 mm (printed by `cad/src/model.py`). **R13 met.**
 
 For R2, each bay builds to SwapCell interface v0.3 without changing it: a blind-mate receptacle with a 10 kΩ coding resistor in the INTERLOCK loop (item W), dock host type 1 in the heartbeat, a class D gravity catch for the pack's latch pawl (item V) and a CAN channel per bay at 250 kbit/s. At 34.1 frames per second one pack loads its channel to 1.8 %; the four SPI CAN controllers need about 17.5 kbit/s of SPI traffic in all. Packs still default to node 0, and v0.3 node numbers 0 to 7 do not remove the need for separate channels, because a pack's node number would have to change at every station. **R2 met by design review.**
 
@@ -134,23 +138,24 @@ For R12, a 64 B log record per swap is 1.28 kB a day, and a list of 10,000 rider
 
 | Part | Mass (kg) |
 | --- | --- |
-| Sheet steel, 9.92 m² at 1.5 mm plus 15 % | 134.4 |
+| Sheet steel, 10.24 m² at 1.5 mm plus 15 % | 138.6 |
 | Plinth, 4.0 m of 100 x 50 x 5 mm channel | 29.8 |
 | Canopy posts and rails | 21.0 |
+| Roof beams and cleats, post base and cap plates, hinges, end clamps, catch brackets | 9.6 |
 | Solar panel | 21.0 |
 | Chargers (4) | 4.8 |
 | Cradles and receptacles (4) | 2.0 |
 | Controller, MPPT, grid unit, access panel, fire unit, fans, wiring | 12.0 |
 | Packs (3) | 8.6 |
-| **Total** | **234** |
+| **Total** | **247** |
 
-The two-bay prototype without packs weighs about **205 kg**, which is used for the wind check. The TRL 2 estimate of 150 to 170 kg counted about 8 m² of sheet; the model's bay liners, deck, plenum wall and charger rack bring it to 9.92 m².
+The two-bay prototype without packs weighs about **217 kg**, which is used for the wind check. The TRL 2 estimate of 150 to 170 kg counted about 8 m² of sheet; the model's bay liners, deck, plenum wall, charger shelf and vent hood bring it to 10.24 m². The roof frame, post plates, hinges and other parts added to make the design buildable (DKH-DDR-003) add 9.6 kg.
 
 ## 11. Wind and anchoring (R15)
 
-At a 30 m/s gust the dynamic pressure is 551 Pa. The 1.95 m² panel takes a normal force of 1,615 N, which at 10° of tilt is 280 N sideways and **1,590 N of uplift**, acting 429 mm in front of the cabinet centre; the posts add 158 N and the body 1,075 N of drag. About the rear bottom edge this gives an overturning moment of **2.91 kN·m**, against 0.50 kN·m from the prototype's own weight: a factor of 0.17. Unanchored, the cabinet would tip, and friction alone (169 N) would not stop it sliding either. The TRL 2 note treated the canopy force as horizontal and missed the uplift; the corrected moment is lower than its 3.6 kN·m, but the conclusion stands.
+At a 30 m/s gust the dynamic pressure is 551 Pa. The 1.95 m² panel takes a normal force of 1,615 N, which at 10° of tilt is 280 N sideways and **1,590 N of uplift**, acting 429 mm in front of the cabinet centre; the posts add 158 N and the body 1,075 N of drag. About the rear bottom edge this gives an overturning moment of **2.91 kN·m**, against 0.53 kN·m from the prototype's own weight: a factor of 0.18. Unanchored, the cabinet would tip, and friction alone (215 N) would not stop it sliding either. The TRL 2 note treated the canopy force as horizontal and missed the uplift; the corrected moment is lower than its 3.6 kN·m, but the conclusion stands.
 
-With four M12 anchors 30 mm in from the front and rear edges, each front anchor carries **2.56 kN** of tension, **3.83 kN** with the 1.5 load factor, and each anchor about 0.57 kN of design shear. Each front canopy post pulls up on the roof frame with about 1,251 N, so the posts must bolt through to a frame, not to the 1.5 mm roof sheet alone; the posts themselves see only 9.4 MPa in bending (50 x 50 x 3 mm hollow section, 714 mm long). R15 is **at risk** until an anchor with a rated design tension of at least 3.8 kN in the host concrete and a pad are chosen; neither is in the BOM.
+With four M12 anchors 30 mm in from the front and rear edges (and 25 mm in from the ends, where a socket reaches them through capped holes in the floor), each front anchor carries **2.53 kN** of tension, **3.79 kN** with the 1.5 load factor, and each anchor about 0.57 kN of design shear. Each front canopy post pulls up on the roof frame with about 1,251 N, so each post bolts through the roof sheet into a 40 x 40 x 4 mm angle roof beam, which is bolted at each end to the front and back panels (DKH-DDR-003); the posts themselves see only 9.4 MPa in bending (50 x 50 x 3 mm hollow section, 714 mm long). R15 is **at risk** until an anchor with a rated design tension of at least 3.8 kN in the host concrete and a pad are chosen; neither is in the BOM.
 
 ## 12. Cost (R16)
 
@@ -158,14 +163,14 @@ With four M12 anchors 30 mm in from the front and rear edges, each front anchor 
 
 | Group | Lines | Cost (USD) |
 | --- | --- | --- |
-| Cabinet, doors, service door, plinth | 1, 2, 14, 15 | 374 |
+| Cabinet, doors, service door, plinth | 1, 2, 14, 15 | 379 |
 | Bays (2): compartments, chargers | 3, 5 | 180 |
 | Controller, access, grid, wiring | 6, 7, 8, 16 | 250 |
 | Fire detection and venting | 9, 10 | 155 |
-| Solar canopy and MPPT | 11, 12, 13 | 240 |
-| **Total** | 1 to 16 | **1,199** |
+| Solar canopy and MPPT | 11, 12, 13 | 250 |
+| **Total** | 1 to 16 | **1,214** |
 
-The total is $1 under the $1,200 budget, so R16 is **at risk** on indicative prices. Each further bay adds $112; all four bays fitted cost $1,423. SwapCell packs are not in the station cost: the prototype needs one resident pack and the four-bay station three, at about $414 each in the SwapCell BOM, plus one per rider in circulation.
+The total is $14 over the $1,200 budget, so R16 is **not met** on indicative prices. At v0.2 it was $1,199; the canopy end clamps and post plates (line 12, $10) and the service door hinge (line 15, $5) added to make the design buildable (DKH-DDR-003) take it over. How to close the gap is an open decision for Amish (design decisions register, DKH-DEC-001). Each further bay adds $112; all four bays fitted cost $1,438. SwapCell packs are not in the station cost: the prototype needs one resident pack and the four-bay station three, at about $414 each in the SwapCell BOM, plus one per rider in circulation.
 
 ## 13. Results against requirements
 
@@ -175,9 +180,9 @@ The total is $1 under the $1,200 budget, so R16 is **at risk** on indicative pri
 | --- | --- | --- | --- |
 | R6 | 9.3 % of charging energy (0.74 of 1.38 kWh used); 11.4 % with solar steering, which turns one rider away | 10 % or more (relaxed from 20 %, DKH-DDR-001) | **Not met** |
 | R9 | Charging pauses above about 29 to 39 °C ambient and for cold-soaked packs below about -1 °C; charge window enforced | -10 to 45 °C ambient; never charge outside the pack window | **Not met** |
+| R16 | $1,214 with two of four bays fitted ($1,438 with four) | $1,200, packs excluded | **Not met** |
 | R8 | Two 1.5 mm steel walls and a gap between packs; vent path to the roof | No spread for 30 min | At risk (not verifiable at TRL 3) |
-| R15 | Overturning 2.9 kN·m against 0.50 kN·m self-weight; anchors 3.8 kN design tension each | Upright at a 30 m/s gust | At risk (anchors and pad not chosen) |
-| R16 | $1,199 with two of four bays fitted ($1,423 with four) | $1,200, packs excluded | At risk |
+| R15 | Overturning 2.9 kN·m against 0.53 kN·m self-weight; anchors 3.8 kN design tension each | Upright at a 30 m/s gust | At risk (anchors and pad not chosen) |
 | R7 | Electronic latency 3.1 s; contactor 0.15 s | Detect in 10 s; contactor in 1 s | Not verifiable at TRL 3 |
 | R14 | All parts reached through the service door or a bay door with hand tools | 15 min per part | Not verifiable at TRL 3 |
 | R1 | 31 s task analysis | 60 s or less | Met |
@@ -188,9 +193,9 @@ The total is $1 under the $1,200 budget, so R16 is **at risk** on indicative pri
 | R10 | 1.5 mm steel, fail-secure locks, anchored plinth, token plus returned pack | Security features | Met (design review) |
 | R11 | Operable parts 0.73 to 1.10 m | 0.38 to 1.22 m | Met |
 | R12 | 1.28 kB of log a day; 160 kB token list | No cameras; 24 h offline | Met (design review) |
-| R13 | 1.0 x 0.5 m; lowest canopy point over the sidewalk 2.18 m | 1.0 x 0.6 m; 2.1 m | Met |
+| R13 | 1.0 x 0.5 m; lowest canopy point over the sidewalk 2.17 m | 1.0 x 0.6 m; 2.1 m | Met |
 
-Counts: 2 not met, 3 at risk, 2 not verifiable at TRL 3, 9 met.
+Counts: 3 not met, 2 at risk, 2 not verifiable at TRL 3, 9 met.
 
 ## 14. Checks against earlier documents
 
@@ -201,9 +206,11 @@ The TRL 2 figures in DKH-PRC-001 v0.2 and DKH-REQ-001 v0.2 were checked against 
 - Daily energy at 20 swaps 10.1 kWh in and 8.0 kWh stored to 9.53 kWh in (8.76 grid, 0.77 solar) and 7.58 kWh stored, because packs leave at 80 % or more.
 - Swap time 30 s to 31 s with the return check.
 - Cabinet air rise 10 K to 4.2 to 4.8 K; the R9 shortfall is now set by the pack's 45 °C charge limit rather than by the cabinet air.
-- Mass 150 to 170 kg to 205 kg (prototype, no packs) and 234 kg (four bays, three packs).
+- Mass 150 to 170 kg to 205 kg (prototype, no packs) and 234 kg (four bays, three packs); at v0.3, with the constructable design, 217 kg and 247 kg.
 - Wind: 3.6 kN·m to 2.91 kN·m with the panel force resolved into uplift and drag, and anchor loads now given.
 - Footprint 1,020 x 520 mm to 1,000 x 500 mm (plinth made flush).
 - SwapCell pack price $370 to $414 (SWC-CAL-001).
+
+At v0.3 the design was made constructable (DKH-DDR-003): mass 205 to 217 kg, front anchor design tension 3.83 to 3.79 kN, lowest canopy point 2.18 to 2.17 m, vent outlet 158 to 240 cm², cost $1,199 to $1,214 (R16 at risk to not met). No other result changed.
 
 > **Safety:** These are paper estimates for a cabinet that stores and charges lithium-ion packs of about 468 Wh beside a public walkway from mains power. They do not replace an electrician's design of the supply, a structural check of the anchors and pad, or a propagation test. No cabinet may be built, powered or anchored in a public place from this note; building and testing are TRL 4 work and on hold by Amish's instruction.

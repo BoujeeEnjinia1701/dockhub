@@ -1,5 +1,58 @@
 # Review note: DockHub
 
+## Session 2026-10-01: constructable design and prototype build plan (kit 1.7.0)
+
+Kit 1.7.0 installed (`.kit/`, `.claude/commands/`, `CLAUDE.md`). Following `/build-plan` and STANDARDS section 18, under Amish's 2026-09-30 instruction ("If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations."), the model was made constructable and the illustrated build plan written. No hardware was built or bought; `trl` stays 3.
+
+### Design changes made for construction (DKH-DDR-003, Draft, open for Amish's review)
+
+1. Cabinet body: one closed box became six riveted 1.5 mm panels (laser-cut front, back, two sides, floor pan, roof) with folded flanges and corner reliefs.
+2. Roof frame: two 40 x 40 x 4 mm angle beams under the post lines with bolted cleats and welded nuts; the canopy posts bolt through the roof into them (the posts stood on the bare roof sheet).
+3. Canopy: posts on welded base and cap plates cut to 10°; rails lengthened 1,054 to 1,174 mm; four end clamps hold the panel (posts, rails and panel did not touch).
+4. Plenum wall: 10 mm slab became 1.5 mm folded sheet with a vent port behind each bay (the liner ports opened onto a solid wall); notched for the beams.
+5. Vent: two 110 mm roof holes, square fans on spacers and a folded vent hood with twelve rear slots replace the solid louver block (fans did not fit under it and the roof had no hole). Outlet 158 to 240 cm².
+6. Bay doors: openings 172 to 150 mm; 172 x 526 x 2 mm doors on stainless piano hinges, EPDM gasket, lock tongue into a solenoid lock on the liner wall.
+7. Cradle: receptacle and cradle overlapped inside one part; now one printed cradle (flame-retardant V-0) with its guides, receptacle in a pocket underneath, folded steel catch bracket screwed to the liner.
+8. Liners, deck and charger shelf: fixed with flanges and blind rivets (they floated); the 10 mm rack plate became a folded shelf.
+9. Electrical boxes, aerosol unit and detector: screwed to the back panel or roof (they floated); grid box 210 to 200 mm tall.
+10. Plinth: solid ring became a welded 100 x 50 x 5 mm channel frame; eight M10 floor bolts; anchors moved to 25 mm from the ends so a socket reaches them through capped floor holes.
+11. Service door: opening 960 to 900 mm wide for a hinge land; door on a piano hinge with gasket, cam lock and filtered intake slot.
+12. Assembly order: roof built as a sub-assembly and lowered in last, cleat bolts from outside.
+
+`python cad/src/model.py --check`: 41 components, no overlaps, all 60 joints touching (two-bay fit); four-bay fit also clean.
+
+### Files
+
+- `cad/src/model.py` rewritten (components one by one, fit check, clearances); STEP and STL regenerated in `cad/step/` and `cad/stl/`.
+- `cad/src/build_plan_media.py` (new): `docs/05-build-plan/overview.png`, 18 making sketches `cad/drawings/DKH-DWG-101` to `118`, 10 joint pictures, 22 step pictures.
+- `docs/05-build-plan.md` (DKH-BLD-001 v0.1), `docs/06-design-decisions.md` (DKH-DEC-001 v0.1), `docs/decisions/0003-design-for-construction.md` (DKH-DDR-003 v0.1, Draft).
+- DKH-DWG-001 Rev P2; concept media regenerated (`media/hero.png`, blueprint, exploded, cutaway, flow, `model.glb`, `viewer.html`).
+- DKH-CAL-001 v0.3 (`sizing.py` rerun), DKH-PRC-001 v0.5, DKH-REQ-001 v0.5, `bom/bom.csv` (lines 1, 2, 3, 10, 12, 14, 15, 16), `project.yaml` (`design_state: constructable`, evidence), `README.md` (links, "Building the prototype"). PDFs in `docs/pdf/`.
+
+### Key results
+
+- Mass 217 kg (two-bay prototype, no packs; was 205 kg); 247 kg with four bays and three packs. Front anchor design tension 3.79 kN. Lowest canopy point over the walkway 2.17 m.
+- **R16 now not met:** $1,214 against $1,200 (end clamps and post plates +$10, service door hinge +$5). R6 and R9 still not met; R8 and R15 at risk; R7 and R14 not verifiable; nine met.
+
+### Proposed, awaiting Amish (all in the design decisions register)
+
+- Accept DKH-DDR-003 (changes P1 to P12).
+- R16: raise `budget_usd` to $1,250 (recommended), recover $14 at supplier selection, or accept not met. `budget_usd` is unchanged.
+- Door hinges outside the front panel (R10): piano hinges with peened pins for the prototype (recommended), or concealed hinges.
+- The earlier open items (pack ownership, pilot site, R6, R9 and the render choices) are carried into the register.
+
+### Stale media (made on Amish's Mac, not regenerated here)
+
+`media/render-hero.png`, `media/render-exploded.png`, `media/render-detail.png`, `media/card.png` and `media/social-preview.png`, and the appearance model `cad/src/product_model.py`, still show the concept: 172 mm door openings, no hinges, a louver block rather than the vent hood, and no roof beams or post plates. They need re-rendering once DKH-DDR-003 is decided.
+
+### Safety
+
+Unchanged hazards: lithium-ion packs beside a walkway, mains in the technical compartment (electrician only), canopy uplift (anchors mandatory). New in the build plan: zinc fumes when welding galvanized steel, sharp sheet edges, a 217 kg cabinet to be moved with equipment, and work at height for the canopy. The plan's safety stops S1 to S7 cover them.
+
+### Recommended next step
+
+Amish to review DKH-DDR-003 and decide the R16 budget question; then re-render the product images on the Mac.
+
 ## Session 2026-09-25: recommendations accepted
 
 Amish wrote on 2026-09-25: "i accept all your recommendations, go with them across all repos." Recorded in `docs/decisions/0002-recommendations-accepted.md` (DKH-DDR-002 v0.1).

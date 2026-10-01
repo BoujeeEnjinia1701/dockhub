@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="431.8mm" height="279.4mm" viewBox="0 0 431.8 279.4"><rect x="0" y="0" width="431.8" height="279.4" fill="#FFFFFF"/><rect x="10.0" y="10.0" width="411.8" height="259.4" fill="none" stroke="#111827" stroke-width="0.7"/><line x1="61.5" y1="10.0" x2="61.5" y2="13.0" stroke="#111827" stroke-width="0.35"/><line x1="61.5" y1="269.4" x2="61.5" y2="266.4" stroke="#111827" stroke-width="0.35"/><line x1="113.0" y1="10.0" x2="113.0" y2="13.0" stroke="#111827" stroke-width="0.35"/><line x1="113.0" y1="269.4" x2="113.0" y2="266.4" stroke="#111827" stroke-width="0.35"/><line x1="164.4" y1="10.0" x2="164.4" y2="13.0" stroke="#111827" stroke-width="0.35"/><line x1="164.4" y1="269.4" x2="164.4" y2="266.4" stroke="#111827" stroke-width="0.35"/><line x1="215.9" y1="10.0" x2="215.9" y2="13.0" stroke="#111827" stroke-width="0.35"/><line x1="215.9" y1="269.4" x2="215.9" y2="266.4" stroke="#111827" stroke-width="0.35"/><line x1="267.4" y1="10.0" x2="267.4" y2="13.0" stroke="#111827" stroke-width="0.35"/><line x1="267.4" y1="269.4" x2="267.4" y2="266.4" stroke="#111827" stroke-width="0.35"/><line x1="318.9" y1="10.0" x2="318.9" y2="13.0" stroke="#111827" stroke-width="0.35"/><line x1="318.9" y1="269.4" x2="318.9" y2="266.4" stroke="#111827" stroke-width="0.35"/><line x1="370.3" y1="10.0" x2="370.3" y2="13.0" stroke="#111827" stroke-width="0.35"/><line x1="370.3" y1="269.4" x2="370.3" y2="266.4" stroke="#111827" stroke-width="0.35"/><text x="16.00" y="19.00" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="3.2" font-weight="600" fill="#B45309" text-anchor="start">BUILD PLAN SKETCH, PLAN NOT YET BUILT</text><text x="90.00" y="19.00" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="3.2" font-weight="600" fill="#111827" text-anchor="start">DockHub  ·  github.com/BoujeeEnjinia1701/dockhub</text><svg x="89.04" y="91.02" width="99.74" height="82.54" viewBox="-498.675 -412.675 997.35 825.35" preserveAspectRatio="xMidYMid meet" overflow="visible"><g transform="scale(1,-1)" stroke-linecap="round">
+    <g fill="none" stroke="rgb(17,23,39)" stroke-width="0.9000" id="Visible">
+      <line x1="-497.0" y1="-412.5" x2="-497.0" y2="411.0" />
+      <line x1="482.0" y1="411.0" x2="497.0" y2="411.0" />
+      <line x1="482.0" y1="411.0" x2="482.0" y2="370.5" />
+      <line x1="497.0" y1="-412.5" x2="497.0" y2="411.0" />
+      <line x1="438.0" y1="370.5" x2="482.0" y2="370.5" />
+      <line x1="-497.0" y1="-412.5" x2="497.0" y2="-412.5" />
+      <line x1="438.0" y1="411.0" x2="438.0" y2="370.5" />
+      <line x1="-497.0" y1="411.0" x2="-482.0" y2="411.0" />
+      <line x1="-438.0" y1="411.0" x2="-438.0" y2="370.5" />
+      <line x1="-482.0" y1="411.0" x2="-482.0" y2="370.5" />
+      <line x1="-482.0" y1="370.5" x2="-438.0" y2="370.5" />
+      <line x1="-422.0" y1="114.0" x2="-362.0" y2="114.0" />
+      <line x1="-422.0" y1="114.0" x2="-422.0" y2="54.0" />
+      <line x1="-362.0" y1="114.0" x2="-362.0" y2="54.0" />
+      <line x1="-422.0" y1="54.0" x2="-362.0" y2="54.0" />
+      <line x1="-226.0" y1="114.0" x2="-166.0" y2="114.0" />
+      <line x1="-166.0" y1="114.0" x2="-166.0" y2="54.0" />
+      <line x1="-226.0" y1="54.0" x2="-166.0" y2="54.0" />
+      <line x1="-226.0" y1="114.0" x2="-226.0" y2="54.0" />
+      <line x1="438.0" y1="411.0" x2="438.0" y2="412.5" />
+      <line x1="-438.0" y1="411.0" x2="438.0" y2="411.0" />
+      <line x1="-438.0" y1="411.0" x2="-438.0" y2="412.5" />
+      <line x1="-438.0" y1="412.5" x2="438.0" y2="412.5" />
+      <line x1="497.0" y1="-412.5" x2="498.5" y2="-412.5" />
+      <line x1="498.5" y1="-412.5" x2="498.5" y2="369.0" />
+      <line x1="497.0" y1="369.0" x2="498.5" y2="369.0" />
+      <line x1="-498.5" y1="-412.5" x2="-497.0" y2="-412.5" />
+      <line x1="-498.5" y1="-412.5" x2="-498.5" y2="369.0" />
+      <line x1="-498.5" y1="369.0" x2="-497.0" y2="369.0" />
+    </g>
+    <g fill="none" stroke="rgb(106,113,128)" stroke-width="1.7500" id="Hidden" stroke-dasharray="21.000 5.250">
+      <line x1="-497.0" y1="-412.5" x2="-497.0" y2="369.0" />
+      <line x1="-497.0" y1="369.0" x2="-497.0" y2="411.0" />
+      <line x1="-438.0" y1="411.0" x2="438.0" y2="411.0" />
+      <line x1="-497.0" y1="411.0" x2="-482.0" y2="411.0" />
+      <line x1="-497.0" y1="-412.5" x2="497.0" y2="-412.5" />
+      <line x1="497.0" y1="-412.5" x2="497.0" y2="369.0" />
+      <line x1="497.0" y1="369.0" x2="497.0" y2="411.0" />
+      <line x1="482.0" y1="411.0" x2="497.0" y2="411.0" />
+      <line x1="-482.0" y1="411.0" x2="-482.0" y2="370.5" />
+      <line x1="482.0" y1="411.0" x2="482.0" y2="370.5" />
+      <line x1="-482.0" y1="370.5" x2="-438.0" y2="370.5" />
+      <line x1="438.0" y1="370.5" x2="482.0" y2="370.5" />
+      <line x1="-438.0" y1="370.5" x2="-438.0" y2="412.5" />
+      <line x1="438.0" y1="412.5" x2="438.0" y2="370.5" />
+      <line x1="-438.0" y1="412.5" x2="438.0" y2="412.5" />
+      <line x1="-422.0" y1="114.0" x2="-362.0" y2="114.0" />
+      <line x1="-422.0" y1="114.0" x2="-422.0" y2="54.0" />
+      <line x1="-362.0" y1="114.0" x2="-362.0" y2="54.0" />
+      <line x1="-422.0" y1="54.0" x2="-362.0" y2="54.0" />
+      <line x1="-226.0" y1="114.0" x2="-166.0" y2="114.0" />
+      <line x1="-166.0" y1="114.0" x2="-166.0" y2="54.0" />
+      <line x1="-226.0" y1="54.0" x2="-166.0" y2="54.0" />
+      <line x1="-226.0" y1="114.0" x2="-226.0" y2="54.0" />
+      <line x1="497.0" y1="-412.5" x2="497.0" y2="369.0" />
+      <line x1="497.0" y1="-412.5" x2="498.5" y2="-412.5" />
+      <line x1="498.5" y1="-412.5" x2="498.5" y2="369.0" />
+      <line x1="497.0" y1="369.0" x2="498.5" y2="369.0" />
+      <line x1="-497.0" y1="-412.5" x2="-497.0" y2="369.0" />
+      <line x1="-498.5" y1="-412.5" x2="-497.0" y2="-412.5" />
+      <line x1="-498.5" y1="-412.5" x2="-498.5" y2="369.0" />
+      <line x1="-498.5" y1="369.0" x2="-497.0" y2="369.0" />
+    </g>
+  </g>
+</svg><text x="138.91" y="179.56" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.8" font-weight="600" fill="#111827" text-anchor="middle">FRONT VIEW</text><text x="138.91" y="183.56" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.2" font-weight="400" fill="#4B5563" text-anchor="middle">Scale 1:10; looking at the front (along +Y)</text><svg x="89.04" y="60.84" width="99.74" height="4.19" viewBox="-498.675 -20.925 997.35 41.85" preserveAspectRatio="xMidYMid meet" overflow="visible"><g transform="scale(1,-1)" stroke-linecap="round">
+    <g fill="none" stroke="rgb(17,23,39)" stroke-width="0.9000" id="Visible">
+      <line x1="-497.0" y1="-0.75" x2="-497.0" y2="0.75" />
+      <line x1="482.0" y1="-0.75" x2="497.0" y2="-0.75" />
+      <line x1="438.0" y1="-0.75" x2="482.0" y2="-0.75" />
+      <line x1="-497.0" y1="-0.75" x2="-482.0" y2="-0.75" />
+      <line x1="-482.0" y1="-0.75" x2="-438.0" y2="-0.75" />
+      <line x1="-497.0" y1="0.75" x2="-482.0" y2="0.75" />
+      <line x1="-482.0" y1="-0.75" x2="-482.0" y2="0.75" />
+      <line x1="482.0" y1="0.75" x2="497.0" y2="0.75" />
+      <line x1="-482.0" y1="0.75" x2="-438.0" y2="0.75" />
+      <line x1="438.0" y1="0.75" x2="482.0" y2="0.75" />
+      <line x1="-438.0" y1="0.75" x2="438.0" y2="0.75" />
+      <line x1="497.0" y1="-0.75" x2="497.0" y2="0.75" />
+      <line x1="482.0" y1="-0.75" x2="482.0" y2="0.75" />
+      <line x1="438.0" y1="-20.75" x2="438.0" y2="0.75" />
+      <line x1="-438.0" y1="-20.75" x2="-438.0" y2="0.75" />
+      <line x1="-438.0" y1="-20.75" x2="438.0" y2="-20.75" />
+      <line x1="497.0" y1="0.75" x2="497.0" y2="20.75" />
+      <line x1="498.5" y1="0.75" x2="498.5" y2="20.75" />
+      <line x1="497.0" y1="20.75" x2="498.5" y2="20.75" />
+      <line x1="497.0" y1="0.75" x2="498.5" y2="0.75" />
+      <line x1="-497.0" y1="0.75" x2="-497.0" y2="20.75" />
+      <line x1="-498.5" y1="0.75" x2="-498.5" y2="20.75" />
+      <line x1="-498.5" y1="20.75" x2="-497.0" y2="20.75" />
+      <line x1="-498.5" y1="0.75" x2="-497.0" y2="0.75" />
+    </g>
+    <g fill="none" stroke="rgb(106,113,128)" stroke-width="1.7500" id="Hidden" stroke-dasharray="21.000 5.250">
+      <line x1="-497.0" y1="-0.75" x2="-497.0" y2="0.75" />
+      <line x1="-497.0" y1="-0.75" x2="497.0" y2="-0.75" />
+      <line x1="-438.0" y1="-0.75" x2="438.0" y2="-0.75" />
+      <line x1="-422.0" y1="-0.75" x2="-362.0" y2="-0.75" />
+      <line x1="-422.0" y1="-0.75" x2="-362.0" y2="-0.75" />
+      <line x1="-226.0" y1="-0.75" x2="-166.0" y2="-0.75" />
+      <line x1="-226.0" y1="-0.75" x2="-166.0" y2="-0.75" />
+      <line x1="-497.0" y1="0.75" x2="497.0" y2="0.75" />
+      <line x1="-422.0" y1="0.75" x2="-362.0" y2="0.75" />
+      <line x1="-422.0" y1="0.75" x2="-362.0" y2="0.75" />
+      <line x1="-226.0" y1="0.75" x2="-166.0" y2="0.75" />
+      <line x1="-226.0" y1="0.75" x2="-166.0" y2="0.75" />
+      <line x1="497.0" y1="-0.75" x2="497.0" y2="0.75" />
+      <line x1="482.0" y1="-0.75" x2="482.0" y2="0.75" />
+      <line x1="438.0" y1="-0.75" x2="438.0" y2="0.75" />
+      <line x1="438.0" y1="-20.75" x2="438.0" y2="-0.75" />
+      <line x1="-438.0" y1="-20.75" x2="-438.0" y2="-0.75" />
+      <line x1="-438.0" y1="-20.75" x2="438.0" y2="-20.75" />
+      <line x1="-438.0" y1="-0.75" x2="-438.0" y2="0.75" />
+      <line x1="-482.0" y1="-0.75" x2="-482.0" y2="0.75" />
+      <line x1="-422.0" y1="-0.75" x2="-422.0" y2="0.75" />
+      <line x1="-362.0" y1="-0.75" x2="-362.0" y2="0.75" />
+      <line x1="-422.0" y1="-0.75" x2="-422.0" y2="0.75" />
+      <line x1="-362.0" y1="-0.75" x2="-362.0" y2="0.75" />
+      <line x1="-226.0" y1="-0.75" x2="-226.0" y2="0.75" />
+      <line x1="-166.0" y1="-0.75" x2="-166.0" y2="0.75" />
+      <line x1="-166.0" y1="-0.75" x2="-166.0" y2="0.75" />
+      <line x1="-226.0" y1="-0.75" x2="-226.0" y2="0.75" />
+      <line x1="497.0" y1="0.75" x2="497.0" y2="20.75" />
+      <line x1="497.0" y1="20.75" x2="498.5" y2="20.75" />
+      <line x1="498.5" y1="0.75" x2="498.5" y2="20.75" />
+      <line x1="497.0" y1="0.75" x2="498.5" y2="0.75" />
+      <line x1="-497.0" y1="0.75" x2="-497.0" y2="20.75" />
+      <line x1="-498.5" y1="0.75" x2="-498.5" y2="20.75" />
+      <line x1="-498.5" y1="20.75" x2="-497.0" y2="20.75" />
+      <line x1="-498.5" y1="0.75" x2="-497.0" y2="0.75" />
+    </g>
+  </g>
+</svg><text x="138.91" y="71.02" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.8" font-weight="600" fill="#111827" text-anchor="middle">TOP VIEW</text><text x="138.91" y="75.02" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.2" font-weight="400" fill="#4B5563" text-anchor="middle">Scale 1:10; looking down (along -Z)</text><svg x="202.78" y="91.02" width="4.19" height="82.54" viewBox="-20.925 -412.675 41.85 825.35" preserveAspectRatio="xMidYMid meet" overflow="visible"><g transform="scale(1,-1)" stroke-linecap="round">
+    <g fill="none" stroke="rgb(17,23,39)" stroke-width="0.9000" id="Visible">
+      <line x1="-0.75" y1="-412.5" x2="-0.75" y2="411.0" />
+      <line x1="0.75" y1="369.0" x2="0.75" y2="411.0" />
+      <line x1="0.75" y1="412.5" x2="0.75" y2="411.0" />
+      <line x1="-0.75" y1="-412.5" x2="0.75" y2="-412.5" />
+      <line x1="-0.75" y1="411.0" x2="0.75" y2="411.0" />
+      <line x1="-20.75" y1="412.5" x2="0.75" y2="412.5" />
+      <line x1="-20.75" y1="411.0" x2="-20.75" y2="412.5" />
+      <line x1="-20.75" y1="411.0" x2="-0.75" y2="411.0" />
+      <line x1="0.75" y1="-412.5" x2="20.75" y2="-412.5" />
+      <line x1="0.75" y1="-412.5" x2="0.75" y2="369.0" />
+      <line x1="0.75" y1="369.0" x2="20.75" y2="369.0" />
+      <line x1="20.75" y1="-412.5" x2="20.75" y2="369.0" />
+    </g>
+    <g fill="none" stroke="rgb(106,113,128)" stroke-width="1.7500" id="Hidden" stroke-dasharray="21.000 5.250">
+      <line x1="-0.75" y1="-412.5" x2="-0.75" y2="411.0" />
+      <line x1="-0.75" y1="411.0" x2="0.75" y2="411.0" />
+      <line x1="0.75" y1="-412.5" x2="0.75" y2="369.0" />
+      <line x1="0.75" y1="369.0" x2="0.75" y2="411.0" />
+      <line x1="-0.75" y1="-412.5" x2="0.75" y2="-412.5" />
+      <line x1="-0.75" y1="411.0" x2="-0.75" y2="370.5" />
+      <line x1="-0.75" y1="411.0" x2="-0.75" y2="370.5" />
+      <line x1="-0.75" y1="411.0" x2="-0.75" y2="370.5" />
+      <line x1="-0.75" y1="411.0" x2="-0.75" y2="370.5" />
+      <line x1="-0.75" y1="114.0" x2="-0.75" y2="54.0" />
+      <line x1="-0.75" y1="114.0" x2="-0.75" y2="54.0" />
+      <line x1="-0.75" y1="114.0" x2="-0.75" y2="54.0" />
+      <line x1="-0.75" y1="114.0" x2="-0.75" y2="54.0" />
+      <line x1="-0.75" y1="411.0" x2="0.75" y2="411.0" />
+      <line x1="0.75" y1="-412.5" x2="0.75" y2="369.0" />
+      <line x1="0.75" y1="411.0" x2="0.75" y2="370.5" />
+      <line x1="0.75" y1="411.0" x2="0.75" y2="370.5" />
+      <line x1="0.75" y1="370.5" x2="0.75" y2="412.5" />
+      <line x1="0.75" y1="411.0" x2="0.75" y2="370.5" />
+      <line x1="0.75" y1="114.0" x2="0.75" y2="54.0" />
+      <line x1="0.75" y1="114.0" x2="0.75" y2="54.0" />
+      <line x1="0.75" y1="114.0" x2="0.75" y2="54.0" />
+      <line x1="0.75" y1="114.0" x2="0.75" y2="54.0" />
+      <line x1="-0.75" y1="411.0" x2="0.75" y2="411.0" />
+      <line x1="-0.75" y1="370.5" x2="0.75" y2="370.5" />
+      <line x1="-0.75" y1="370.5" x2="0.75" y2="370.5" />
+      <line x1="-20.75" y1="411.0" x2="-0.75" y2="411.0" />
+      <line x1="-0.75" y1="370.5" x2="0.75" y2="370.5" />
+      <line x1="-20.75" y1="412.5" x2="0.75" y2="412.5" />
+      <line x1="-20.75" y1="411.0" x2="-20.75" y2="412.5" />
+      <line x1="-0.75" y1="370.5" x2="0.75" y2="370.5" />
+      <line x1="-0.75" y1="114.0" x2="0.75" y2="114.0" />
+      <line x1="-0.75" y1="114.0" x2="0.75" y2="114.0" />
+      <line x1="-0.75" y1="54.0" x2="0.75" y2="54.0" />
+      <line x1="-0.75" y1="54.0" x2="0.75" y2="54.0" />
+      <line x1="-0.75" y1="114.0" x2="0.75" y2="114.0" />
+      <line x1="-0.75" y1="114.0" x2="0.75" y2="114.0" />
+      <line x1="-0.75" y1="54.0" x2="0.75" y2="54.0" />
+      <line x1="-0.75" y1="54.0" x2="0.75" y2="54.0" />
+      <line x1="0.75" y1="369.0" x2="20.75" y2="369.0" />
+      <line x1="20.75" y1="-412.5" x2="20.75" y2="369.0" />
+      <line x1="0.75" y1="-412.5" x2="20.75" y2="-412.5" />
+      <line x1="0.75" y1="369.0" x2="20.75" y2="369.0" />
+      <line x1="20.75" y1="-412.5" x2="20.75" y2="369.0" />
+      <line x1="0.75" y1="-412.5" x2="20.75" y2="-412.5" />
+      <line x1="0.75" y1="-412.5" x2="20.75" y2="-412.5" />
+      <line x1="0.75" y1="-412.5" x2="0.75" y2="369.0" />
+      <line x1="0.75" y1="369.0" x2="20.75" y2="369.0" />
+      <line x1="20.75" y1="-412.5" x2="20.75" y2="369.0" />
+    </g>
+  </g>
+</svg><text x="204.87" y="179.56" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.8" font-weight="600" fill="#111827" text-anchor="middle">RIGHT VIEW</text><text x="204.87" y="183.56" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.2" font-weight="400" fill="#4B5563" text-anchor="middle">Scale 1:10; looking at the right side (along -X)</text><line x1="89.06" y1="59.66" x2="89.06" y2="52.06" stroke="#111827" stroke-width="0.18"/><line x1="188.76" y1="59.66" x2="188.76" y2="52.06" stroke="#111827" stroke-width="0.18"/><line x1="89.06" y1="53.86" x2="188.76" y2="53.86" stroke="#111827" stroke-width="0.18"/><path d="M89.06 53.86 l2.6 -0.45 l0 0.9 Z M188.76 53.86 l-2.6 -0.45 l0 0.9 Z" fill="#111827"/><text x="138.91" y="52.86" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.5" font-weight="500" fill="#111827" text-anchor="middle">997</text><line x1="87.86" y1="60.86" x2="80.26" y2="60.86" stroke="#111827" stroke-width="0.18"/><line x1="87.86" y1="65.01" x2="80.26" y2="65.01" stroke="#111827" stroke-width="0.18"/><line x1="82.06" y1="60.86" x2="82.06" y2="65.01" stroke="#111827" stroke-width="0.18"/><path d="M82.06 60.86 l-0.45 2.6 l0.9 0 Z M82.06 65.01 l-0.45 -2.6 l0.9 0 Z" fill="#111827"/><g transform="translate(81.06 62.93) rotate(-90)"><text x="0.00" y="0.00" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.5" font-weight="500" fill="#111827" text-anchor="middle">42</text></g><line x1="87.86" y1="91.04" x2="80.26" y2="91.04" stroke="#111827" stroke-width="0.18"/><line x1="87.86" y1="173.54" x2="80.26" y2="173.54" stroke="#111827" stroke-width="0.18"/><line x1="82.06" y1="91.04" x2="82.06" y2="173.54" stroke="#111827" stroke-width="0.18"/><path d="M82.06 91.04 l-0.45 2.6 l0.9 0 Z M82.06 173.54 l-0.45 -2.6 l0.9 0 Z" fill="#111827"/><g transform="translate(81.06 132.29) rotate(-90)"><text x="0.00" y="0.00" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.5" font-weight="500" fill="#111827" text-anchor="middle">825</text></g><image x="276" y="30" width="140" height="70" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,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"/><text x="346.00" y="106.00" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.8" font-weight="600" fill="#111827" text-anchor="middle">WHERE IT GOES</text><text x="346.00" y="110.00" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.2" font-weight="400" fill="#4B5563" text-anchor="middle">This part in colour, its neighbours in grey</text><rect x="276" y="112" width="140" height="67.8" fill="#FFFFFF" stroke="#111827" stroke-width="0.35"/><text x="279.00" y="117.00" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.3" font-weight="600" fill="#0F766E" text-anchor="start">HOW TO MAKE IT AND HOW IT FITS</text><text x="279.00" y="122.00" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">Plate 994 wide x 823.5 mm tall, standing 110 mm behind the centre</text><text x="279.00" y="126.60" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">  line from 673.5 to 1,497 mm above the ground.</text><text x="279.00" y="131.20" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">Top flange 20 mm folded forward over 876 mm of the width; side</text><text x="279.00" y="135.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">  flanges 20 mm folded back, stopping 42 mm below the top.</text><text x="279.00" y="140.40" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">Notch both top corners 44 wide x 41 deep, starting 15 mm in from</text><text x="279.00" y="145.00" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">  the side edge: the roof beams pass through the notches.</text><text x="279.00" y="149.60" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">Vent port per fitted bay: 60 x 60 mm on the bay centre, 466.5 to</text><text x="279.00" y="154.20" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">  526.5 mm up from the bottom edge (1,140 to 1,200 above ground).</text><text x="279.00" y="158.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">Fit: bottom edge riveted to the bay deck's back flange; side flanges</text><text x="279.00" y="163.40" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">  to the side panels; top flange to the roof; each liner back</text><text x="279.00" y="168.00" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">  riveted to it round the port. Seal the notches with fire-rated</text><text x="279.00" y="172.60" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">  sealant once the roof is on.</text><text x="279.00" y="177.20" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">Check: the ports line up with the liner ports.</text><rect x="273.8" y="10.0" width="148" height="10.4" fill="#FFFFFF" stroke="#111827" stroke-width="0.5"/><rect x="273.8" y="10.0" width="148" height="5.2" fill="#F3F4F6" stroke="#111827" stroke-width="0.5"/><text x="275.60" y="13.60" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.0" font-weight="600" fill="#111827" text-anchor="start">REV</text><text x="289.60" y="13.60" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.0" font-weight="600" fill="#111827" text-anchor="start">DESCRIPTION</text><text x="381.60" y="13.60" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.0" font-weight="600" fill="#111827" text-anchor="start">DATE</text><text x="407.60" y="13.60" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.0" font-weight="600" fill="#111827" text-anchor="start">BY</text><line x1="273.8" y1="15.2" x2="421.8" y2="15.2" stroke="#9CA3AF" stroke-width="0.3"/><text x="275.60" y="18.80" font-family="IBM Plex Mono, Menlo, monospace" font-size="2.3" font-weight="400" fill="#111827" text-anchor="start">P1</text><text x="289.60" y="18.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.3" font-weight="400" fill="#111827" text-anchor="start">Making sketch for the prototype build plan</text><text x="381.60" y="18.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.3" font-weight="400" fill="#111827" text-anchor="start">2026-10-01</text><text x="407.60" y="18.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.3" font-weight="400" fill="#111827" text-anchor="start">AC</text><rect x="231.8" y="213.39999999999998" width="190.0" height="56.0" fill="#FFFFFF" stroke="#111827" stroke-width="0.7"/><rect x="231.8" y="213.39999999999998" width="3" height="56.0" fill="#0F766E"/><line x1="231.8" y1="227.39999999999998" x2="421.8" y2="227.39999999999998" stroke="#9CA3AF" stroke-width="0.3"/><line x1="231.8" y1="239.39999999999998" x2="421.8" y2="239.39999999999998" stroke="#9CA3AF" stroke-width="0.3"/><line x1="231.8" y1="251.39999999999998" x2="421.8" y2="251.39999999999998" stroke="#9CA3AF" stroke-width="0.3"/><line x1="231.8" y1="260.4" x2="421.8" y2="260.4" stroke="#9CA3AF" stroke-width="0.3"/><text x="237.80" y="218.40" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.2" font-weight="600" fill="#0F766E" text-anchor="start">DOCKHUB</text><text x="418.80" y="218.40" font-family="IBM Plex Mono, Menlo, monospace" font-size="2.2" font-weight="500" fill="#0F766E" text-anchor="end">github.com/BoujeeEnjinia1701/dockhub</text><text x="237.80" y="224.40" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="4.4" font-weight="600" fill="#111827" text-anchor="start">DockHub plenum wall: making sketch</text><text x="236.80" y="230.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="1.8" font-weight="500" fill="#4B5563" text-anchor="start">DRAWING NO.</text><text x="236.80" y="235.60" font-family="IBM Plex Mono, Menlo, monospace" font-size="3.4" font-weight="600" fill="#111827" text-anchor="start">DKH-DWG-107</text><text x="316.80" y="230.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="1.8" font-weight="500" fill="#4B5563" text-anchor="start">REV</text><text x="316.80" y="235.60" font-family="IBM Plex Mono, Menlo, monospace" font-size="3.4" font-weight="600" fill="#111827" text-anchor="start">P1</text><line x1="314.8" y1="227.39999999999998" x2="314.8" y2="239.39999999999998" stroke="#9CA3AF" stroke-width="0.3"/><text x="341.80" y="230.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="1.8" font-weight="500" fill="#4B5563" text-anchor="start">SHEET</text><text x="341.80" y="235.60" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="3.4" font-weight="600" fill="#111827" text-anchor="start">1 of 1</text><line x1="339.8" y1="227.39999999999998" x2="339.8" y2="239.39999999999998" stroke="#9CA3AF" stroke-width="0.3"/><text x="371.80" y="230.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="1.8" font-weight="500" fill="#4B5563" text-anchor="start">SIZE</text><text x="371.80" y="235.60" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="3.4" font-weight="600" fill="#111827" text-anchor="start">ANSI B</text><line x1="369.8" y1="227.39999999999998" x2="369.8" y2="239.39999999999998" stroke="#9CA3AF" stroke-width="0.3"/><text x="236.80" y="242.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="1.8" font-weight="500" fill="#4B5563" text-anchor="start">SCALE</text><text x="236.80" y="247.20" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="3.0" font-weight="500" fill="#111827" text-anchor="start">1:10</text><text x="266.80" y="242.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="1.8" font-weight="500" fill="#4B5563" text-anchor="start">UNITS</text><text x="266.80" y="247.20" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="3.0" font-weight="500" fill="#111827" text-anchor="start">mm</text><line x1="264.8" y1="239.39999999999998" x2="264.8" y2="251.39999999999998" stroke="#9CA3AF" stroke-width="0.3"/><text x="291.80" y="242.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="1.8" font-weight="500" fill="#4B5563" text-anchor="start">PROJECTION</text><path d="M302.8 244.39999999999998 L308.8 242.89999999999998 L308.8 250.89999999999998 L302.8 249.39999999999998 Z" fill="none" stroke="#111827" stroke-width="0.3"/><circle cx="314.8" cy="246.89999999999998" r="4" fill="none" stroke="#111827" stroke-width="0.3"/><circle cx="314.8" cy="246.89999999999998" r="2.3" fill="none" stroke="#111827" stroke-width="0.3"/><line x1="300.8" y1="246.89999999999998" x2="320.3" y2="246.89999999999998" stroke="#111827" stroke-width="0.18" stroke-dasharray="3 1 0.6 1"/><line x1="289.8" y1="239.39999999999998" x2="289.8" y2="251.39999999999998" stroke="#9CA3AF" stroke-width="0.3"/><text x="326.80" y="242.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="1.8" font-weight="500" fill="#4B5563" text-anchor="start">DATE</text><text x="326.80" y="247.20" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="3.0" font-weight="500" fill="#111827" text-anchor="start">2026-10-01</text><line x1="324.8" y1="239.39999999999998" x2="324.8" y2="251.39999999999998" stroke="#9CA3AF" stroke-width="0.3"/><text x="366.80" y="242.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="1.8" font-weight="500" fill="#4B5563" text-anchor="start">DRAWN</text><text x="366.80" y="247.20" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="3.0" font-weight="500" fill="#111827" text-anchor="start">Amish Chadha</text><line x1="364.8" y1="239.39999999999998" x2="364.8" y2="251.39999999999998" stroke="#9CA3AF" stroke-width="0.3"/><text x="236.80" y="254.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="1.8" font-weight="500" fill="#4B5563" text-anchor="start">MATERIAL / NOTES</text><text x="236.80" y="258.80" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.6" font-weight="400" fill="#111827" text-anchor="start">Galvanized steel sheet 1.5 mm</text><text x="236.80" y="266.20" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="2.1" font-weight="400" fill="#4B5563" text-anchor="start">Licensed CERN-OHL-S-2.0 · Design Molecule Lab · designmolecule.com</text><text x="418.80" y="266.20" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="1.9" font-weight="400" fill="#4B5563" text-anchor="end">Generated from cad/src; do not edit by hand</text></svg>
