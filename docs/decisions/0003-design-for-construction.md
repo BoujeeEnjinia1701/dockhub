@@ -3,7 +3,7 @@ doc_id: DKH-DDR-003
 title: DockHub design for construction
 project: DockHub
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-10-01'
 author: Amish Chadha
@@ -13,6 +13,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Changes that make the concept physically buildable, with the reason for each; made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review
+- version: "0.2"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Budget treated as a value-engineering target
 ---
 
 # 0003: Design for construction
@@ -51,21 +55,21 @@ The changes keep what DockHub does: the same 1,000 x 500 mm footprint and 1,500 
 | --- | --- | --- |
 | Mass | Two-bay prototype without packs 217 kg (was 205 kg); four bays with three packs 247 kg (was 234 kg) [DKH-CAL-001 section 10]. | Roof frame, post plates, hinges, clamps, catch brackets (9.6 kg) and the shelf and hood sheet. |
 | Wind and anchors | Self-weight resists 0.53 kN·m (was 0.50) against 2.91 kN·m; front anchor design tension 3.79 kN (was 3.83) [section 11]. R15 stays at risk. | Higher mass. |
-| Cost | BOM line 12 $60 to $70 (end clamps, post plates, bolts) and line 15 $30 to $35 (piano hinge): total $1,214 with two bays fitted (was $1,199) against the $1,200 `budget_usd`, so R16 moves from at risk to **not met**. `budget_usd` is unchanged. All four bays $1,438. | Parts added for construction. Lines 1, 2, 3, 10, 14 and 16 were re-specified without a price change: the roof frame, door hinges, gaskets and fasteners were already in their scope. |
+| Cost | BOM line 12 $60 to $70 (end clamps, post plates, bolts) and line 15 $30 to $35 (piano hinge): total $1,214 with two bays fitted (was $1,199) against the $1,200 value-engineering target (`budget_usd`), so R16 moves from at risk to **over the target by $14**. `budget_usd` is unchanged. All four bays $1,438. | Parts added for construction. Lines 1, 2, 3, 10, 14 and 16 were re-specified without a price change: the roof frame, door hinges, gaskets and fasteners were already in their scope. |
 | Drawings | DKH-DWG-001 Rev P2; making sketches DKH-DWG-101 to 118 added. | Follows the model. |
-| Documents | DKH-CAL-001 v0.3, DKH-PRC-001 v0.5, DKH-REQ-001 v0.5: mass, wind, vent path, canopy height, opening width, cost and R16 status updated; build plan DKH-BLD-001 and design decisions register DKH-DEC-001 added. | Follows the model. |
+| Documents | DKH-CAL-001 v0.4, DKH-PRC-001 v0.6, DKH-REQ-001 v0.6: mass, wind, vent path, canopy height, opening width, cost and R16 status updated; build plan DKH-BLD-001 and design decisions register DKH-DEC-001 added. | Follows the model. |
 | Thermal, charging, throughput, grid, reach | Unchanged. | The cabinet, bays, packs and canopy keep their size and position. |
 
 *Table 3. Proposed, awaiting Amish.*
 
 | # | Question | Options | Recommendation |
 | --- | --- | --- | --- |
-| A1 | R16 is now not met: $1,214 against the $1,200 budget for the four-bay cabinet with two bays fitted. | (a) raise `budget_usd` to $1,250; (b) keep $1,200 and recover $14 at supplier selection (all prices are indicative); (c) keep $1,200 and accept R16 as not met until parts are priced. | (a): the earlier $1 margin was within the uncertainty of indicative prices, and the parts added are needed to build the cabinet at all. |
 | A2 | The bay doors now hang on piano hinges riveted to the outside of the front panel. A hinge pin on the outside can be attacked, which bears on R10 (security). | (a) stainless piano hinges with the pin ends peened over, as modelled; (b) concealed hinges inside the liner, which need a wider bay pitch or welded hinges. | (a) for the prototype; review after the first site visit. |
 
 ## Consequences
 
 - `design_state: constructable` in `project.yaml`. The build plan DKH-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`).
-- Requirement status: three not met (R6, R9 and now R16), two at risk (R8, R15), two not verifiable at TRL 3 (R7, R14), nine met (DKH-CAL-001 v0.3).
+- Cost is reported against the value-engineering target: USD 1,200 (a hypothetical control target, not a limit) against an estimated USD 1,214 for the constructable design, USD 14 over; the register lists cost drivers and savings worth trying.
+- Requirement status: two not met (R6, R9), one over its value-engineering target (R16), two at risk (R8, R15), two not verifiable at TRL 3 (R7, R14), nine met (DKH-CAL-001 v0.4).
 - The photoreal renders (`media/render-*.png`, made on Amish's Mac), `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the concept: 172 mm door openings, no hinges, a louver block instead of the hood. They need updating on Amish's Mac, where Blender is. The appearance model's own door windows remain the separate open item from the 2026-09-26 session.
 - The bought parts (chargers, boxes, locks, receptacle, fans, aerosol unit, panel) are chosen at TRL 4; their sizes and fixings must be checked against the model then (design decisions register, "To confirm when parts are bought").

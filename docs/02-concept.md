@@ -3,9 +3,9 @@ doc_id: DKH-PRC-001
 title: DockHub design precis
 project: DockHub
 doc_type: Design precis
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,6 +29,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Constructable design (DKH-DDR-003, Draft) and prototype build plan DKH-BLD-001; components, mass, cost and R16 status updated
+- version: "0.6"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Budget treated as a value-engineering target
 ---
 
 # DockHub design precis
@@ -37,7 +41,7 @@ revisions:
 
 DockHub is a sidewalk cabinet, 1.0 m wide and 0.5 m deep, with four lockable steel bays that each hold and charge one SwapCell pack. A rider taps a card or phone, returns a flat pack to the empty bay and takes a charged one from another, in about 31 seconds. Each bay is a copy of the SwapCell wall dock built to SwapCell interface v0.3: a cradle with the blind-mate receptacle and its 10 kΩ INTERLOCK coding resistor, a certified 54.6 V 5 A charger and a CAN channel that checks the pack before charging. Every bay is its own steel compartment venting to a rear plenum, so a pack fault is detected, cut off and ducted away from the user side. A 400 W solar canopy shades the front and feeds bay 1; the grid supplies the rest through one single-phase circuit.
 
-The sizing note DKH-CAL-001 confirms the swap time, charge speed, throughput (with four bays), grid draw, reach heights and footprint. It also shows two requirements not met: the canopy supplies 9.3 % of the charging energy against the relaxed 10 % target (R6), and the pack's 45 °C charge limit stops charging whenever ambient air is above about 29 to 39 °C (R9). Making the design buildable (DKH-DDR-003) added parts that take the cost to $1,214 against $1,200 with two of four bays fitted, so R16 is now not met as well. Fire containment (R8) and anchoring (R15) are at risk. Because a swap needs an empty bay, the four-bay station runs with three packs and the two-bay first prototype with one (DKH-REQ-001, DKH-DDR-001).
+The sizing note DKH-CAL-001 confirms the swap time, charge speed, throughput (with four bays), grid draw, reach heights and footprint. It also shows two requirements not met: the canopy supplies 9.3 % of the charging energy against the relaxed 10 % target (R6), and the pack's 45 °C charge limit stops charging whenever ambient air is above about 29 to 39 °C (R9). Making the design buildable (DKH-DDR-003) added parts that take the estimated cost to $1,214 against the $1,200 value-engineering target with two of four bays fitted, so R16 is over the target by $14. Fire containment (R8) and anchoring (R15) are at risk. Because a swap needs an empty bay, the four-bay station runs with three packs and the two-bay first prototype with one (DKH-REQ-001, DKH-DDR-001).
 
 ![DockHub on a sidewalk](../media/hero.png)
 
@@ -109,14 +113,14 @@ Table 2. Key numbers.
 | Fire response | Electronic detection latency 3.1 s; contactor opens in about 0.15 s | R7 not verifiable at TRL 3 |
 | Mass | 217 kg for the two-bay prototype without packs; 247 kg for four bays with three packs | |
 | Wind at a 30 m/s gust | 1,590 N uplift and 1.5 kN drag; 2.91 kN·m overturning against 0.53 kN·m self-weight | R15 at risk until anchors and pad are chosen |
-| Parts cost | $1,214 with two of four bays fitted; $1,438 with four | **R16 not met** |
+| Parts cost | $1,214 with two of four bays fitted; $1,438 with four | **R16 over the value-engineering target by $14** |
 
 ## Key design choices
 
 Items 1 to 8 are the TRL 2 recommendations, decided by Amish on 2026-09-25: go with recommendation (DKH-DDR-001, DKH-DDR-002).
 
 1. **One SwapCell dock per bay, in a shared cabinet.** Each bay reuses the SwapCell dock cradle, charger and handshake, so DockHub adds only the cabinet, access, safety and energy supply. One certified charger and one CAN channel per bay, rather than a shared charger matrix.
-2. **Four bays in one row at hand height.** Keeps the footprint to 1.0 x 0.5 m and every handle within reach (0.73 to 1.10 m). The first prototype fits bays 1 and 2 to meet the budget; the cabinet is built for four.
+2. **Four bays in one row at hand height.** Keeps the footprint to 1.0 x 0.5 m and every handle within reach (0.73 to 1.10 m). The first prototype fits bays 1 and 2 to stay close to the value-engineering target; the cabinet is built for four.
 3. **Separate steel compartment per bay with a rear plenum.** A venting pack's gas and flame go to the back and up through the roof fans and vent hood, not out of the door the user is standing at, and each pack is separated from its neighbors by two steel walls and an air gap.
 4. **Doors stay locked during a fire alarm.** Keeps people from opening a bay with a pack in runaway; the fire service opens the cabinet with a key. The trade-off is that a rider cannot retrieve a returned pack during an alarm; a warning light and a sign explain why.
 5. **Grid first, solar as a supplement.** The 400 W canopy stays as shade and supplement, and R6 is relaxed to 10 %. DKH-CAL-001 finds 9.3 %, so R6 is still not met; how to close the gap has no recommendation and is open for Amish (see Open questions).

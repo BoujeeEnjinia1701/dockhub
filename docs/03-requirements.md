@@ -3,9 +3,9 @@ doc_id: DKH-REQ-001
 title: DockHub requirements
 project: DockHub
 doc_type: Requirements
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,13 +29,17 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Status from DKH-CAL-001 v0.3 after the constructable design (DKH-DDR-003); R16 not met
+- version: "0.6"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Budget treated as a value-engineering target
 ---
 
 # DockHub requirements
 
 These requirements are checked by calculation in DKH-CAL-001 (TRL 3). They are not yet validated with riders, hosts or a city and will be revised after co-design sessions (see DKH-PRB-001). On 2026-09-25 Amish accepted the review recommendations (DKH-DDR-001, DKH-DDR-002): R6 is relaxed from 20 % to 10 %, R16 covers the four-bay cabinet with two bays fitted, and R2 cites SwapCell interface v0.3 (DKH-DDR-001 item 12). These are decided. Every other target remains as proposed at TRL 2 and will be revised after co-design.
 
-On paper, 9 of 16 requirements are met. **R6, R9 and R16 are not met**; R8 and R15 are at risk; R7 and R14 cannot be verified until hardware exists.
+On paper, 9 of 16 requirements are met. **R6 and R9 are not met**; R16 is over its value-engineering target; R8 and R15 are at risk; R7 and R14 cannot be verified until hardware exists.
 
 The **design duty case** used throughout is 20 swaps a day, each returning a SwapCell pack at about 15 % state of charge, in a street location with 4.5 peak sun hours and ambient air between -10 and 45 °C. Because a swap needs an empty bay, a station with *n* bays holds *n* - 1 packs.
 
@@ -58,7 +62,7 @@ Table 1. Requirements. Status is from DKH-CAL-001.
 | R13 | Sidewalk footprint | Cabinet footprint 1.0 x 0.6 m or less; canopy underside 2.1 m or more above the sidewalk | Model check | Met (1.0 x 0.5 m with a flush plinth; lowest canopy point over the sidewalk 2.17 m) |
 | R14 | Maintainability | Any charger, lock, bay cradle or controller replaced in 15 min or less by one technician with hand tools, through the service door | Design review; later timed trial | Not verifiable at TRL 3 |
 | R15 | Wind and anchoring | Stays upright and intact at a 30 m/s gust with the canopy fitted | Wind load calculation | **At risk**: overturning 2.9 kN·m against 0.53 kN·m self-weight; needs four anchors of 3.8 kN design tension and a pad, not yet chosen |
-| R16 | Cost | Parts 1,200 USD or less for the four-bay cabinet with two bays fitted (first prototype), SwapCell packs excluded (redefined, DKH-DDR-001) | Priced BOM (`bom/bom.csv`) | **Not met** ($1,214, after the parts added to make the design buildable, DKH-DDR-003; $1,438 with all four bays fitted) |
+| R16 | Cost | Parts 1,200 USD or less for the four-bay cabinet with two bays fitted (first prototype), SwapCell packs excluded (redefined, DKH-DDR-001) | Priced BOM (`bom/bom.csv`) | **Over the value-engineering target by $14** ($1,214 against $1,200, after the parts added to make the design buildable, DKH-DDR-003; $1,438 with all four bays fitted) |
 
 ## Assumptions
 

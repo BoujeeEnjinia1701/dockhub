@@ -2,7 +2,7 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![DOI](https://zenodo.org/badge/1388476154.svg)](https://zenodo.org/badge/latestdoi/1388476154) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/dockhub/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/dockhub/actions/workflows/reuse.yml) [![Archived in Software Heritage](https://archive.softwareheritage.org/badge/origin/https://github.com/BoujeeEnjinia1701/dockhub/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/BoujeeEnjinia1701/dockhub)
 
-**Area:** Smart Cities · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** about $1,200 USD (four-bay cabinet, two bays fitted) · **Difficulty:** 4 of 5
+**Area:** Smart Cities · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** about $1,200 USD (four-bay cabinet, two bays fitted) · **Difficulty:** 4 of 5
 
 A street-side battery swap and charging station for SwapCell packs, serving e-bikes, cargo trikes and delivery riders with charged batteries in seconds.
 
@@ -60,7 +60,7 @@ Full problem statement: [docs/01-problem.md](docs/01-problem.md)
 
 A street-side battery swap and charging station for SwapCell packs, serving e-bikes, cargo trikes and delivery riders with charged batteries in seconds. Four lockable bays at hand height each hold and charge one pack; a rider taps a card, returns a flat pack to the empty bay and takes a charged one in about 31 seconds. Because one bay is always empty, four bays run with three packs.
 
-The TRL 3 sizing note (DKH-CAL-001) finds 1.2 h to charge a pack from 20 to 80 %, all 20 riders served on the design day (up to 36 swaps a day), 1.25 kW peak from one single-phase circuit with power-factor-corrected chargers, and a mass of about 217 kg for the two-bay prototype. Three requirements are not met: the 400 W canopy supplies 9.3 % of the charging energy against a relaxed 10 % target, the SwapCell pack's 45 °C charge limit pauses charging when ambient air is above about 29 to 39 °C, and the parts added to make the design buildable bring the cost to $1,214 against $1,200. Fire containment and anchoring are at risk.
+The TRL 3 sizing note (DKH-CAL-001) finds 1.2 h to charge a pack from 20 to 80 %, all 20 riders served on the design day (up to 36 swaps a day), 1.25 kW peak from one single-phase circuit with power-factor-corrected chargers, and a mass of about 217 kg for the two-bay prototype. Two requirements are not met: the 400 W canopy supplies 9.3 % of the charging energy against a relaxed 10 % target, and the SwapCell pack's 45 °C charge limit pauses charging when ambient air is above about 29 to 39 °C. The parts added to make the design buildable bring the estimated cost to $1,214 against the $1,200 value-engineering target. Fire containment and anchoring are at risk.
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Decisions: [docs/decisions/0001-trl2-review-decisions.md](docs/decisions/0001-trl2-review-decisions.md), [docs/decisions/0002-recommendations-accepted.md](docs/decisions/0002-recommendations-accepted.md), [docs/decisions/0003-design-for-construction.md](docs/decisions/0003-design-for-construction.md)
 
@@ -74,7 +74,7 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [d
 - 400 W solar canopy with MPPT controller feeding bay 1, and a single-phase grid input with RCD protection
 - Steel plinth anchored to a concrete pad; the canopy makes anchoring mandatory
 
-The priced bill of materials is in [bom/bom.csv](bom/bom.csv). The budget covers the four-bay cabinet with two bays fitted: $1,214 against $1,200, so cost is not met on indicative prices; whether to raise the budget is an open decision. All four bays fitted cost $1,438. SwapCell packs are not included. The parametric model is [cad/src/model.py](cad/src/model.py), with STEP and STL exports in `cad/step/` and `cad/stl/`.
+The priced bill of materials is in [bom/bom.csv](bom/bom.csv). Value-engineering target for the four-bay cabinet with two bays fitted: $1,200 (a hypothetical control target, not a limit). Estimated cost of the constructable design: $1,214 ($14 over the target) on indicative prices; cost drivers and savings worth trying are in the [design decisions register](docs/06-design-decisions.md). All four bays fitted cost $1,438. SwapCell packs are not included. The parametric model is [cad/src/model.py](cad/src/model.py), with STEP and STL exports in `cad/step/` and `cad/stl/`.
 
 ## Building the prototype
 

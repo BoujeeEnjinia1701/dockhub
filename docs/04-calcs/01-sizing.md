@@ -3,9 +3,9 @@ doc_id: DKH-CAL-001
 title: DockHub sizing calculations
 project: DockHub
 doc_type: Calculation note
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,11 +21,15 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Constructable design (DKH-DDR-003). Mass, wind, vent path, canopy height and cost rerun; R16 now not met ($1,214)
+- version: "0.4"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Budget treated as a value-engineering target
 ---
 
 # DockHub sizing calculations
 
-On paper, the four-bay DockHub meets nine of its sixteen requirements. **Three are not met.** R6: the 400 W canopy supplies 9.3 % of the charging energy at the duty case, below even the relaxed 10 % target. R9: the SwapCell pack refuses charge above 45 °C, so charging pauses whenever ambient air exceeds about 29 to 39 °C, well below the 45 °C design ambient. R16: the parts added to make the design buildable (DKH-DDR-003) bring the two-bay prototype to $1,214 against the $1,200 budget. Two are **at risk**: R8 (fire containment, only a propagation test can show it) and R15 (the canopy makes the cabinet overturn unless anchored; the anchors and pad are not yet chosen). R7 and R14 cannot be verified until hardware exists.
+On paper, the four-bay DockHub meets nine of its sixteen requirements. **Two are not met and one is over its value-engineering target.** R6: the 400 W canopy supplies 9.3 % of the charging energy at the duty case, below even the relaxed 10 % target. R9: the SwapCell pack refuses charge above 45 °C, so charging pauses whenever ambient air exceeds about 29 to 39 °C, well below the 45 °C design ambient. R16: the parts added to make the design buildable (DKH-DDR-003) bring the estimated cost of the two-bay prototype to $1,214 against the $1,200 value-engineering target, $14 over. Two are **at risk**: R8 (fire containment, only a propagation test can show it) and R15 (the canopy makes the cabinet overturn unless anchored; the anchors and pad are not yet chosen). R7 and R14 cannot be verified until hardware exists.
 
 Two findings change the TRL 2 picture. First, a swap needs an empty bay for the returned pack, so a station with *n* bays holds *n* - 1 packs. The four-bay station has three working packs (36 swaps a day at most, released full), and the two-bay first prototype has one, which serves only 9 of the 20 duty-case swaps. Second, the cabinet with its canopy frame weighs about 217 to 247 kg, not 150 to 170 kg.
 
@@ -89,7 +93,7 @@ A minute-step model of the design day (the script runs three identical days and 
 | Four bays, bay 1 released first when the sun is up | 19 of 20 | 0 (one rider leaves after 15 min) | 0.86 of 1.38 kWh | 11.4 % |
 | Two bays (first prototype) | 9 of 20 | 0 (11 riders leave) | 0.69 of 1.38 kWh | 19.9 % |
 
-**R4 is met by the four-bay fit**: all 20 riders are served and only one waits, for 4 minutes. The two-bay prototype, adopted to meet the budget (DKH-DDR-001 item 1), can show the swap, charge and safety chain but cannot run the duty case.
+**R4 is met by the four-bay fit**: all 20 riders are served and only one waits, for 4 minutes. The two-bay prototype, adopted to meet the value-engineering target (DKH-DDR-001 item 1), can show the swap, charge and safety chain but cannot run the duty case.
 
 **R6 is not met.** The panel gives 1.44 kWh of DC on the design day and the MPPT delivers 1.38 kWh, but it can feed only bay 1. Bay 1 is sometimes the empty bay and at other times holds a pack that is already full, so only 0.74 kWh reaches a pack: 9.3 % of the charging energy against the relaxed 10 % target. Sending flat packs to bay 1 in daylight raises the share to 11.4 %, but solar charging at up to 181 W is slower than the 5 A AC charger, so fewer packs are ready at the dinner peak and one rider in 20 leaves. The TRL 2 estimate of 13 % assumed all the solar energy would be used. The peak MPPT output of 181 W is below the 5 A bay limit (about 250 W), so there is no clipping on the design day.
 
@@ -170,7 +174,7 @@ With four M12 anchors 30 mm in from the front and rear edges (and 25 mm in from 
 | Solar canopy and MPPT | 11, 12, 13 | 250 |
 | **Total** | 1 to 16 | **1,214** |
 
-The total is $14 over the $1,200 budget, so R16 is **not met** on indicative prices. At v0.2 it was $1,199; the canopy end clamps and post plates (line 12, $10) and the service door hinge (line 15, $5) added to make the design buildable (DKH-DDR-003) take it over. How to close the gap is an open decision for Amish (design decisions register, DKH-DEC-001). Each further bay adds $112; all four bays fitted cost $1,438. SwapCell packs are not in the station cost: the prototype needs one resident pack and the four-bay station three, at about $414 each in the SwapCell BOM, plus one per rider in circulation.
+The total is $14 over the $1,200 value-engineering target (`budget_usd`, a hypothetical control target, not a limit), so R16 is **over the target** on indicative prices. At v0.2 it was $1,199; the canopy end clamps and post plates (line 12, $10) and the service door hinge (line 15, $5) added to make the design buildable (DKH-DDR-003) take it over. Cost drivers and savings worth trying are in the Value engineering section of the design decisions register (DKH-DEC-001). Each further bay adds $112; all four bays fitted cost $1,438. SwapCell packs are not in the station cost: the prototype needs one resident pack and the four-bay station three, at about $414 each in the SwapCell BOM, plus one per rider in circulation.
 
 ## 13. Results against requirements
 
@@ -180,7 +184,7 @@ The total is $14 over the $1,200 budget, so R16 is **not met** on indicative pri
 | --- | --- | --- | --- |
 | R6 | 9.3 % of charging energy (0.74 of 1.38 kWh used); 11.4 % with solar steering, which turns one rider away | 10 % or more (relaxed from 20 %, DKH-DDR-001) | **Not met** |
 | R9 | Charging pauses above about 29 to 39 °C ambient and for cold-soaked packs below about -1 °C; charge window enforced | -10 to 45 °C ambient; never charge outside the pack window | **Not met** |
-| R16 | $1,214 with two of four bays fitted ($1,438 with four) | $1,200, packs excluded | **Not met** |
+| R16 | $1,214 with two of four bays fitted ($1,438 with four) | $1,200, packs excluded | **Over the value-engineering target by $14** |
 | R8 | Two 1.5 mm steel walls and a gap between packs; vent path to the roof | No spread for 30 min | At risk (not verifiable at TRL 3) |
 | R15 | Overturning 2.9 kN·m against 0.53 kN·m self-weight; anchors 3.8 kN design tension each | Upright at a 30 m/s gust | At risk (anchors and pad not chosen) |
 | R7 | Electronic latency 3.1 s; contactor 0.15 s | Detect in 10 s; contactor in 1 s | Not verifiable at TRL 3 |
@@ -211,6 +215,6 @@ The TRL 2 figures in DKH-PRC-001 v0.2 and DKH-REQ-001 v0.2 were checked against 
 - Footprint 1,020 x 520 mm to 1,000 x 500 mm (plinth made flush).
 - SwapCell pack price $370 to $414 (SWC-CAL-001).
 
-At v0.3 the design was made constructable (DKH-DDR-003): mass 205 to 217 kg, front anchor design tension 3.83 to 3.79 kN, lowest canopy point 2.18 to 2.17 m, vent outlet 158 to 240 cm², cost $1,199 to $1,214 (R16 at risk to not met). No other result changed.
+At v0.3 the design was made constructable (DKH-DDR-003): mass 205 to 217 kg, front anchor design tension 3.83 to 3.79 kN, lowest canopy point 2.18 to 2.17 m, vent outlet 158 to 240 cm², cost $1,199 to $1,214 (R16 at risk to over the value-engineering target). No other result changed.
 
 > **Safety:** These are paper estimates for a cabinet that stores and charges lithium-ion packs of about 468 Wh beside a public walkway from mains power. They do not replace an electrician's design of the supply, a structural check of the anchors and pad, or a propagation test. No cabinet may be built, powered or anchored in a public place from this note; building and testing are TRL 4 work and on hold by Amish's instruction.

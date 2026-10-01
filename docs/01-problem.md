@@ -3,9 +3,9 @@ doc_id: DKH-PRB-001
 title: DockHub problem statement
 project: DockHub
 doc_type: Problem statement
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,6 +21,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: TRL 3. Budget scope (four-bay cabinet, two bays fitted) and SwapCell interface v0.3 per DKH-DDR-001; open questions updated from DKH-CAL-001
+- version: "0.4"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Budget treated as a value-engineering target
 ---
 
 # DockHub problem statement
@@ -55,7 +59,7 @@ Commercial swap networks exist, but each is closed: the pack, cabinet, protocol 
 
 ## Constraints
 
-- Garage-buildable prototype, about $1,200 USD in parts for the four-bay cabinet with two bays fitted, excluding SwapCell packs (DKH-DDR-001 item 1, adopted for TRL 3 and open for Amish's review).
+- Garage-buildable prototype, a value-engineering target of about $1,200 USD in parts (a hypothetical control target, not a limit) for the four-bay cabinet with two bays fitted, excluding SwapCell packs; the estimated cost of the constructable design is $1,214 (DKH-DDR-001 item 1, adopted for TRL 3 and open for Amish's review).
 - Built from folded sheet steel, off-the-shelf certified chargers and hobby-grade controllers; no custom mains electronics.
 - Must build to SwapCell interface v0.3 (envelope, coded connector, latch class, CAN message set) without changing it; conflicts are raised with the SwapCell project.
 - No cameras or microphones. The station records pack identity, energy and a rider token, not personal data beyond what access requires.

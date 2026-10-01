@@ -3,7 +3,7 @@ doc_id: DKH-BLD-001
 title: DockHub prototype build plan
 project: DockHub
 doc_type: Build plan
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-10-01'
 author: Amish Chadha
@@ -13,6 +13,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: First build plan, with pictures by component and step; design made constructable (DKH-DDR-003, Draft)
+  - version: "0.2"
+    date: '2026-10-01'
+    author: Amish Chadha
+    change: Budget treated as a value-engineering target; cross-references updated
 ---
 
 # DockHub prototype build plan
@@ -635,7 +639,7 @@ Stop at each point. Carry on only when everything listed is true.
 - Model and fit checks: `cad/src/model.py` (`python cad/src/model.py --check`: no overlaps, 60 joints that must touch all touch); STEP and STL exports in `cad/step/` and `cad/stl/`.
 - Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/DKH-DWG-101` to `DKH-DWG-118`.
 - General arrangement: `cad/drawings/DKH-DWG-001.pdf`, Rev P2.
-- Calculations: `docs/04-calcs/01-sizing.md` (DKH-CAL-001 v0.3) and `docs/04-calcs/sizing.py`: mass (section 10), wind and anchors (section 11), cost (section 12), reach and canopy heights (section 9).
+- Calculations: `docs/04-calcs/01-sizing.md` (DKH-CAL-001 v0.4) and `docs/04-calcs/sizing.py`: mass (section 10), wind and anchors (section 11), cost (section 12), reach and canopy heights (section 9).
 - Bill of materials: `bom/bom.csv`.
 - Decisions: `docs/decisions/0003-design-for-construction.md` (DKH-DDR-003), with DKH-DDR-001 and DKH-DDR-002; open items in `docs/06-design-decisions.md` (DKH-DEC-001).
-- Requirements: `docs/03-requirements.md` (DKH-REQ-001 v0.5).
+- Requirements: `docs/03-requirements.md` (DKH-REQ-001 v0.6).
