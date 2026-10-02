@@ -3,9 +3,9 @@ doc_id: DKH-DDR-003
 title: DockHub design for construction
 project: DockHub
 doc_type: Design decision record
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,12 +17,16 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.3"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Accepted by Amish, including the recommendation for A2"
 ---
 
 # 0003: Design for construction
 
 - **Date:** 2026-10-01
-- **Status:** Draft. The changes in Table 1 were made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review. The items in Table 3 are Proposed, awaiting Amish.
+- **Status:** accepted. Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." This covers every change in Tables 1 and 2 and the recommendation for A2 in Table 3, which is now decided as recommended and recorded in the design decisions register (DKH-DEC-001).
 
 ## Context
 
@@ -60,14 +64,15 @@ The changes keep what DockHub does: the same 1,000 x 500 mm footprint and 1,500 
 | Documents | DKH-CAL-001 v0.4, DKH-PRC-001 v0.6, DKH-REQ-001 v0.6: mass, wind, vent path, canopy height, opening width, cost and R16 status updated; build plan DKH-BLD-001 and design decisions register DKH-DEC-001 added. | Follows the model. |
 | Thermal, charging, throughput, grid, reach | Unchanged. | The cabinet, bays, packs and canopy keep their size and position. |
 
-*Table 3. Proposed, awaiting Amish.*
+*Table 3. Item proposed for Amish, then accepted by Amish as recommended on 2026-10-02.*
 
 | # | Question | Options | Recommendation |
 | --- | --- | --- | --- |
-| A2 | The bay doors now hang on piano hinges riveted to the outside of the front panel. A hinge pin on the outside can be attacked, which bears on R10 (security). | (a) stainless piano hinges with the pin ends peened over, as modelled; (b) concealed hinges inside the liner, which need a wider bay pitch or welded hinges. | (a) for the prototype; review after the first site visit. |
+| A2 | The bay doors now hang on piano hinges riveted to the outside of the front panel. A hinge pin on the outside can be attacked, which bears on R10 (security). | (a) stainless piano hinges with the pin ends peened over, as modelled; (b) concealed hinges inside the liner, which need a wider bay pitch or welded hinges. | (a) for the prototype; review after the first site visit. Accepted by Amish, 2026-10-02. |
 
 ## Consequences
 
+- With the changes accepted and A2 decided on 2026-10-02, the bay doors keep their stainless piano hinges with peened pins for the prototype, to be reviewed after the first site visit; the renders are now to be regenerated to this design (DKH-DEC-001).
 - `design_state: constructable` in `project.yaml`. The build plan DKH-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`).
 - Cost is reported against the value-engineering target: USD 1,200 (a hypothetical control target, not a limit) against an estimated USD 1,214 for the constructable design, USD 14 over; the register lists cost drivers and savings worth trying.
 - Requirement status: two not met (R6, R9), one over its value-engineering target (R16), two at risk (R8, R15), two not verifiable at TRL 3 (R7, R14), nine met (DKH-CAL-001 v0.4).

@@ -3,9 +3,9 @@ doc_id: DKH-DDR-002
 title: DockHub recommendations accepted
 project: DockHub
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record Amish's acceptance of all review recommendations, what changed in the repo and the items still open
+- version: "0.2"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Items left open on 2026-09-25 decided by Amish as recommended (DKH-DEC-001)"
 ---
 
 # 0002: Recommendations accepted
 
 - **Date:** 2026-09-25
-- **Status:** accepted by Amish on 2026-09-25 for every item that carried a recommendation. Items with no recommendation remain proposed, awaiting Amish.
+- **Status:** accepted by Amish on 2026-09-25 for every item that carried a recommendation. Items with no recommendation (Table 2) were decided by Amish on 2026-10-02, as later recommended: "i approve your recommendations for all 555 open decisions." (DKH-DEC-001).
 
 ## Context
 
@@ -47,16 +51,16 @@ No design change follows from these decisions: each was already built into the T
 
 The TRL 2 review made no recommendation to reword the `project.yaml` pitch or problem, so they are unchanged.
 
-## Items still open
+## Items left open on 2026-09-25
 
-*Table 2. Proposed, awaiting Amish (no recommendation was made).*
+*Table 2. Items with no recommendation on 2026-09-25, decided by Amish on 2026-10-02 (DKH-DEC-001).*
 
-| Item | Options |
-| --- | --- |
-| Pack ownership model (DKH-DDR-001 item 10) | Station-owned pool, rider-owned one-for-one exchange, or fleet packs; to follow co-design |
-| First pilot site and partner (DKH-DDR-001 item 11) | A delivery-worker group in a high-income city, or a moto-taxi hub in East Africa |
-| How to close R6 (9.3 % against 10 %) | Accept about 9 %, route flat packs to bay 1 in daylight and accept occasional waits, feed more bays from the sun, or drop the target |
-| How to close R9 (charging pauses above about 29 to 39 °C ambient) | Accept daytime pauses in hot climates, add active cooling, narrow the design ambient, or raise the charge temperature limit with SwapCell |
+| Item | Options | Decision, 2026-10-02 |
+| --- | --- | --- |
+| Pack ownership model (DKH-DDR-001 item 10) | Station-owned pool, rider-owned one-for-one exchange, or fleet packs; to follow co-design | A station-owned pool of packs exchanged one for one; to be confirmed in co-design |
+| First pilot site and partner (DKH-DDR-001 item 11) | A delivery-worker group in a high-income city, or a moto-taxi hub in East Africa | A delivery-worker group in a high-income city: New York City first, Los Deliveristas Unidos (Workers Justice Project) as the first candidate partner to approach |
+| How to close R6 (9.3 % against 10 %) | Accept about 9 %, route flat packs to bay 1 in daylight and accept occasional waits, feed more bays from the sun, or drop the target | R6 restated as about 9 %, normal routing kept; flattest-pack solar switching to be tried as a TRL 4 controller change |
+| How to close R9 (charging pauses above about 29 to 39 °C ambient) | Accept daytime pauses in hot climates, add active cooling, narrow the design ambient, or raise the charge temperature limit with SwapCell | Keep the 45 °C charge limit and accept daytime pauses; R9 restated as full-rate charging up to about 30 °C ambient, with the cold-soak limit near -1 °C stated; a first pilot site with summer highs near that; active cooling only for a hot-climate site |
 
 ## Consequences
 

@@ -3,9 +3,9 @@ doc_id: DKH-PRC-001
 title: DockHub design precis
 project: DockHub
 doc_type: Design precis
-version: "0.6"
+version: "0.7"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -33,6 +33,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.7"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "R6, R9, pack ownership, pilot partner, propagation test, suppression, siting and anonymous cards as decided on 2026-10-02 (DKH-DEC-001)"
 ---
 
 # DockHub design precis
@@ -41,7 +45,7 @@ revisions:
 
 DockHub is a sidewalk cabinet, 1.0 m wide and 0.5 m deep, with four lockable steel bays that each hold and charge one SwapCell pack. A rider taps a card or phone, returns a flat pack to the empty bay and takes a charged one from another, in about 31 seconds. Each bay is a copy of the SwapCell wall dock built to SwapCell interface v0.3: a cradle with the blind-mate receptacle and its 10 kΩ INTERLOCK coding resistor, a certified 54.6 V 5 A charger and a CAN channel that checks the pack before charging. Every bay is its own steel compartment venting to a rear plenum, so a pack fault is detected, cut off and ducted away from the user side. A 400 W solar canopy shades the front and feeds bay 1; the grid supplies the rest through one single-phase circuit.
 
-The sizing note DKH-CAL-001 confirms the swap time, charge speed, throughput (with four bays), grid draw, reach heights and footprint. It also shows two requirements not met: the canopy supplies 9.3 % of the charging energy against the relaxed 10 % target (R6), and the pack's 45 °C charge limit stops charging whenever ambient air is above about 29 to 39 °C (R9). Making the design buildable (DKH-DDR-003) added parts that take the estimated cost to $1,214 against the $1,200 value-engineering target with two of four bays fitted, so R16 is over the target by $14. Fire containment (R8) and anchoring (R15) are at risk. Because a swap needs an empty bay, the four-bay station runs with three packs and the two-bay first prototype with one (DKH-REQ-001, DKH-DDR-001).
+The sizing note DKH-CAL-001 confirms the swap time, charge speed, throughput (with four bays), grid draw, reach heights and footprint. It also showed two requirements not met: the canopy supplies 9.3 % of the charging energy against the relaxed 10 % target (R6), and the pack's 45 °C charge limit stops charging whenever ambient air is above about 29 to 39 °C (R9). On 2026-10-02 Amish restated R6 as about 9 % and R9 as full-rate charging up to about 30 °C ambient, with daytime pauses accepted (DKH-DEC-001); R6 is now met on paper and R9 at risk. Making the design buildable (DKH-DDR-003) added parts that take the estimated cost to $1,214 against the $1,200 value-engineering target with two of four bays fitted, so R16 is over the target by $14. Fire containment (R8) and anchoring (R15) are at risk. Because a swap needs an empty bay, the four-bay station runs with three packs and the two-bay first prototype with one (DKH-REQ-001, DKH-DDR-001).
 
 ![DockHub on a sidewalk](../media/hero.png)
 
@@ -123,7 +127,7 @@ Items 1 to 8 are the TRL 2 recommendations, decided by Amish on 2026-09-25: go w
 2. **Four bays in one row at hand height.** Keeps the footprint to 1.0 x 0.5 m and every handle within reach (0.73 to 1.10 m). The first prototype fits bays 1 and 2 to stay close to the value-engineering target; the cabinet is built for four.
 3. **Separate steel compartment per bay with a rear plenum.** A venting pack's gas and flame go to the back and up through the roof fans and vent hood, not out of the door the user is standing at, and each pack is separated from its neighbors by two steel walls and an air gap.
 4. **Doors stay locked during a fire alarm.** Keeps people from opening a bay with a pack in runaway; the fire service opens the cabinet with a key. The trade-off is that a rider cannot retrieve a returned pack during an alarm; a warning light and a sign explain why.
-5. **Grid first, solar as a supplement.** The 400 W canopy stays as shade and supplement, and R6 is relaxed to 10 %. DKH-CAL-001 finds 9.3 %, so R6 is still not met; how to close the gap has no recommendation and is open for Amish (see Open questions).
+5. **Grid first, solar as a supplement.** The 400 W canopy stays as shade and supplement, and R6 is relaxed to 10 %. DKH-CAL-001 finds 9.3 %; on 2026-10-02 Amish restated R6 as about 9 % with normal routing, and switching the solar charger to the bay with the flattest pack is a TRL 4 controller change to try (DKH-DEC-001).
 6. **Solar feeds one bay directly through an MPPT controller.** Avoids an inverter and keeps all mains parts certified. It is also why the solar share is low: bay 1 can use the sun only while it holds a pack that needs charge.
 7. **Offline-first access with NFC tokens.** The station keeps a token list and a log and syncs over LTE-M when it can, with an optional phone app.
 8. **Pack health gate.** Packs below 70 % state of health, with a fault record or outside the charge temperature window are held for a technician, using the SwapCell in-pack log.
@@ -149,12 +153,12 @@ Engineering proposals made at TRL 3, decided by Amish on 2026-09-25: go with rec
 
 ## Open questions
 
-- Pack ownership model: station-owned pool, rider-owned packs exchanged one for one, or fleet packs? Proposed, awaiting Amish.
-- First pilot site and partner? Proposed, awaiting Amish.
-- R6 is not met at 10 %: accept about 9 %, route flat packs to bay 1 in daylight and accept occasional waits, feed more bays from the sun, or drop the solar target? No recommendation yet; awaiting Amish.
-- R9 is not met: accept daytime charging pauses in hot climates, add active cooling, narrow the design ambient, or ask SwapCell about the charge temperature limit? No recommendation yet; awaiting Amish.
+- Pack ownership model: a station-owned pool of packs exchanged one for one, as R10 assumes; to be confirmed in co-design. Decided by Amish, 2026-10-02 (DKH-DEC-001).
+- First pilot site and partner: a delivery-worker group in a high-income city, New York City first, with Los Deliveristas Unidos (Workers Justice Project) as the first candidate partner to approach. Decided by Amish, 2026-10-02 (DKH-DEC-001).
+- R6: restated as about 9 % with normal routing; flattest-pack solar switching to be tried at TRL 4 as a controller change. Decided by Amish, 2026-10-02 (DKH-DEC-001).
+- R9: keep the pack's 45 °C charge limit and accept daytime pauses; R9 restated as full-rate charging up to about 30 °C ambient, with the cold-soak limit near -1 °C stated; active cooling only for a hot-climate site. Decided by Amish, 2026-10-02 (DKH-DEC-001).
 - The two-bay first prototype holds only one pack and cannot run the duty case. Is that acceptable for a first build, given R16?
-- Which lithium-ion propagation test and standard should a later version aim for, and can a garage-built cabinet realistically pass it?
-- Is an aerosol unit worth its cost, or would sand or vermiculite-filled bay floors and a sealed, vented compartment be better?
-- Which siting permissions apply on public sidewalks in the first pilot city, and who hosts the electrical supply?
-- How are riders who do not want to share identity served (anonymous prepaid cards)?
+- Propagation test: a later version aims at a UL 9540A unit-level propagation test, with a heater-triggered runaway in one bay at an outdoor test site first, before paying an accredited lab. Decided by Amish, 2026-10-02 (DKH-DEC-001); whether a workshop-built cabinet can pass it is what the self-run trial will show.
+- Fire suppression: keep the condensed-aerosol unit for the first prototype and test vermiculite-filled bay floors as a variant in the propagation trial; choose on the result. Decided by Amish, 2026-10-02 (DKH-DEC-001).
+- Siting: the first pilot is on private property with an existing single-phase circuit (the partner's premises or a willing business frontage), not on a public sidewalk; a city sidewalk permit is sought only for a second site. Decided by Amish, 2026-10-02 (DKH-DEC-001).
+- Riders who do not want to share identity: anonymous prepaid NFC cards sold by the partner, each carrying a pack deposit, alongside named tokens. Decided by Amish, 2026-10-02 (DKH-DEC-001).

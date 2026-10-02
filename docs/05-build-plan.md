@@ -3,9 +3,9 @@ doc_id: DKH-BLD-001
 title: DockHub prototype build plan
 project: DockHub
 doc_type: Build plan
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,6 +17,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: Budget treated as a value-engineering target; cross-references updated
+  - version: "0.3"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Safety stop S7: first site on private property with an existing single-phase circuit (DKH-DEC-001)"
 ---
 
 # DockHub prototype build plan
@@ -622,7 +626,7 @@ Stop at each point. Carry on only when everything listed is true.
 - **S4. Before any pack enters the workshop.** The cabinet stands on a non-combustible floor, outdoors or in a fire-rated space, with a lithium-rated extinguisher and a bucket of sand within reach. Every pack has been checked by the SwapCell procedure: no damage, swelling or water, and it answers on CAN.
 - **S5. Before the first charge.** The shutdown chain check of section 5 has passed with no pack in the cabinet; the aerosol unit is connected; the first charge is attended the whole time and stopped if any pack passes 45 °C. Never force-charge a pack that does not answer.
 - **S6. Before the canopy rails go on.** Every post bolt tight; the cabinet cannot tip: it stands on a level floor and, if outdoors, is anchored or held by ballast and straps.
-- **S7. Before the cabinet goes outdoors or to a site (outside this plan).** Four anchors rated for at least 3.8 kN design tension each into a concrete pad; the site is away from building doors and windows with the hood slots facing away from people; a clear walkway beside it. Without anchors a 30 m/s gust tips the cabinet with its canopy.
+- **S7. Before the cabinet goes outdoors or to a site (outside this plan).** The first site is private property with an existing single-phase circuit and a responsible host, not a public sidewalk. Four anchors rated for at least 3.8 kN design tension each into a concrete pad; the site is away from building doors and windows with the hood slots facing away from people; a clear walkway beside it. Without anchors a 30 m/s gust tips the cabinet with its canopy.
 
 ## 7. Tools, skills and workspace
 

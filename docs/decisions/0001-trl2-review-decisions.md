@@ -3,9 +3,9 @@ doc_id: DKH-DDR-001
 title: DockHub TRL 2 review decisions
 project: DockHub
 doc_type: Design decision record
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,12 +17,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002)
+- version: "0.3"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Items 10 and 11 decided by Amish as recommended (DKH-DEC-001)"
 ---
 
 # 0001: TRL 2 review decisions
 
 - **Date:** 2026-09-25
-- **Status:** items 1 to 9, 12 and 13 decided by Amish, 2026-09-25: go with recommendation (see DKH-DDR-002). Items 10 and 11 remain proposed, awaiting Amish.
+- **Status:** items 1 to 9, 12 and 13 decided by Amish, 2026-09-25: go with recommendation (see DKH-DDR-002). Items 10 and 11 had no recommendation at TRL 2; recommendations were written for them later, and Amish approved them on 2026-10-02: "i approve your recommendations for all 555 open decisions." (DKH-DEC-001).
 
 ## Context
 
@@ -56,8 +60,8 @@ The TRL 2 review checked the `project.yaml` pitch and problem lines against the 
 
 | # | Item | Status |
 | --- | --- | --- |
-| 10 | Pack ownership model: station-owned pool, rider-owned one-for-one exchange, or fleet packs | Proposed, awaiting Amish. No recommendation was made at TRL 2 (to follow co-design) |
-| 11 | First pilot site and partner: a delivery-worker group in a high-income city, or a moto-taxi hub in East Africa | Proposed, awaiting Amish. No recommendation was made at TRL 2 |
+| 10 | Pack ownership model: station-owned pool, rider-owned one-for-one exchange, or fleet packs | Decided by Amish, 2026-10-02, as recommended: a station-owned pool of packs exchanged one for one, as the concept and R10 assume; to be confirmed in co-design (DKH-DEC-001) |
+| 11 | First pilot site and partner: a delivery-worker group in a high-income city, or a moto-taxi hub in East Africa | Decided by Amish, 2026-10-02, as recommended: a delivery-worker group in a high-income city, New York City first, with Los Deliveristas Unidos (Workers Justice Project) as the first candidate partner to approach (DKH-DEC-001) |
 | 12 | Building to SwapCell interface v0.3 instead of v0.2 (coded INTERLOCK receptacle, item W; dock host type 1; class D catch, item V). SwapCell issued v0.3 on 2026-09-25 with Amish's approval of its additions; DockHub adopts it because a v0.3 pack stays dead in a receptacle without the 10 kΩ coding resistor | Decided by Amish, 2026-09-25: go with recommendation (DKH-DDR-002) |
 | 13 | TRL 3 engineering proposals in DKH-CAL-001: release a pack at 80 % state of charge or more; chargers with a power factor of 0.9 or better; a flush plinth (1,000 x 500 mm) to keep the footprint inside R13; a 15 min rider patience and the demand profile used in the throughput model | Decided by Amish, 2026-09-25: go with recommendation (DKH-DDR-002) |
 

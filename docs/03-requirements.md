@@ -3,9 +3,9 @@ doc_id: DKH-REQ-001
 title: DockHub requirements
 project: DockHub
 doc_type: Requirements
-version: "0.6"
+version: "0.7"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -33,13 +33,17 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.7"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "R6 restated as about 9 % and R9 as full-rate charging up to about 30 °C ambient (DKH-DEC-001); status updated"
 ---
 
 # DockHub requirements
 
-These requirements are checked by calculation in DKH-CAL-001 (TRL 3). They are not yet validated with riders, hosts or a city and will be revised after co-design sessions (see DKH-PRB-001). On 2026-09-25 Amish accepted the review recommendations (DKH-DDR-001, DKH-DDR-002): R6 is relaxed from 20 % to 10 %, R16 covers the four-bay cabinet with two bays fitted, and R2 cites SwapCell interface v0.3 (DKH-DDR-001 item 12). These are decided. Every other target remains as proposed at TRL 2 and will be revised after co-design.
+These requirements are checked by calculation in DKH-CAL-001 (TRL 3). They are not yet validated with riders, hosts or a city and will be revised after co-design sessions (see DKH-PRB-001). On 2026-09-25 Amish accepted the review recommendations (DKH-DDR-001, DKH-DDR-002): R6 is relaxed from 20 % to 10 %, R16 covers the four-bay cabinet with two bays fitted, and R2 cites SwapCell interface v0.3 (DKH-DDR-001 item 12). These are decided. On 2026-10-02 Amish restated R6 as about 9 % and R9 as full-rate charging up to about 30 °C ambient (DKH-DEC-001). Every other target remains as proposed at TRL 2 and will be revised after co-design.
 
-On paper, 9 of 16 requirements are met. **R6 and R9 are not met**; R16 is over its value-engineering target; R8 and R15 are at risk; R7 and R14 cannot be verified until hardware exists.
+On paper, 10 of 16 requirements are met. R16 is over its value-engineering target; R8, R9 and R15 are at risk; R7 and R14 cannot be verified until hardware exists.
 
 The **design duty case** used throughout is 20 swaps a day, each returning a SwapCell pack at about 15 % state of charge, in a street location with 4.5 peak sun hours and ambient air between -10 and 45 °C. Because a swap needs an empty bay, a station with *n* bays holds *n* - 1 packs.
 
@@ -52,10 +56,10 @@ Table 1. Requirements. Status is from DKH-CAL-001.
 | R3 | Charge speed | 20 to 80 % in 1.5 h or less; full charge in 2.5 h or less, per bay, at 25 °C | Charge profile calculation | Met (1.2 h and 2.3 h) |
 | R4 | Throughput | 20 or more swaps a day from 4 bays at the design duty case | Day model with a demand profile | Met by the four-bay fit (20 of 20 served, longest wait 4 min; ceiling 36 a day). The two-bay first prototype serves 9 of 20 |
 | R5 | Grid supply | One single-phase branch circuit (120 V 15 A or 230 V 10 A); peak draw 1.5 kW or less | Load calculation | Met (1.25 kW; 11.0 A at 120 V) with chargers of power factor 0.9 or better |
-| R6 | Solar contribution | Canopy solar supplies 10 % or more of daily charging energy at the design duty case (relaxed from 20 %, DKH-DDR-001) | Day model | **Not met** (9.3 %; 11.4 % if flat packs are routed to bay 1 in daylight, which turns one rider in 20 away) |
+| R6 | Solar contribution | Canopy solar supplies about 9 % of daily charging energy at the design duty case, with normal routing (restated on 2026-10-02, DKH-DEC-001; relaxed from 20 % to 10 % by DKH-DDR-001) | Day model | Met on paper (9.3 %; 11.4 % if flat packs are routed to bay 1 in daylight, which turns one rider in 20 away, so normal routing is kept) |
 | R7 | Fire detection and response | Detect a pack or bay over 60 °C, or smoke, within 10 s; open that bay's charge contactor within 1 s of detection; sound a local alarm and send a remote alert; vent gas to the rear roof louver, away from the user side | Latency budget; later bench test with a heat source | Not verifiable at TRL 3 (electronic latency 3.1 s, contactor 0.15 s) |
 | R8 | Fire containment | A thermal runaway in one bay does not spread to a neighboring bay or pack for 30 min or more, and flame does not leave the cabinet front | Later propagation test by an accredited lab | **At risk**; not verifiable at TRL 3 |
-| R9 | Climate | Enclosure IP54 or better; operate at -10 to 45 °C ambient; never charge a pack outside the pack's reported charge temperature window | Thermal calculation; later chamber test | **Not met**: charging pauses above about 29 to 39 °C ambient (pack charge limit 45 °C) and for cold-soaked packs below about -1 °C |
+| R9 | Climate | Enclosure IP54 or better; operate (store and swap) at -10 to 45 °C ambient; full-rate charging up to about 30 °C ambient, with daytime pauses accepted above it and no charging start for cold-soaked packs below about -1 °C; never charge a pack outside the pack's reported charge temperature window (restated on 2026-10-02, DKH-DEC-001) | Thermal calculation; later chamber test | **At risk**: uninterrupted charging needs ambient below about 29 to 39 °C (pack charge limit 45 °C), so the warmest bay may pause just under 30 °C; cold-soaked packs cannot start below about -1 °C, as now stated |
 | R10 | Security | 1.5 mm or thicker steel; fail-secure bay locks; cabinet anchored to its pad with tamper-resistant fixings; a pack is released only against a valid token and a returned pack | Design review | Met by design review |
 | R11 | Accessibility and use | All operable parts (reader, buttons, bay handles) 0.38 to 1.22 m (15 to 48 in) above the ground; status shown by light and symbol as well as text; usable with gloves and at night | Model check; later user trials | Met (0.73 to 1.10 m) |
 | R12 | Privacy and data | No cameras or microphones; logs hold pack ID, bay, time, energy and state of health, with the rider as an opaque token; operates offline for 24 h or more and syncs later | Design review | Met by design review |

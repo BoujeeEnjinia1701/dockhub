@@ -3,9 +3,9 @@ doc_id: DKH-CAL-001
 title: DockHub sizing calculations
 project: DockHub
 doc_type: Calculation note
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,11 +25,15 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.5"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Requirement table and summary: R6 and R9 against the targets restated on 2026-10-02 (DKH-DEC-001); no figure changed"
 ---
 
 # DockHub sizing calculations
 
-On paper, the four-bay DockHub meets nine of its sixteen requirements. **Two are not met and one is over its value-engineering target.** R6: the 400 W canopy supplies 9.3 % of the charging energy at the duty case, below even the relaxed 10 % target. R9: the SwapCell pack refuses charge above 45 °C, so charging pauses whenever ambient air exceeds about 29 to 39 °C, well below the 45 °C design ambient. R16: the parts added to make the design buildable (DKH-DDR-003) bring the estimated cost of the two-bay prototype to $1,214 against the $1,200 value-engineering target, $14 over. Two are **at risk**: R8 (fire containment, only a propagation test can show it) and R15 (the canopy makes the cabinet overturn unless anchored; the anchors and pad are not yet chosen). R7 and R14 cannot be verified until hardware exists.
+On paper, the four-bay DockHub meets nine of its sixteen requirements. **Two are not met and one is over its value-engineering target.** R6: the 400 W canopy supplies 9.3 % of the charging energy at the duty case, below even the relaxed 10 % target. R9: the SwapCell pack refuses charge above 45 °C, so charging pauses whenever ambient air exceeds about 29 to 39 °C, well below the 45 °C design ambient. R16: the parts added to make the design buildable (DKH-DDR-003) bring the estimated cost of the two-bay prototype to $1,214 against the $1,200 value-engineering target, $14 over. Two are **at risk**: R8 (fire containment, only a propagation test can show it) and R15 (the canopy makes the cabinet overturn unless anchored; the anchors and pad are not yet chosen). R7 and R14 cannot be verified until hardware exists. On 2026-10-02 Amish restated R6 as about 9 % with normal routing and R9 as full-rate charging up to about 30 °C ambient with the cold-soak limit stated (DKH-DEC-001); against the restated targets R6 is met on paper and R9 is at risk. The figures below are unchanged.
 
 Two findings change the TRL 2 picture. First, a swap needs an empty bay for the returned pack, so a station with *n* bays holds *n* - 1 packs. The four-bay station has three working packs (36 swaps a day at most, released full), and the two-bay first prototype has one, which serves only 9 of the 20 duty-case swaps. Second, the cabinet with its canopy frame weighs about 217 to 247 kg, not 150 to 170 kg.
 
@@ -182,8 +186,8 @@ The total is $14 over the $1,200 value-engineering target (`budget_usd`, a hypot
 
 | ID | Value (DKH-CAL-001) | Target | Status |
 | --- | --- | --- | --- |
-| R6 | 9.3 % of charging energy (0.74 of 1.38 kWh used); 11.4 % with solar steering, which turns one rider away | 10 % or more (relaxed from 20 %, DKH-DDR-001) | **Not met** |
-| R9 | Charging pauses above about 29 to 39 °C ambient and for cold-soaked packs below about -1 °C; charge window enforced | -10 to 45 °C ambient; never charge outside the pack window | **Not met** |
+| R6 | 9.3 % of charging energy (0.74 of 1.38 kWh used); 11.4 % with solar steering, which turns one rider away | About 9 % with normal routing (restated 2026-10-02, DKH-DEC-001) | Met on paper |
+| R9 | Charging pauses above about 29 to 39 °C ambient and for cold-soaked packs below about -1 °C; charge window enforced | Full-rate charging up to about 30 °C ambient; cold-soak limit near -1 °C stated; never charge outside the pack window (restated 2026-10-02, DKH-DEC-001) | At risk (the warmest bay may pause just under 30 °C) |
 | R16 | $1,214 with two of four bays fitted ($1,438 with four) | $1,200, packs excluded | **Over the value-engineering target by $14** |
 | R8 | Two 1.5 mm steel walls and a gap between packs; vent path to the roof | No spread for 30 min | At risk (not verifiable at TRL 3) |
 | R15 | Overturning 2.9 kN·m against 0.53 kN·m self-weight; anchors 3.8 kN design tension each | Upright at a 30 m/s gust | At risk (anchors and pad not chosen) |

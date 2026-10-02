@@ -1,5 +1,44 @@
 # Review note: DockHub
 
+## Session 2026-10-02: open decisions decided
+
+Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." The recommendations written for this repo's open decisions are recorded as decided.
+
+### Decisions recorded
+
+13 decisions, moved from "Open decisions" to "Decisions made" in the register (DKH-DEC-001 v0.3): design for construction P1 to P12 accepted (DKH-DDR-003); stainless piano hinges with peened pins for the prototype (A2); R6 restated as about 9 % with normal routing; R9 restated as full-rate charging up to about 30 °C ambient with daytime pauses accepted and the cold-soak limit stated; a station-owned pack pool exchanged one for one; a delivery-worker group in New York City with Los Deliveristas Unidos (Workers Justice Project) as the first candidate partner; UL 9540A unit-level propagation as the later aim, self-run first; aerosol unit kept, vermiculite floors as a trial variant; first pilot on private property with an existing circuit; anonymous prepaid NFC cards with a pack deposit; solid steel doors in the build, windows in renders only; render scene, sign and markings accepted with a "four-bay fit shown" caption; re-render to the constructable design.
+
+### Documents changed
+
+- `docs/06-design-decisions.md`: DKH-DEC-001 v0.3
+- `docs/decisions/0001-trl2-review-decisions.md`: DKH-DDR-001 v0.3
+- `docs/decisions/0002-recommendations-accepted.md`: DKH-DDR-002 v0.2
+- `docs/decisions/0003-design-for-construction.md`: DKH-DDR-003 v0.3 (accepted; status kept Draft)
+- `docs/01-problem.md`: DKH-PRB-001 v0.5 (site, partner, pack ownership)
+- `docs/02-concept.md`: DKH-PRC-001 v0.7 (R6, R9 and open questions)
+- `docs/03-requirements.md`: DKH-REQ-001 v0.7 (R6 and R9 restated; status)
+- `docs/04-calcs/01-sizing.md`: DKH-CAL-001 v0.5 (requirement table and summary; no figure changed)
+- `docs/05-build-plan.md`: DKH-BLD-001 v0.3 (safety stop S7: private site)
+- `README.md` (not controlled): R6 and R9 wording
+
+### Follow-up actions to carry approved decisions into the design
+
+1. Decision 3: try switching the MPPT output to the bay with the flattest pack as a TRL 4 controller change, and re-run the solar share in `docs/04-calcs/sizing.py` if it is adopted (calculations).
+2. Decision 4: state the restated R9 limits (about 30 °C full-rate charging, about -1 °C cold-soak start) in the R9 section of DKH-CAL-001 when `sizing.py` is next re-run (calculations).
+3. Decision 7: plan the self-run heater-triggered propagation trial at an outdoor test site as TRL 4 or later work (docs).
+4. Decision 8: add a vermiculite-filled bay floor variant to the model and BOM as a trial option when the propagation trial is planned (model, BOM).
+5. Decision 9: choose the anchors and pad for the private host's ground; add them to the BOM (R15, register To confirm item 9) (BOM).
+6. Decision 10: add anonymous prepaid NFC cards with a pack deposit to the access panel's token list design; no cabinet change (docs).
+7. Decision 12: caption the product renders "four-bay fit shown" and settle the header sign wording with branding (pictures).
+8. Decision 13: re-render `media/render-*.png`, `media/card.png` and `media/social-preview.png` on Amish's Mac to the constructable design (piano hinges, 150 mm door openings, vent hood), with door windows in the renders only (decision 11) (pictures).
+9. Decision 6: approach Los Deliveristas Unidos (Workers Justice Project) as the first candidate partner; nothing is agreed (docs).
+
+### Points found in the review
+
+- R9 also fails at the cold end (cold-soaked packs cannot start charging below about -1 degrees), but item 4 only asks about the hot end. The restated R9 now states the cold-soak limit.
+- The $1,214 cost excludes the anchors and pad that R15 needs (four anchors of 3.8 kN design tension), so the value-engineering comparison leaves out a safety-critical part.
+- The two-bay first prototype serves 9 of 20 riders a day, so any pilot needs the four-bay fit ($1,438), which is $238 over the target as defined.
+
 ## Session 2026-10-01: constructable design and prototype build plan (kit 1.7.0)
 
 Kit 1.7.0 installed (`.kit/`, `.claude/commands/`, `CLAUDE.md`). Following `/build-plan` and STANDARDS section 18, under Amish's 2026-09-30 instruction ("If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations."), the model was made constructable and the illustrated build plan written. No hardware was built or bought; `trl` stays 3.

@@ -3,9 +3,9 @@ doc_id: DKH-PRB-001
 title: DockHub problem statement
 project: DockHub
 doc_type: Problem statement
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,6 +25,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.5"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "First site, partner and pack ownership as decided on 2026-10-02 (DKH-DEC-001)"
 ---
 
 # DockHub problem statement
@@ -89,8 +93,8 @@ This design is for communities the author is not part of, so requirements come f
 
 ## Open questions
 
-- Which first site and partner: a rider cooperative or workers' center in a high-income city, or a moto-taxi hub in East Africa? Proposed, awaiting Amish.
-- Who owns the packs in circulation: the station operator (subscription), the riders (deposit and exchange) or a fleet? This drives cost and the access design. Proposed, awaiting Amish.
+- Which first site and partner? Decided by Amish, 2026-10-02 (DKH-DEC-001): a delivery-worker group in a high-income city, New York City first, with Los Deliveristas Unidos (Workers Justice Project) as the first candidate partner to approach, and the first pilot on private property with an existing single-phase circuit.
+- Who owns the packs in circulation? Decided by Amish, 2026-10-02 (DKH-DEC-001): a station-owned pool exchanged one for one, to be confirmed in co-design.
 - How far do riders travel in a shift, and how many swaps a day does one station need to serve, at what hours? The 20 swaps a day and the lunch and dinner peaks used in DKH-CAL-001 are assumptions to test.
 - How long will a rider wait for a charged pack before leaving? DKH-CAL-001 assumes 15 min.
-- How hot does the first pilot site get? The SwapCell pack does not charge above 45 °C, so in hot afternoons DockHub pauses charging (DKH-CAL-001 section 7).
+- How hot does the first pilot site get? The SwapCell pack does not charge above 45 °C, so in hot afternoons DockHub pauses charging (DKH-CAL-001 section 7). R9 now asks for full-rate charging up to about 30 °C ambient, so the first pilot site is chosen with summer highs near that (DKH-DEC-001).
