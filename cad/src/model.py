@@ -19,6 +19,12 @@ back face (latch pawl) toward the plenum, as in the SwapCell wall dock (interfac
 Configurations (DKH-DDR-001 item 1): the cabinet is built for four bays. The first prototype
 fits bays 1 and 2 (PARAMS["bays_fitted"] = 2); bays 3 and 4 are closed with blank plates.
 The concept media show the full four-bay fit.
+
+Options added on 2026-10-02 (DKH-DEC-001): build_components(variant="vermiculite") adds a stainless
+tray of exfoliated vermiculite on the floor of each fitted bay, in front of the cradle, for the
+propagation trial (the first prototype keeps the aerosol unit and plain floors); and
+build_components(site=True) adds the cast concrete pad and the four M12 wedge anchors of the first
+pilot site on private ground (R15), which are outside the build plan.
 """
 import math
 import sys
@@ -75,7 +81,16 @@ PARAMS = {
     # Plinth anchors (R15): four M12 at this inset from the plinth edges
     "anchor_inset": 60.0,            # front-to-back: anchors 30 mm in from the front and back edges
     "anchor_x": 475.0,               # sideways: anchors 25 mm in from the ends, clear of the boxes above them
+    # Site (R15, decided 2026-10-02: first pilot on private ground): cast pad and anchors, outside the build plan
+    "pad": (1400.0, 1100.0, 300.0),  # reinforced concrete pad, X by Y by depth, top flush with the ground, cabinet centred
+    "anchor": (12.0, 100.0, 160.0),  # M12 stainless wedge anchor: diameter, embedment, overall length
+    # Trial option (decided 2026-10-02): vermiculite-filled bay floor for the propagation trial
+    "verm_tray": (20.0, 1.0, 2.0),   # tray height, stainless sheet thickness, fill level below the rim
 }
+
+
+VERM_GAP = 3.0                       # trial tray ends this far in front of the cradle, mm
+SOCKET_R = 14.0                      # radius of a 19 mm socket on an extension, for the anchor nut access check, mm
 
 
 # ---------------------------------------------------------------------------- helpers
@@ -216,8 +231,9 @@ class Comp:
         self.key, self.name, self.shape, self.color, self.bom, self.explode = key, name, shape, color, bom, explode
 
 
-def build_components(p=PARAMS, fitted=None):
-    """Every component as made or bought, as a dict key -> Comp, in build order."""
+def build_components(p=PARAMS, fitted=None, variant=None, site=False):
+    """Every component as made or bought, as a dict key -> Comp, in build order.
+    variant="vermiculite" adds the trial bay floor trays; site=True adds the pad and anchors."""
     from build123d import Pos
     b = _box
     fitted = p["bays_fitted"] if fitted is None else fitted
@@ -241,6 +257,7 @@ def build_components(p=PARAMS, fitted=None):
         - b(-W / 2 + ch_f, W / 2 - ch_f, yf + ch_f, yb - ch_f, -1, Z0 + 1)
     for x, y in d["anchors"]:
         plinth = plinth - _cz(7.0, -1, ch_t + 1, x, y)
+        plinth = plinth - _cz(16.0, Z0 - ch_t - 1, Z0 + 1, x, y)      # 32 mm socket hole in the top flange over each anchor
     for x, y in d["floor_bolts"]:
         plinth = plinth - _cz(5.5, Z0 - ch_t - 1, Z0 + 1, x, y)
     add("plinth", "Plinth", plinth, "#6B7280", 14)
@@ -520,6 +537,35 @@ def build_components(p=PARAMS, fitted=None):
     # 21 SwapCell packs (reference): one in each fitted bay except the empty bay (last fitted bay)
     if fitted > 1:
         add("packs", "SwapCell packs (reference)", _union([_pack(xc, p) for xc in fit[:-1]]), "#D4A017", 4)
+
+    # 22 Trial option: vermiculite bay floor, a folded stainless tray riveted to the liner floor in front of the cradle,
+    #    filled with exfoliated vermiculite to 2 mm below its rim (catches and smothers ejecta at the bay floor)
+    if variant == "vermiculite":
+        vh, vt, vfree = p["verm_tray"]
+        trays, fills = [], []
+        for xc in fit:
+            x0, x1 = xc - lw + t + 1, xc + lw - t - 1
+            y0, y1 = yfi + 2, -cw - VERM_GAP
+            z0 = dz + t
+            tr = b(x0, x1, y0, y1, z0, z0 + vh) - b(x0 + vt, x1 - vt, y0 + vt, y1 - vt, z0 + vt, z0 + vh + 1)
+            trays.append(tr)
+            fills.append(b(x0 + vt, x1 - vt, y0 + vt, y1 - vt, z0 + vt, z0 + vh - vfree))
+        add("verm_trays", "Vermiculite floor trays (trial option)", _union(trays), "#94A3B8", 19)
+        add("verm_fill", "Exfoliated vermiculite fill (trial option)", _union(fills), "#C8A165", 19)
+
+    # 23 Site (outside the build plan): reinforced concrete pad, top flush with the ground, and four M12 wedge anchors
+    #    through the plinth's bottom flange, each with a washer and a tamper-resistant nut inside the channel
+    if site:
+        pL, pB, pH = p["pad"]
+        ad, emb, alen = p["anchor"]
+        pad = b(-pL / 2, pL / 2, -pB / 2, pB / 2, -pH, 0)
+        anc = []
+        for x, y in d["anchors"]:
+            pad = pad - _cz(ad / 2, -emb, 1, x, y)
+            anc.append(_cz(ad / 2, -emb, ch_t + alen - emb, x, y) + _cz(12.0, ch_t, ch_t + 2.5, x, y)
+                       + _cz(9.5, ch_t + 2.5, ch_t + 13.5, x, y))
+        add("pad", "Concrete pad (site)", pad, "#A8A29E", 18)
+        add("anchors", "Wedge anchors, M12 stainless (4)", _union(anc), "#111827", 17)
     return C
 
 
@@ -566,6 +612,9 @@ def assemblies(parts=None, parts4=None):
         "dockhub-cabinet": Compound([by[1], by[10], by[14], by[15]]),
         "dockhub-bay": [s for n, s, _, b_, _ in build_parts(fitted=1) if b_ == 3][0],
         "dockhub-canopy": Compound([by[11], by[12]]),
+        "dockhub-bay-vermiculite": Compound([c.shape for k, c in build_components(fitted=1, variant="vermiculite").items()
+                                             if c.bom in (3, 19)]),
+        "dockhub-site-pad": Compound([c.shape for k, c in build_components(site=True).items() if k in ("plinth", "pad", "anchors")]),
     }
 
 
@@ -587,6 +636,7 @@ CONTACTS = [
     ("fans", "roof"), ("fire", "back"), ("detector", "roof"), ("hood", "roof"),
     ("posts", "roof"), ("post_bolts", "posts"), ("post_bolts", "beams"), ("rails", "posts"), ("panel", "rails"),
     ("clamps", "rails"), ("clamps", "panel"), ("blanks", "front"), ("packs", "cradles"),
+    ("verm_trays", "liners"), ("verm_fill", "verm_trays"), ("pad", "plinth"), ("anchors", "plinth"), ("anchors", "pad"),
 ]
 ALLOWED = set()
 
@@ -639,6 +689,26 @@ def check_fits(C=None, tol=1.0, verbose=True):
     return overlaps, gaps, n_contacts
 
 
+def socket_access(C=None):
+    """A socket on an extension must reach each anchor nut from inside the cabinet: the column from the nut top up
+    through the floor must be clear of every component. Returns the intruding volume per component, mm3."""
+    C = C or build_components(site=True)
+    p = PARAMS
+    d = derived(p)
+    ch_t = p["channel"][2]
+    z_nut = ch_t + 13.5
+    col = _union([_cz(SOCKET_R, z_nut + 0.5, d["z0"] + p["sheet_t"] + 50, x, y) for x, y in d["anchors"]])
+    out = {}
+    for k, c in C.items():
+        if k == "anchors":
+            continue
+        r = c.shape & col
+        v = r.volume if r is not None else 0.0
+        if v > 1.0:
+            out[k] = v
+    return out
+
+
 def clearances(C=None):
     """Clearances that matter for building and use, mm."""
     C = C or build_components(fitted=PARAMS["n_bays"])
@@ -655,6 +725,11 @@ def clearances(C=None):
         "door 4 to access panel": p["access_x"][0] - (xs[3] + dw / 2),
         "fan to plenum wall": p["fan_y"] - 60 - p["liner_y1"] - p["plenum_t"],
         "hood end to rear post base plate": p["post_x"] - p["post"] / 2 - p["hood"][0] - 8,
+        "vermiculite tray to cradle": VERM_GAP,
+        "vermiculite fill top to pack connector face": pack_z0(p) - (p["bay_z0"] + p["sheet_t"] + p["verm_tray"][0] - p["verm_tray"][2]),
+        "vermiculite tray rim to bay opening bottom": p["bay_z0"] + p["sheet_t"] + p["verm_tray"][0] - p["open_z"][0],
+        "anchor to pad edge, sideways": p["pad"][0] / 2 - p["anchor_x"],
+        "anchor to pad edge, front and back": p["pad"][1] / 2 - (p["D"] / 2 - p["anchor_inset"] / 2),
     }
     return out
 
@@ -665,9 +740,16 @@ if __name__ == "__main__":
         o, g, n = check_fits(C2)
         C4 = build_components(fitted=PARAMS["n_bays"])
         o4, g4, n4 = check_fits(C4)
+        print("vermiculite floor variant (trial option), four bays:")
+        oV, gV, nV = check_fits(build_components(fitted=PARAMS["n_bays"], variant="vermiculite"))
+        print("site: pad and anchors under the two-bay prototype:")
+        CS = build_components(site=True)
+        oS, gS, nS = check_fits(CS)
+        sa = socket_access(CS)
+        print(f"anchor nut socket access: {'clear' if not sa else 'BLOCKED by ' + ', '.join(f'{k} {v:.0f} mm3' for k, v in sa.items())}")
         for k, v in clearances(C4).items():
             print(f"clearance {k}: {v:.1f} mm")
-        sys.exit(1 if (o or g or o4 or g4) else 0)
+        sys.exit(1 if (o or g or o4 or g4 or oV or gV or oS or gS or sa) else 0)
     from build123d import export_step, export_stl, Box, Pos
     root = Path(__file__).resolve().parents[1]
     (root / "step").mkdir(exist_ok=True); (root / "stl").mkdir(exist_ok=True)

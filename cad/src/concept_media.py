@@ -32,12 +32,12 @@ context = [
 ]
 
 render_all(
-    parts, project="DockHub", title="Street battery swap station concept", dwg_no="DKH-DWG-010", date="2026-09-25",
+    parts, project="DockHub", title="Street battery swap station concept", dwg_no="DKH-DWG-010", date="2026-10-02", rev="P2",
     key_figures=["4 SwapCell v0.3 bays, 3 packs resident; swap about 31 s",
                  "Charge 20 to 80 % in 1.2 h, 15 to 100 % in 2.0 h",
                  "Peak grid draw 1.25 kW, single phase (est.)",
                  "20 swaps a day: 8.8 kWh grid, 0.77 kWh solar (est.)",
-                 "Solar 9.3 % of charging energy (R6 not met)",
+                 "Solar 9.3 % of charging energy (R6 met at about 9 %)",
                  "1.0 x 0.5 m footprint, 2.45 m to canopy top"],
     context=context, cut_exclude=("Solar panel, 400 W", "Canopy frame"),
     flow={"title": "daily energy at 20 swaps a day, four bays (estimates, DKH-CAL-001)", "unit": "kWh",

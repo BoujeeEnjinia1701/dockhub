@@ -1,4 +1,4 @@
-"""DockHub sizing calculations, DKH-CAL-001 v0.3 (TRL 3, constructable design DKH-DDR-003).
+"""DockHub sizing calculations, DKH-CAL-001 v0.6 (TRL 3, constructable design DKH-DDR-003, decisions of 2026-10-02).
 
 Run from the repo root:  python docs/04-calcs/sizing.py
 Prints every number quoted in docs/04-calcs/01-sizing.md and writes docs/04-calcs/results.csv.
@@ -154,8 +154,10 @@ def solar_out(hr):
     return P_PANEL * g_pk * math.sin(math.pi * x) * DERATE * ETA_MPPT
 
 
-def simulate(n_bays, steer=True, days=3, dt_min=1.0):
+def simulate(n_bays, steer=True, days=3, dt_min=1.0, route="bay1"):
     """Minute-step model of one station. n_bays fitted; n_bays - 1 packs resident, one bay empty.
+    route="bay1": the MPPT feeds bay 1 only (the design). route="flattest": the MPPT output is switched to
+    whichever bay holds the flattest pack still charging (a TRL 4 controller change to try, not adopted).
     Returns statistics for the last day."""
     dt = dt_min / 60.0
     packs = {b: 1.0 for b in range(1, n_bays)}               # bay -> state of charge; bay n_bays empty
@@ -163,6 +165,7 @@ def simulate(n_bays, steer=True, days=3, dt_min=1.0):
     queue, waits, served, turned = [], [], 0, 0
     e = dict(ac_out=0.0, solar_out=0.0, grid=0.0, stored=0.0, solar_avail=0.0)
     peak_chargers = 0
+    sbay = None                                                # bay on the MPPT when route == "flattest"
     arrivals = sorted(d * 24 + a for d in range(days) for a in ARRIVALS)
     ai = 0
     steps_n = int(days * 24 / dt)
@@ -197,11 +200,17 @@ def simulate(n_bays, steer=True, days=3, dt_min=1.0):
         ps = solar_out(now)
         if last_day:
             e["solar_avail"] += ps * dt
+        if route == "flattest":
+            charging = {b: s for b, s in packs.items() if s < 0.999}
+            if sbay not in charging or (charging and min(charging.values()) < charging[sbay] - 0.05):
+                sbay = min(charging, key=charging.get) if charging else None
+        else:
+            sbay = 1
         for b, s in list(packs.items()):
             if s >= 0.999:
                 continue
             lim = i_limit(s)
-            if b == 1 and ps >= P_SOLAR_MIN:
+            if b == sbay and ps >= P_SOLAR_MIN:
                 i = min(lim, ps / V_CHG_MEAN)
                 src = "solar"
             else:
@@ -255,10 +264,18 @@ print(f"Solar steering (release bay 1 first in sun): share {s4s['share'] * 100:.
 daily_solar_dc = P_PANEL * PSH * DERATE
 print(f"Panel DC energy on the design day {daily_solar_dc:.0f} Wh; MPPT output {daily_solar_dc * ETA_MPPT:.0f} Wh; "
       f"peak MPPT output {solar_out(12):.0f} W against the 5 A bay limit of about {I_CHG * V_CHG_MEAN:.0f} W")
+# Sensitivity, not adopted: switch the MPPT to the bay with the flattest pack (decision of 2026-10-02: a TRL 4 controller change)
+sf = simulate(N_BAYS, False, route="flattest")
+sf["share"] = sf["solar_out"] / (sf["solar_out"] + sf["ac_out"])
+print(f"Sensitivity, MPPT switched to the flattest pack (TRL 4 trial, not adopted): served {sf['served']} of {SWAPS}, "
+      f"longest wait {max(sf['waits']) if sf['waits'] else 0:.0f} min; solar to packs {sf['solar_out']:.0f} Wh; "
+      f"solar share {sf['share'] * 100:.1f} %")
+R6_TARGET = 0.09                 # about 9 % with normal routing (restated by Amish, 2026-10-02, DKH-DEC-001)
 res("R6", f"{s4['share'] * 100:.1f} % of charging energy ({s4['solar_out'] / 1000:.2f} of {daily_solar_dc * ETA_MPPT / 1000:.2f} kWh used); "
-          f"{s4s['share'] * 100:.1f} % with solar steering, which turns {SWAPS - s4s['served']} rider away",
-    "10 % or more (relaxed from 20 %, DKH-DDR-001)",
-    ("Met (thin margin)" if s4["share"] < 0.12 else "Met") if s4["share"] >= 0.10 else "Not met")
+          f"{s4s['share'] * 100:.1f} % with solar steering, which turns {SWAPS - s4s['served']} rider away; "
+          f"{sf['share'] * 100:.1f} % if the MPPT is switched to the flattest pack (TRL 4 trial)",
+    "About 9 % with normal routing (restated 2026-10-02, DKH-DEC-001)",
+    ("Met (thin margin)" if s4["share"] < R6_TARGET + 0.02 else "Met") if s4["share"] >= R6_TARGET else "Not met")
 
 # ---------------------------------------------------------------- 5. Daily energy
 h("5. Daily energy at the duty case (4 bays)")
@@ -330,9 +347,16 @@ print(f"Highest ambient for uninterrupted 5 A charging: {t_amb_max_hi:.0f} to {t
 dT_idle = P_AUX_AVG / ua_cab
 print(f"Cold: idle cabinet with fans off {dT_idle:.1f} K above ambient; a cold-soaked pack reaches 0 degC only above "
       f"about {T_CHG_MIN - dT_idle:.0f} degC ambient")
-res("R9", f"Charging pauses above about {t_amb_max_hi:.0f} to {t_amb_max_lo:.0f} degC ambient and for cold-soaked packs below about "
+# R9 restated by Amish on 2026-10-02 (DKH-DEC-001): full-rate charging up to about 30 degC ambient, daytime pauses
+# accepted above it, no charging start for cold-soaked packs below about -1 degC, never outside the pack window
+R9_FULL_RATE, R9_COLD_SOAK = 30.0, -1.0
+print(f"R9 as restated: full-rate charging up to about {R9_FULL_RATE:.0f} degC ambient (calculated limit {t_amb_max_hi:.0f} to "
+      f"{t_amb_max_lo:.0f} degC); no charging start for cold-soaked packs below about {R9_COLD_SOAK:.0f} degC (calculated "
+      f"{T_CHG_MIN - dT_idle:.1f} degC); store and swap at -10 to 45 degC")
+res("R9", f"Full-rate charging up to about {t_amb_max_hi:.0f} to {t_amb_max_lo:.0f} degC ambient; cold-soaked packs start only above about "
           f"{T_CHG_MIN - dT_idle:.0f} degC; charge window enforced by pack and controller",
-    "-10 to 45 degC ambient; never charge outside the pack window", "Not met")
+    f"Full-rate charging up to about {R9_FULL_RATE:.0f} degC; cold-soak limit near {R9_COLD_SOAK:.0f} degC stated (restated 2026-10-02)",
+    "Met" if t_amb_max_hi >= R9_FULL_RATE else "At risk (warmest bay may pause just under 30 degC)")
 
 # ---------------------------------------------------------------- 8. Fire detection and venting (R7, R8)
 h("8. Fire detection and venting (R7, R8)")
@@ -379,7 +403,8 @@ print(f"CAN: one channel per bay at 250 kbit/s, {frames} frames/s, bus load {fra
       f"SPI traffic for 4 channels about {4 * frames * 16 * 8 / 1e3:.1f} kbit/s")
 res("R2", "Interface v0.3: coded INTERLOCK receptacle, dock host type 1, class D catch, one CAN channel per bay",
     "Build to the SwapCell interface, no change", "Met (design review)")
-rec_b, tok_b = 64, 16
+rec_b, tok_b = 64, 20             # token entry: 8 B card UID hash, 1 B type (named or anonymous prepaid), 1 B pack deposit
+#                                   held, 2 B prepaid swaps left, 4 B expiry, 4 B flags (anonymous cards decided 2026-10-02)
 print(f"Log: {rec_b} B per swap, {SWAPS * rec_b} B a day; 10,000 tokens x {tok_b} B = {10000 * tok_b / 1000:.0f} kB")
 res("R12", f"{SWAPS * rec_b / 1000:.2f} kB of log a day; offline token list {10000 * tok_b / 1000:.0f} kB", "No cameras; 24 h offline",
     "Met (design review)")
@@ -467,8 +492,28 @@ Wsec = (50 ** 4 - 44 ** 4) / 12 / 25
 M_post = (Nh + F_post) / 4 * post_l
 print(f"Canopy: front post tension {R_front:.0f} N each into the roof frame; post bending {M_post:.0f} N m, "
       f"{M_post * 1000 / Wsec:.1f} MPa in 50 x 50 x 3 SHS (W = {Wsec / 1000:.2f} cm3), post length {post_l * 1000:.0f} mm")
-res("R15", f"Overturning {M_ot / 1000:.1f} kN m against {M_res / 1000:.2f} kN m self-weight; anchors {Td / 1000:.1f} kN design tension each",
-    "Upright at a 30 m/s gust", "At risk (anchors and pad not yet chosen)")
+# Pad (chosen 2026-10-02 for the first pilot on private ground): the cabinet anchored to a cast pad must not tip as one
+# body about the pad's rear bottom edge. Stabilising factor 0.9 on weight, 1.5 on wind (equilibrium check).
+RHO_CONC, MU_SOIL, G_STB = 2400.0, 0.5, 0.9
+pL, pB, pH = (v / 1000 for v in P["pad"])
+m_pad = pL * pB * pH * RHO_CONC
+piv = pB / 2
+M_ot_pad = F_body * (P["roof_z"] / 2000 + pH) + (Nh + F_post) * (z_panel + pH) + Nv * (piv - y_cp)
+M_res_pad = (M2 + m_pad) * 9.81 * piv
+equ = G_STB * M_res_pad / (LOAD_FACTOR * M_ot_pad)
+slide_pad = MU_SOIL * ((M2 + m_pad) * 9.81 - Nv)
+bear = (M2 + m_pad) * 9.81 / (pL * pB) / 1000
+print(f"Pad {P['pad'][0]:.0f} x {P['pad'][1]:.0f} x {P['pad'][2]:.0f} mm, {m_pad:.0f} kg: overturning of cabinet and pad about the pad's "
+      f"rear edge {M_ot_pad / 1000:.2f} kN m against {M_res_pad / 1000:.2f} kN m; equilibrium factor {equ:.2f} "
+      f"(0.9 x restoring / 1.5 x overturning, 1.0 needed); sliding resistance {slide_pad:.0f} N against {LOAD_FACTOR * F_h:.0f} N design; "
+      f"bearing {bear:.1f} kPa")
+print(f"Anchors: four M12 stainless wedge anchors, 100 mm embedment, {P['pad'][0] / 2 - P['anchor_x']:.0f} and "
+      f"{P['pad'][1] / 2 - (P['D'] / 2 - P['anchor_inset'] / 2):.0f} mm from the pad edges; design tension {Td / 1000:.2f} kN each "
+      f"to be at or below the approved design resistance")
+res("R15", f"Overturning {M_ot / 1000:.1f} kN m against {M_res / 1000:.2f} kN m self-weight; four M12 anchors at {Td / 1000:.1f} kN design tension "
+           f"into a {m_pad:.0f} kg pad, equilibrium factor {equ:.2f}",
+    "Upright at a 30 m/s gust",
+    ("Met (anchor rating to confirm from the maker's data)" if equ >= 1.0 else "At risk (pad too light)"))
 
 # ---------------------------------------------------------------- 12. Cost (R16)
 h("12. Cost (R16)")
@@ -483,7 +528,12 @@ for r in bom:
 print(f"Total with {N_FIT} bays fitted ${total:,.0f} against ${budget:,.0f} ({'margin $' + format(budget - total, ',.0f') if total <= budget else 'over by $' + format(total - budget, ',.0f')}); "
       f"each further bay ${per_bay:.0f}; all four fitted ${full:,.0f}. Resident packs (not in cost): "
       f"{N_FIT - 1} x ${PACK_COST:.0f} for the prototype, {N_BAYS - 1} x ${PACK_COST:.0f} for four bays")
-res("R16", f"${total:,.0f} with 2 of 4 bays fitted (${full:,.0f} with 4)", "$1,200, packs excluded (two bays fitted, DKH-DDR-001)",
+site = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in bom if r["item"].split()[0] in ("17", "18"))
+verm = [r for r in bom if r["item"].split()[0] == "19"][0]
+print(f"Of which anchors and pad (lines 17 and 18, chosen 2026-10-02): ${site:,.0f}; without them ${total - site:,.0f}. "
+      f"Vermiculite floor trial option (line 19, not in the total): ${float(verm['unit_cost_usd']):.0f} per bay, "
+      f"${4 * float(verm['unit_cost_usd']):.0f} for four bays")
+res("R16", f"${total:,.0f} with 2 of 4 bays fitted, anchors and pad included (${full:,.0f} with 4)", "$1,200, packs excluded (two bays fitted, DKH-DDR-001)",
     "At risk" if budget - total < 0.05 * budget and total <= budget else ("Met" if total <= budget else "Not met"))
 
 # ---------------------------------------------------------------- Design review items
@@ -492,8 +542,8 @@ res("R14", "All parts through the service door or bay door with hand tools", "15
 
 # ---------------------------------------------------------------- Results
 h("Results")
-order = {"Not met": 0, "At risk": 1, "At risk (anchors and pad not yet chosen)": 1, "At risk (not verifiable at TRL 3)": 1,
-         "Not verifiable at TRL 3": 2}
+order = {"Not met": 0, "At risk (warmest bay may pause just under 30 degC)": 1, "At risk (not verifiable at TRL 3)": 1,
+         "At risk": 1, "At risk (pad too light)": 1, "Not verifiable at TRL 3": 2}
 rows.sort(key=lambda r: (order.get(r[3], 3), int(r[0][1:])))
 with open(ROOT / "docs/04-calcs/results.csv", "w", newline="") as f:
     w = csv.writer(f)

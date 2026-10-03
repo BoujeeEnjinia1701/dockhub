@@ -8,6 +8,7 @@ With no argument it draws everything. Every picture is drawn from cad/src/model.
     cad/drawings/DKH-DWG-101 to 118        making sketches for the made components
     docs/05-build-plan/joint-NN.png        close-ups of the joints that need explaining
     docs/05-build-plan/step-NN.png         one picture per assembly step
+    cad/drawings/DKH-DWG-119 and 120       trial option (vermiculite floor tray) and site pad with anchors (2026-10-02)
 Uses .kit/build_views.py. BUILD PLAN ILLUSTRATION, PLAN NOT YET BUILT.
 The first prototype fits bays 1 and 2; bays 3 and 4 carry blank plates.
 """
@@ -24,6 +25,8 @@ OUT = ROOT / "docs" / "05-build-plan"
 DWG = ROOT / "cad" / "drawings"
 DATE = "2026-10-01"
 C = build_components()
+CV = build_components(variant="vermiculite")      # trial option (decided 2026-10-02)
+CS = build_components(site=True)                  # site pad and anchors (decided 2026-10-02)
 D = derived()
 XS = bay_x()
 B1 = XS[0]
@@ -166,9 +169,10 @@ def sheet(n):
     return deco
 
 
-def _cs(n, comp, neighbours, title, material, notes, view_shape=None, inset_view=(22, -58)):
+def _cs(n, comp, neighbours, title, material, notes, view_shape=None, inset_view=(22, -58), date=DATE, rev="P1", revisions=None):
     return bv.component_sheet(comp, neighbours, project="DockHub", dwg_no=f"DKH-DWG-{n}", title=f"DockHub {title}: making sketch",
-                              material=material, notes=notes, date=DATE, view_shape=view_shape, inset_view=inset_view)
+                              material=material, notes=notes, date=date, view_shape=view_shape, inset_view=inset_view,
+                              rev=rev, revisions=revisions)
 
 
 def _shell(*keys):
@@ -185,14 +189,17 @@ def s101():
                    "Weld the corners all round on a flat table; check the diagonals",
                    "  are equal within 2 mm and the top is flat within 1 mm.",
                    "Bottom flange: four 14 mm anchor holes, 25 mm in from each end",
-                   "  and 30 mm in from the front and back edges.",
+                   "  and 30 mm in from the front and back edges. Top flange: a 32 mm",
+                   "  socket hole straight above each one, so a socket reaches the nut.",
                    "Top flange: eight 11 mm holes for the M10 floor bolts: front, 25 mm",
                    "  in, at 100, 350, 650 and 900 from the left end; back, 25 mm in,",
                    "  at 520 and 680 from the left end; one each end, centred, 25 mm in.",
                    "Grind the welds flush on the top face; paint or galvanize.",
                    "Fit: the floor pan sits flat on the top flange; the walls stand on",
                    "  its edge. Anchors go into the pad at the site, not in the workshop.",
-                   "Check: top flat, holes match the floor pan held over it."], inset_view=(25, -60))
+                   "Check: top flat, holes match the floor pan held over it."], inset_view=(25, -60),
+               date="2026-10-02", rev="P2", revisions=[("P1", "Making sketch for the prototype build plan", DATE, "AC"),
+                                                      ("P2", "Socket holes over the anchors in the top flange", "2026-10-02", "AC")])
 
 
 @sheet(102)
@@ -520,6 +527,55 @@ def s118():
                    "Check: both rails in one plane (string line across the tops)."], view_shape=flat, inset_view=(-25, -50))
 
 
+@sheet(119)
+def s119():
+    xc = B1
+    tray = win(CV["verm_trays"].shape, xc - 95, xc + 95, -400, 0, 690, 760)
+    fill = win(CV["verm_fill"].shape, xc - 95, xc + 95, -400, 0, 690, 760)
+    low = lambda sh: win(sh, xc - 95, xc + 95, -400, 400, 690, 790)  # noqa: E731  lower part only, so the tray shows
+    nb = [part("Bay liner", low(C["liners"].shape), COL["liners"]), part("Cradle", low(C["cradles"].shape), COL["cradles"]),
+          part("Vermiculite fill", fill, "#C8A165")]
+    return _cs(119, part("Vermiculite floor tray", tray, "#94A3B8"), nb,
+               "vermiculite floor tray (trial option, make 1 per bay)", "Stainless steel sheet 1 mm; exfoliated vermiculite", [
+                   "TRIAL OPTION for the propagation trial only. The first prototype",
+                   "  keeps plain bay floors and the aerosol unit.",
+                   "Blank 215 x 208 mm; fold 20 mm sides up all round to give a tray",
+                   "  175 wide, 168 front to back and 20 deep; rivet the corner tabs.",
+                   "Two 4.1 mm holes in the bottom, on the centre line, 40 mm in from",
+                   "  the front and back walls.",
+                   "Fit: on the bay liner floor, 2 mm behind the front panel and 3 mm",
+                   "  in front of the cradle, 1 mm clear of each liner wall; two 4 mm",
+                   "  stainless blind rivets through tray and liner floor.",
+                   "Fill with exfoliated vermiculite to 2 mm below the rim, about",
+                   "  0.5 L; top up through the bay door after each trial burn.",
+                   "Check: the rim is 16 mm above the door opening's bottom edge and",
+                   "  10 mm below the pack's connector face, so the pack slides over."],
+               inset_view=(50, -60), date="2026-10-02")
+
+
+@sheet(120)
+def s120():
+    pad = CS["pad"].shape
+    anc = CS["anchors"].shape
+    return _cs(120, part("Concrete pad", pad, "#A8A29E"), [part("Plinth", C["plinth"].shape, COL["plinth"]),
+                                                          part("M12 anchors (4)", anc, COL["bolt"])],
+               "site pad and anchors", "Reinforced concrete C25/30; M12 stainless wedge anchors", [
+                   "SITE WORK, after the cabinet is built (safety stop S7).",
+                   "Dig 400 mm deep, 1,600 x 1,300 mm; ram 100 mm of gravel in.",
+                   "Formwork 1,400 x 1,100 mm inside, top level with the ground.",
+                   "10 mm bars at 200 mm both ways, 40 mm from the bottom and the",
+                   "  top, on chairs; cast 0.46 m3 from 28 bags of 36 kg premix,",
+                   "  vibrated or rodded; keep it damp and wait 7 days.",
+                   "Set the cabinet centred on the pad. Through the plinth's anchor",
+                   "  holes, drill 12 mm, 115 mm deep; blow the holes clean.",
+                   "Drive four M12 x 160 stainless wedge anchors to 100 mm",
+                   "  embedment; washer and tamper-resistant nut inside the channel;",
+                   "  tighten to the maker's torque with a socket through the floor.",
+                   "Anchors 225 mm from the pad ends, 330 mm from front and back.",
+                   "Check: each anchor rated for 3.8 kN design tension or more."],
+               inset_view=(25, -60), date="2026-10-02")
+
+
 def sheets(nums=None):
     out = []
     for n in sorted(SHEETS):
@@ -539,13 +595,13 @@ def joints(nums=None):
     if want(1):
         bx = (360, 500, -250, -120, -5, 160)
         out.append(joint([
-            (part("Plinth bottom flange, anchor hole", win(C["plinth"].shape, *bx), COL["plinth"]), (470, -150, 5)),
+            (part("Plinth: anchor hole, socket hole above it", win(C["plinth"].shape, *bx), COL["plinth"]), (470, -150, 5)),
             (part("Floor pan with anchor socket hole", win(C["floor"].shape, *bx), COL["floor"]), (420, -160, 101.5)),
             (part("M10 floor bolt", win(C["floor_bolts"].shape, *bx), COL["bolt"]), (400, -225, 108)),
             (part("Side panel", win(C["side_r"].shape, *bx), COL["side"]), (499, -140, 150)),
             (part("Front panel", win(C["front"].shape, *bx), COL["front"]), (380, -249, 150))],
             OUT / "joint-01.png", "Joint 1: plinth corner, floor pan and walls (front right corner)",
-            subtitle="Seen from inside the cabinet. The socket hole in the floor is over the anchor hole in the bottom flange",
+            subtitle="Seen from inside the cabinet. A socket reaches the anchor nut through the floor and the plinth's top flange",
             elev=35, azim=130, size=(8, 6)))
     if want(2):
         bx = (440, 505, -255, -180, 676, 697)

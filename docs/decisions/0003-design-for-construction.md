@@ -3,7 +3,7 @@ doc_id: DKH-DDR-003
 title: DockHub design for construction
 project: DockHub
 doc_type: Design decision record
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -21,6 +21,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Accepted by Amish, including the recommendation for A2"
+- version: "0.4"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Consequences updated: appearance model brought to the constructable design and render scenes exported; socket holes added to the plinth top flange"
 ---
 
 # 0003: Design for construction
@@ -76,5 +80,6 @@ The changes keep what DockHub does: the same 1,000 x 500 mm footprint and 1,500 
 - `design_state: constructable` in `project.yaml`. The build plan DKH-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`).
 - Cost is reported against the value-engineering target: USD 1,200 (a hypothetical control target, not a limit) against an estimated USD 1,214 for the constructable design, USD 14 over; the register lists cost drivers and savings worth trying.
 - Requirement status: two not met (R6, R9), one over its value-engineering target (R16), two at risk (R8, R15), two not verifiable at TRL 3 (R7, R14), nine met (DKH-CAL-001 v0.4).
-- The photoreal renders (`media/render-*.png`, made on Amish's Mac), `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the concept: 172 mm door openings, no hinges, a louver block instead of the hood. They need updating on Amish's Mac, where Blender is. The appearance model's own door windows remain the separate open item from the 2026-09-26 session.
+- The appearance model `cad/src/product_model.py` was brought to the constructable design on 2026-10-02 (piano hinges, 150 mm door openings, vent hood, roof beams, post plates, rails and end clamps, all taken from `cad/src/model.py`) and the render scenes were exported; the photoreal renders (`media/render-*.png`), `media/card.png` and `media/social-preview.png` are re-rendered from them on Amish's Mac, where Blender is. The door windows stay in the renders only (decided 2026-10-02).
+- Follow-up found on 2026-10-02: the plinth's top flange lay over the anchor holes, so a socket could not reach the anchor nuts as P10 intended. A 32 mm socket hole was added in the top flange over each anchor; `cad/src/model.py --check` now checks the socket path.
 - The bought parts (chargers, boxes, locks, receptacle, fans, aerosol unit, panel) are chosen at TRL 4; their sizes and fixings must be checked against the model then (design decisions register, "To confirm when parts are bought").

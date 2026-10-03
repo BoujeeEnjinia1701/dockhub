@@ -3,7 +3,7 @@ doc_id: DKH-BLD-001
 title: DockHub prototype build plan
 project: DockHub
 doc_type: Build plan
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -21,6 +21,10 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: "Safety stop S7: first site on private property with an existing single-phase circuit (DKH-DEC-001)"
+  - version: "0.4"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Approved follow-ups: socket holes in the plinth top flange; anchors and site pad chosen (section 9, DKH-DWG-120); vermiculite floor tray as a trial option (DKH-DWG-119)"
 ---
 
 # DockHub prototype build plan
@@ -72,15 +76,15 @@ Make and check each component before the assembly step that needs it. Sizes are 
 
 1. Cut two lengths of 1,000 mm and two of 500 mm, outside measurements, ends mitred at 45°, so that the flanges point inward.
 2. Lay them on a flat table, clamp, check the diagonals are equal within 2 mm, and weld each corner all round.
-3. In the bottom flange, drill four 14 mm anchor holes, 25 mm in from each end and 30 mm in from the front and back edges.
+3. In the bottom flange, drill four 14 mm anchor holes, 25 mm in from each end and 30 mm in from the front and back edges. In the top flange, straight above each anchor hole, cut a 32 mm socket hole so that a socket can reach the anchor nut from above.
 4. In the top flange, drill eight 11 mm holes for the floor bolts: along the front, 25 mm in, at 100, 350, 650 and 900 mm from the left end; along the back, 25 mm in, at 520 and 680 mm from the left end; and one at each end, 25 mm in, centred front to back.
 5. Grind the welds flush on the top face, clean off spatter, and paint or galvanize.
 
-**How it fits the parts next to it.** The floor pan sits flat on the top flange and is held by eight M10 bolts, heads inside the cabinet and nuts under the top flange. At a site, four M12 anchors go through the bottom flange into a concrete pad; inside the cabinet a socket reaches each anchor nut through a capped 40 mm hole in the floor:
+**How it fits the parts next to it.** The floor pan sits flat on the top flange and is held by eight M10 bolts, heads inside the cabinet and nuts under the top flange. At the site, four M12 stainless wedge anchors go through the bottom flange into the concrete pad (section 9); inside the cabinet a socket on an extension reaches each anchor nut through a capped 40 mm hole in the floor and the 32 mm hole in the plinth's top flange:
 
 ![Figure 3. Joint 1: plinth corner, floor pan and walls](05-build-plan/joint-01.png)
 
-*Figure 3. The front right corner seen from inside: the floor pan on the plinth, a floor bolt, and the socket hole over the anchor hole.*
+*Figure 3. The front right corner seen from inside: the floor pan on the plinth, a floor bolt, and the socket holes in the floor and the plinth's top flange over the anchor hole.*
 
 **Check before moving on.** The top is flat within 1 mm; the diagonals match within 2 mm; held over the floor pan, every bolt hole lines up.
 
@@ -458,6 +462,7 @@ Buy to specification, not brand. Line numbers are those of the bill of materials
 - **Solenoid locks (line 2).** 12 V fail-secure cabinet locks with a door switch, about 30 x 30 x 50 mm, whose bolt reaches the door tongue.
 - **Solar panel (line 11).** 400 W monocrystalline, about 1,722 x 1,134 x 35 mm in an aluminium frame suited to standard end clamps, about 21 kg.
 - **MPPT controller (line 13).** PV input up to 100 V, programmable lithium profile at 54.6 V, output limited to 5 A, no larger than 150 x 70 x 180 mm.
+- **Anchors (line 17).** Four M12 x 160 mm stainless steel wedge anchors with a published approval for cracked concrete, each with a washer and a tamper-resistant nut; the approval data must give a design tension resistance of at least 3.8 kN at 100 mm embedment in C25/30 concrete. They are fitted at the site (section 9).
 - **Hardware (lines 12 and 16).** Four solar end clamps for a 35 mm frame; eight M10 x 30 floor bolts and eight M10 x 40 post bolts with nyloc nuts and sealing washers; M8 cleat and rail bolts; M5 and M4 screws; 4 mm blind rivets; rivet nuts; stainless piano hinges (two 480 mm, one 460 mm); EPDM gasket strip 7 x 3 mm; fire-rated sealant and roof mastic; cable glands; the DC fuse per bay.
 
 ## 4. Putting it together
@@ -626,7 +631,7 @@ Stop at each point. Carry on only when everything listed is true.
 - **S4. Before any pack enters the workshop.** The cabinet stands on a non-combustible floor, outdoors or in a fire-rated space, with a lithium-rated extinguisher and a bucket of sand within reach. Every pack has been checked by the SwapCell procedure: no damage, swelling or water, and it answers on CAN.
 - **S5. Before the first charge.** The shutdown chain check of section 5 has passed with no pack in the cabinet; the aerosol unit is connected; the first charge is attended the whole time and stopped if any pack passes 45 °C. Never force-charge a pack that does not answer.
 - **S6. Before the canopy rails go on.** Every post bolt tight; the cabinet cannot tip: it stands on a level floor and, if outdoors, is anchored or held by ballast and straps.
-- **S7. Before the cabinet goes outdoors or to a site (outside this plan).** The first site is private property with an existing single-phase circuit and a responsible host, not a public sidewalk. Four anchors rated for at least 3.8 kN design tension each into a concrete pad; the site is away from building doors and windows with the hood slots facing away from people; a clear walkway beside it. Without anchors a 30 m/s gust tips the cabinet with its canopy.
+- **S7. Before the cabinet goes outdoors or to a site.** The first site is private property with an existing single-phase circuit and a responsible host, not a public sidewalk. The cabinet stands on the cast pad of section 9, at least 7 days old, held by the four M12 wedge anchors, each rated for at least 3.8 kN design tension and tightened to the maker's torque; the site is away from building doors and windows with the hood slots facing away from people; a clear walkway beside it. Without the anchors and the pad a 30 m/s gust tips the cabinet with its canopy.
 
 ## 7. Tools, skills and workspace
 
@@ -640,10 +645,52 @@ Stop at each point. Carry on only when everything listed is true.
 
 ## 8. Where the numbers come from
 
-- Model and fit checks: `cad/src/model.py` (`python cad/src/model.py --check`: no overlaps, 60 joints that must touch all touch); STEP and STL exports in `cad/step/` and `cad/stl/`.
-- Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/DKH-DWG-101` to `DKH-DWG-118`.
-- General arrangement: `cad/drawings/DKH-DWG-001.pdf`, Rev P2.
-- Calculations: `docs/04-calcs/01-sizing.md` (DKH-CAL-001 v0.4) and `docs/04-calcs/sizing.py`: mass (section 10), wind and anchors (section 11), cost (section 12), reach and canopy heights (section 9).
+- Model and fit checks: `cad/src/model.py` (`python cad/src/model.py --check`: no overlaps, 60 joints that must touch all touch; the site pad and anchors and the trial floor trays also fit, and a socket reaches every anchor nut); STEP and STL exports in `cad/step/` and `cad/stl/`.
+- Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/DKH-DWG-101` to `DKH-DWG-120`.
+- General arrangement: `cad/drawings/DKH-DWG-001.pdf`, Rev P3.
+- Calculations: `docs/04-calcs/01-sizing.md` (DKH-CAL-001 v0.6) and `docs/04-calcs/sizing.py`: mass (section 10), wind and anchors (section 11), cost (section 12), reach and canopy heights (section 9).
 - Bill of materials: `bom/bom.csv`.
 - Decisions: `docs/decisions/0003-design-for-construction.md` (DKH-DDR-003), with DKH-DDR-001 and DKH-DDR-002; open items in `docs/06-design-decisions.md` (DKH-DEC-001).
-- Requirements: `docs/03-requirements.md` (DKH-REQ-001 v0.6).
+- Requirements: `docs/03-requirements.md` (DKH-REQ-001 v0.8).
+
+## 9. Site pad and anchors, and the trial floor tray
+
+### 9.1 Site pad and anchors
+
+![Figure 30. Making sketch of the site pad and anchors](../cad/drawings/DKH-DWG-120.png)
+
+*Figure 30. Site pad and anchors making sketch (DKH-DWG-120).*
+
+**What it is and what it is made from.** The first site is private ground, so the cabinet stands on its own cast pad rather than on whatever the host's ground happens to be. The pad is reinforced concrete, 1,400 x 1,100 x 300 mm, top level with the ground, on 100 mm of rammed gravel; it weighs about 1,110 kg. Four M12 x 160 mm stainless steel wedge anchors hold the plinth to it. With the cabinet, the pad resists tipping at a 30 m/s gust with the safety factors of the calculation note (section 11).
+
+**How to make it.**
+
+1. Dig a hole 1,600 x 1,300 mm and 400 mm deep; ram in 100 mm of gravel.
+2. Set formwork 1,400 x 1,100 mm inside, its top level with the ground and checked with a spirit level.
+3. Tie a mesh of 10 mm bars at 200 mm both ways near the bottom and another near the top, each with 40 mm of cover, on plastic chairs.
+4. Cast about 0.46 m³ of concrete from 28 bags of 36 kg premix, rodded or vibrated, and float the top flat. Keep it damp and leave it for at least 7 days.
+5. Set the cabinet centred on the pad. Through each anchor hole in the plinth, drill 12 mm into the concrete, 115 mm deep, and blow the hole clean.
+6. Drive each anchor to 100 mm embedment, fit the washer and the tamper-resistant nut inside the channel, and tighten to the anchor maker's torque with a socket through the floor. Cap the floor holes.
+
+**How it fits the parts next to it.** The anchors are 225 mm from the pad's ends and 330 mm from its front and back edges, which keeps them well clear of the concrete edges. Grid power comes in through the cable gland in the floor from the host's existing circuit, laid by the electrician.
+
+**Check before moving on.** The pad is level within 3 mm; each anchor reaches its torque without spinning; safety stop S7 is met. If an engineer confirms that the host already has a slab that does the same job, the pad can be left out.
+
+### 9.2 Trial option: vermiculite floor tray
+
+![Figure 31. Making sketch of the vermiculite floor tray](../cad/drawings/DKH-DWG-119.png)
+
+*Figure 31. Vermiculite floor tray making sketch (DKH-DWG-119). Trial option only.*
+
+**What it is and what it is made from.** The first prototype keeps plain bay floors and the aerosol unit. For the later propagation trial, each bay can instead have a shallow stainless steel tray of exfoliated vermiculite on its floor, in front of the cradle, so that the trial can compare the two. It is 1 mm stainless sheet, 175 x 168 x 20 mm, holding about 0.5 L of vermiculite.
+
+**How to make it.**
+
+1. Cut a blank 215 x 208 mm and fold 20 mm sides up all round; rivet the corner tabs.
+2. Drill two 4.1 mm holes in the bottom on the centre line, 40 mm in from the front and back walls.
+3. Set the tray on the bay liner's floor, 2 mm behind the front panel and 3 mm in front of the cradle, and rivet it through the liner floor with two 4 mm stainless blind rivets.
+4. Fill it with vermiculite to 2 mm below the rim.
+
+**How it fits the parts next to it.** The rim stands 16 mm above the bottom edge of the door opening and 10 mm below the pack's connector face, so a pack still slides in over it and drops into the cradle.
+
+**Check before moving on.** A pack dummy goes in and out without touching the tray or spilling the fill.

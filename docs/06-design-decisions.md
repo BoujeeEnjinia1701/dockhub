@@ -3,7 +3,7 @@ doc_id: DKH-DEC-001
 title: DockHub design decisions register
 project: DockHub
 doc_type: Design decisions register
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -21,6 +21,10 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: "Amish approved the recommendations for open decisions 1 to 13 (DKH-DDR-003 accepted); moved to decisions made"
+  - version: "0.4"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Approved follow-ups carried out: anchors and pad chosen (To confirm item 9 now the anchor rating only); value engineering restated with them"
 ---
 
 # DockHub design decisions register
@@ -43,15 +47,15 @@ None. All open decisions were decided on 2026-10-02.
 | 6 | Aerosol unit size (about 76 x 420 mm) and its straps | Its position under the roof line, clear of the fans and beams | DKH-DDR-003, P9 |
 | 7 | Solar panel size, frame depth (35 mm) and that the maker allows end clamps | The rail length and clamps are set from it | DKH-DDR-003, P3 |
 | 8 | A printable flame-retardant filament rated UL 94 V-0 | The cradle material | DKH-DDR-003, P7 |
-| 9 | Anchors with a design tension of at least 3.8 kN in the host concrete, and the pad | R15 stays at risk until they are chosen; not in the BOM. The first pilot is on private property (decided 2026-10-02), so the host's ground sets the pad | DKH-CAL-001 section 11 |
+| 9 | The chosen M12 stainless wedge anchors (BOM line 17) have an approval giving a design tension resistance of at least 3.8 kN at 100 mm embedment in C25/30 concrete, 225 mm from the pad edge | R15 is met on paper with the anchors and the cast pad (BOM line 18) chosen on 2026-10-02; the anchor rating is the remaining check | DKH-CAL-001 section 11 |
 
 ## Value engineering
 
-Value-engineering target: USD 1,200 (a hypothetical control target, not a limit), for the four-bay cabinet with two bays fitted and SwapCell packs excluded. Estimated cost of the constructable design: USD 1,214 (USD 14 over the target). All four bays fitted cost an estimated USD 1,438; each further bay adds USD 112.
+Value-engineering target: USD 1,200. Estimated cost of the constructable design: USD 1,519 (USD 319 over the target). The target is a hypothetical control target, not a limit, for the four-bay cabinet with two bays fitted and SwapCell packs excluded. The estimate now includes the anchors and cast site pad chosen on 2026-10-02 (lines 17 and 18, USD 305); without them it is USD 1,214. All four bays fitted cost an estimated USD 1,743; each further bay adds USD 112. The vermiculite floor tray (line 19, about USD 11 a bay) is a trial option and is not in the estimate.
 
-Main cost drivers: the parts added to make the design buildable took the estimate from USD 1,199 to USD 1,214, namely the canopy end clamps, post plates and bolts (line 12, USD 60 to USD 70) and the service door hinge (line 15, USD 30 to USD 35). All prices are indicative.
+Main cost drivers: the site pad (line 18, USD 265: 28 bags of premixed concrete, mesh, formwork and gravel), then the parts added to make the design buildable, which took the estimate from USD 1,199 to USD 1,214 (canopy end clamps, post plates and bolts, line 12, USD 60 to USD 70; service door hinge, line 15, USD 30 to USD 35), and the anchors (line 17, USD 40). All prices are indicative.
 
-Savings worth trying: recovering the USD 14 at supplier selection.
+Savings worth trying: using the host's own slab instead of the cast pad where an engineer confirms it does the same job (up to USD 265); ready-mixed concrete instead of bags if the supplier delivers a small load; recovering the USD 14 of construction parts at supplier selection.
 
 ## Decisions made
 

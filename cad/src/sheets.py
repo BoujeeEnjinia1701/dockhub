@@ -1,4 +1,4 @@
-"""DockHub general arrangement drawing DKH-DWG-001 (Rev P2, constructable design DKH-DDR-003).
+"""DockHub general arrangement drawing DKH-DWG-001 (Rev P3, constructable design DKH-DDR-003; site pad and anchors).
 
 Run from the repo root:  python cad/src/sheets.py
 Builds cad/drawings/DKH-DWG-001.svg, .pdf and .png from the parametric model, in the
@@ -22,12 +22,13 @@ zr, zf, _, _ = canopy_heights()
 pz = pack_z0()
 
 s = Sheet(project="DockHub", title="General arrangement, first prototype (2 of 4 bays)", dwg_no="DKH-DWG-001",
-          rev="P2", author="Amish Chadha", date="2026-10-01", concept=True,
+          rev="P3", author="Amish Chadha", date="2026-10-02", concept=True,
           material="1.5 mm galvanized steel, powder coat. See bom/bom.csv",
           revisions=[("P1", "Preliminary GA, SwapCell interface v0.3 (DKH-CAL-001)", "2026-09-25", "AC"),
-                     ("P2", "Constructable design (DKH-DDR-003)", "2026-10-01", "AC")])
+                     ("P2", "Constructable design (DKH-DDR-003)", "2026-10-01", "AC"),
+                     ("P3", "Anchors and site pad chosen; socket holes in plinth", "2026-10-02", "AC")])
 s.add_ortho(views, ["front", "top", "right"])
-s.add_svg(views["iso"], 276, 30, 140, 84, label="Isometric view", sublabel="Not to scale")
+s.add_svg(views["iso"], 276, 37, 140, 78, label="Isometric view", sublabel="Not to scale")
 s.add_notes("Key dimensions and interfaces (mm)", [
     f"Cabinet {P['W']:.0f} x {P['D']:.0f} x {P['roof_z']:.0f}, riveted 1.5 mm panels",
     "  on a welded 100 x 50 channel plinth",
@@ -41,8 +42,8 @@ s.add_notes("Key dimensions and interfaces (mm)", [
     "  class D catch; one CAN channel per bay",
     f"Operable parts {pz:.0f} to {pz + 375:.0f} above the sidewalk",
     "Grid: one 120 V 15 A or 230 V 10 A circuit, RCBO",
-    "Anchors: 4 x M12 to a concrete pad (not supplied),",
-    "  3.8 kN design tension each (DKH-CAL-001)",
+    "Anchors: 4 x M12 wedge, 3.8 kN design tension each,",
+    "  into a 1,400 x 1,100 x 300 pad (site; BOM 17, 18)",
     "Mass about 217 kg without packs (est.)",
     "PRELIMINARY, NOT FOR FABRICATION",
 ], x=276, y=131, width=140)

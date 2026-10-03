@@ -1,23 +1,26 @@
-"""DockHub product appearance model (build123d), TRL 3.
+"""DockHub product appearance model (build123d), TRL 3, constructable design (DKH-DDR-003).
 
-Finished-product look for photoreal renders of the four-bay fit: a folded steel cabinet with
-rounded corners, rivet rows, side intake slots and a dark header sign; four teal bay doors, each
-with a clear window onto its SwapCell pack, a gasket outline, hinges, a pull handle, a bay number
-and a status light (bays 2 and 3 green, charged; bay 4 amber, charging); the access column with a
-lit display, an NFC reader with a lit ring and four bay status lights; the service door with
-intake louvers, a cam lock and warning labels; the roof louver with its rain hood; and the
-technical compartment (chargers with fins on their rack, controller, grid unit, MPPT controller),
-fire unit, plenum and fans for the exploded view. The 400 W canopy is in group "accessory" so the
-detail view can frame the cabinet without it. Context is a compact paved sidewalk patch with a curb
+Finished-product look for photoreal renders of the four-bay fit, matching the constructable
+design accepted on 2026-10-02: riveted 1.5 mm steel panels with folded corners on a welded
+channel plinth; four teal 2 mm bay doors on stainless piano hinges over 150 mm openings, each with
+a pull handle, a bay number and a status light (bays 2 and 3 green, charged; bay 4 amber,
+charging); the access column with a lit display, an NFC reader with a lit ring and four bay status
+lights; the service door on a piano hinge with its filtered intake slot, cam lock and warning
+labels; a vent hood with rear slots and a rain lip over two square roof fans; the roof beams under
+the canopy posts; and the technical compartment (chargers on the folded shelf, controller, grid
+unit, MPPT controller), solenoid locks, fire unit, detector and plenum wall for the exploded view.
+The 400 W canopy (posts on base and cap plates, rails, end clamps, panel) is in group "accessory"
+so the detail view can frame the cabinet without it. Context is a compact paved patch with a curb
 and the shared clay mannequin, standing at bay 1 with a charged pack just lifted out by its handle;
 bay 1's door is open and its cradle is empty.
 APPEARANCE MODEL ONLY: no tolerances, no fabrication detail. CONCEPT, NOT FOR FABRICATION.
 
-Every main dimension and interface comes from PARAMS and the helpers in model.py (cabinet, bay
-openings and doors, bay compartments, SwapCell v0.3 pack envelope, access panel, service door,
-louver, canopy, plinth). Axes as model.py: X along the cabinet width, Y front (-Y, street side) to
-back, Z up from the sidewalk. The scene shows packs in bays 2 to 4 (model.py leaves the last bay
-empty); see docs/REVIEW.md, session 2026-09-26.
+Every main dimension comes from PARAMS and the helpers in model.py; the roof beams, vent hood,
+fans, plenum wall, charger shelf, liners, catch brackets, locks, fire unit, detector, canopy posts,
+post bolts, rails and end clamps are taken directly from model.build_components(). Render-only
+choices, accepted by Amish on 2026-10-02 (DKH-DEC-001): the clear windows in the bay doors (the
+built doors are solid steel), the scene state (packs in bays 2 to 4, bay 1 open), the header sign
+and markings, and the four-bay fit, captioned "four-bay fit shown".
 
     from product_model import product_parts
     for p in product_parts(): print(p["name"], p["group"], p["material"])
@@ -30,23 +33,25 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / ".kit"))
 
 from build123d import (Axis, Box, Compound, Cylinder, Plane, Pos, Rot, Sphere, Text, extrude, fillet)
-from model import PARAMS, bay_x, pack_z0, _box as B
+from model import PARAMS, bay_x, build_components, derived, pack_z0, panel_frame, _box as B
 
 TITLE = "DockHub: street-side battery swap and charging station"
 
 RENDER_VIEWS = [
     {"name": "hero", "groups": ["shell", "internal", "accessory", "context"], "explode": False, "el": 22, "az": -38,
-     "note": "Product render from the front right and above (about 22 deg elevation); rider at left lifting a "
-             "charged pack from the open bay 1, packs behind the door windows of bays 2 to 4, access panel "
-             "with its lit display at right, solar canopy overhead"},
+     "note": "Four-bay fit shown. Product render from the front right and above (about 22 deg elevation); rider at "
+             "left lifting a charged pack from the open bay 1, doors on piano hinges, access panel with its lit "
+             "display at right, vent hood and solar canopy overhead. Door windows are shown in renders only; "
+             "the built doors are solid steel"},
     {"name": "exploded", "groups": ["shell", "internal", "accessory"], "explode": True, "el": 28, "az": -55,
-     "note": "Exploded view from the front right and above (about 28 deg elevation): canopy and solar panel, "
-             "cabinet, bay doors, bay compartments and packs, access panel, chargers and rack, controller, "
-             "grid unit, MPPT controller, fire unit, plenum and fans, service door, plinth"},
+     "note": "Four-bay fit shown. Exploded view from the front right and above (about 28 deg elevation): canopy "
+             "and solar panel on posts and roof beams, vent hood and fans, cabinet, bay doors and hinges, bay "
+             "compartments and packs, access panel, chargers on their shelf, controller, grid unit, MPPT "
+             "controller, fire unit, plenum, service door, plinth"},
     {"name": "detail", "groups": ["shell", "internal"], "explode": False, "el": 12, "az": -30,
-     "note": "Detail from the front right, slightly above (about 12 deg elevation): the cabinet without canopy "
-             "or street; bay 1 open with its empty cradle, packs behind the windows of bays 2 to 4 and the "
-             "access panel with display, NFC reader and bay status lights"},
+     "note": "Four-bay fit shown. Detail from the front right, slightly above (about 12 deg elevation): the cabinet "
+             "without canopy or street; bay 1 open on its piano hinge with an empty cradle, packs in bays 2 to 4 "
+             "and the access panel. Door windows are shown in renders only; the built doors are solid steel"},
 ]
 
 # Scene settings (render only)
@@ -194,56 +199,54 @@ def product_parts(P=PARAMS):
         out.append({"name": name, "shape": shape, "color": color, "material": material,
                     "bom": bom, "group": group, "explode": tuple(float(v) for v in explode)})
 
+    M = build_components(P, fitted=P["n_bays"])          # the constructable model, all four bays fitted
+    dv = derived(P)
     W, D, t = P["W"], P["D"], P["sheet_t"]
     Z0, Z1 = P["plinth_h"], P["roof_z"]
     YF, YB = -D / 2, D / 2
-    BZ0, BZ1 = P["bay_z0"], P["bay_z1"]
+    o0, o1 = P["open_z"]
     HW = P["bay_open_w"] / 2
     xs = bay_x(P)
     LY1 = P["liner_y1"]
     pz0 = pack_z0(P)
+    dw, dh, dt = P["door"]
+    gw, gt = P["gasket"]
+    ydb = YF - gt                                   # door back face
+    DF = ydb - dt                                   # door front face
+    dz0 = (o0 + o1) / 2 - dh / 2
+    so_w, so_0, so_1 = P["service_open"]
 
-    # ------------------------------------------------------------ 1 cabinet body
+    # ------------------------------------------------------------ 1 cabinet body (riveted panels, folded corners)
     EB = (0, 0, 0)
     outer = B(-W / 2, W / 2, YF, YB, Z0, Z1)
-    outer = _fillet_try(outer, _par(outer, Axis.Z), [12.0, 8.0, 5.0])
-    outer = _fillet_try(outer, _top(outer), [6.0, 4.0, 2.0])
+    outer = _fillet_try(outer, _par(outer, Axis.Z), [3.0, 2.0])
+    outer = _fillet_try(outer, _top(outer), [3.0, 2.0])
     body = outer - B(-W / 2 + t, W / 2 - t, YF + t, YB - t, Z0 + t, Z1 - t)
     for xc in xs:
-        body -= B(xc - HW, xc + HW, YF - 1, YF + t + 1, BZ0 + 5, BZ1 - 5)
-    body -= B(-480, 480, YF - 1, YF + t + 1, 140, 660)                      # service opening
-    body += B(-W / 2 + t, W / 2 - t, YF + t, LY1, BZ0 - t, BZ0)             # bay deck
-    # fold seams on the sides at the deck and header lines
-    for sx in (-1, 1):
-        for zz in (BZ0 - 20, BZ1 + 20):
-            body -= B(sx * W / 2 - 0.7, sx * W / 2 + 0.7, YF + 14, YB - 14, zz - 0.8, zz + 0.8)
-        # filtered intake slots low on each side (BOM 10)
-        for k in range(7):
-            zz = 200 + 40 * k
-            body -= B(sx * W / 2 - 3, sx * W / 2 + 3, -120, 120, zz, zz + 12)
-    add("Cabinet body, powder-coated steel", body, C_BODY, "painted", 1, "shell", EB)
-
-    fil = _comp([_bx(sx * (W / 2 - 4), 0, 341, 2, 252, 302) for sx in (-1, 1)])
-    add("Intake filter pads", fil, C_DARK, "fabric", 10, "internal", (0, 0, 0))
+        body -= B(xc - HW, xc + HW, YF - 1, YF + t + 1, o0, o1)
+    body -= B(-so_w, so_w, YF - 1, YF + t + 1, so_0, so_1)                  # service opening
+    for sx in (-1, 1):                                                        # fan holes under the hood
+        body -= _zcyl(sx * P["fan_x"], P["fan_y"], Z1 - t / 2, P["fan_hole_r"], t + 2)
+    add("Cabinet body, powder-coated steel panels", body, C_BODY, "painted", 1, "shell", EB)
+    add("Bay deck", M["deck"].shape, C_LINER, "metal", 1, "internal", (0, -450, -40))
+    add("Charger shelf", M["shelf"].shape, C_PLINTH, "painted", 1, "internal", (0, -520, -90))
+    add("Roof beams and cleats, 40 x 40 angle", M["beams"].shape, C_PLINTH, "painted", 1, "internal", (0, 0, 650))
 
     riv = []
     for sx in (-1, 1):
-        for y in (YF + 22, YB - 22):
+        for y in (YF + 12, YB - 12):
             for k in range(14):
                 z = 160 + 95 * k
                 riv.append(Pos(sx * W / 2, y, z) * Sphere(3.2) & _bx(sx * (W / 2 + 2), y, z, 4, 8, 8))
+    for x in [-W / 2 + 60 + 110 * k for k in range(9)]:
+        riv.append(Pos(x, YF, Z1 - 20) * Sphere(3.2) & _bx(x, YF - 2, Z1 - 20, 8, 4, 8))
     add("Blind rivets", _comp(riv), C_METAL, "metal", 16, "shell", EB)
 
-    # gasket outlines around the bay openings (parting lines round the doors)
-    gk = []
-    for xc in xs:
-        g = B(xc - HW - 5, xc + HW + 5, YF - 2, YF, BZ0, BZ1) - B(xc - HW, xc + HW, YF - 3, YF + 1, BZ0 + 5, BZ1 - 5)
-        gk.append(g)
-    gk.append(B(-485, 485, YF - 2, YF, 135, 665) - B(-480, 480, YF - 3, YF + 1, 140, 660))
-    add("Door gaskets (EPDM)", _comp(gk), C_BLACK, "rubber", 2, "shell", (0, 0, 0))
+    # EPDM gaskets round the bay and service openings, between the doors and the front panel
+    add("Door gaskets (EPDM)", _comp([M["gaskets"].shape, M["service_gasket"].shape]), C_BLACK, "rubber", 2, "shell", EB)
 
     # header sign above the bays
-    hz0, hz1 = BZ1 + 45, Z1 - 45
+    hz0, hz1 = P["bay_z1"] + 45, Z1 - 45
     sign = B(-470, 470, YF - 3, YF, hz0, hz1)
     sign = _fillet_try(sign, _par(sign, Axis.Y), [8.0, 5.0])
     sign = _fillet_try(sign, _front(sign), [1.0, 0.5])
@@ -258,74 +261,64 @@ def product_parts(P=PARAMS):
     band = B(-470, 470, YF - 3.4, YF - 2.6, hz0, hz0 + 8)
     add("Header accent band", band, C_DOOR, "painted", 1, "shell", (0, -250, 0))
 
-    # ------------------------------------------------------------ 2 bay doors
+    # ------------------------------------------------------------ 2 bay doors on piano hinges
     hz0h, hz1h = P["door_handle_z"]
+    hinge_static = []
     for i, xc in enumerate(xs):
-        hx, hy = xc - HW, YF - 2
-        rot = DOOR_OPEN_DEG * -1 if i == OPEN_BAY else 0.0
+        hx, hy = xc - dw / 2 - 3.5, YF - 3.5                         # piano hinge pin axis (model.py)
+        rot = -DOOR_OPEN_DEG if i == OPEN_BAY else 0.0
         ED = (0, -1000, 0)
-        door = B(xc - HW, xc + HW, YF - 6, YF - 2, BZ0 + 5, BZ1 - 5)
-        door = _fillet_try(door, _par(door, Axis.Y), [4.0, 2.0])
-        door = _fillet_try(door, _front(door), [1.2, 0.8])
-        wx0, wx1, wz0, wz1 = xc - 72, xc + 30, BZ0 + 215, BZ1 - 55
-        door -= B(wx0, wx1, YF - 8, YF, wz0, wz1)
+        door = B(xc - dw / 2, xc + dw / 2, DF, ydb, dz0, dz0 + dh)
+        door = _fillet_try(door, _par(door, Axis.Y), [3.0, 2.0])
+        door = _fillet_try(door, _front(door), [0.8, 0.5])
+        wx0, wx1, wz0, wz1 = xc - 70, xc + 30, o0 + 210, o1 - 50       # render-only window (decided 2026-10-02)
+        door -= B(wx0, wx1, DF - 2, ydb + 2, wz0, wz1)
         add(f"Bay {i + 1} door, steel", _door_rot(door, hx, hy, rot), C_DOOR, "painted", 2, "shell", ED)
-        ring = B(wx0 - 4, wx1 + 4, YF - 7, YF - 5.6, wz0 - 4, wz1 + 4) - B(wx0, wx1, YF - 8, YF, wz0, wz1)
+        ring = B(wx0 - 4, wx1 + 4, DF - 1.2, DF, wz0 - 4, wz1 + 4) - B(wx0, wx1, DF - 2, DF + 1, wz0, wz1)
         add(f"Bay {i + 1} window gasket", _door_rot(ring, hx, hy, rot), C_BLACK, "rubber", 2, "shell", ED)
-        pane = B(wx0 - 2, wx1 + 2, YF - 5, YF - 3, wz0 - 2, wz1 + 2)
-        add(f"Bay {i + 1} window, polycarbonate", _door_rot(pane, hx, hy, rot), C_WINDOW, "clear", 2, "shell", ED)
-        hdl = B(xc + 45, xc + 70, YF - 22, YF - 6, hz0h - 20, hz1h + 20)
-        hdl -= B(xc + 44, xc + 71, YF - 16, YF - 5, hz0h - 6, hz1h + 6)
+        pane = B(wx0 - 2, wx1 + 2, DF + 0.2, ydb - 0.2, wz0 - 2, wz1 + 2)
+        add(f"Bay {i + 1} window, polycarbonate (render only)", _door_rot(pane, hx, hy, rot), C_WINDOW, "clear", 2, "shell", ED)
+        hdl = B(xc + 45, xc + 70, DF - 16, DF, hz0h - 20, hz1h + 20)
+        hdl -= B(xc + 44, xc + 71, DF - 10, DF + 1, hz0h - 6, hz1h + 6)
         hdl = _fillet_try(hdl, _par(hdl, Axis.X), [3.0, 2.0, 1.0])
         add(f"Bay {i + 1} pull handle", _door_rot(hdl, hx, hy, rot), C_METAL, "metal", 2, "shell", ED)
-        lock = _ycyl(xc + 57.5, YF - 7, hz0h - 60, 7.0, 2.0)
+        tongue = B(xc + 50, xc + 54, ydb, YF + t + 16.5, 950, 970)
+        add(f"Bay {i + 1} lock tongue", _door_rot(tongue, hx, hy, rot), C_METAL, "metal", 2, "internal", ED)
+        lock = _ycyl(xc + 57.5, DF - 1, hz0h - 60, 7.0, 2.0)
         lock = _fillet_try(lock, _front(lock), [0.6, 0.3])
-        hinges = _comp([_zcyl(hx - 3, YF - 6, z, 5.0, 60) for z in (BZ0 + 60, BZ1 - 60)])
-        num = _text_front(str(i + 1), xc - 50, YF - 6, BZ1 - 30, 30, 0.8)
+        leaf = B(xc - dw / 2, xc - dw / 2 + 16, DF - t, DF, o0 + 15, o1 - 15)
+        num = _text_front(str(i + 1), xc - 50, DF, o1 - 25, 30, 0.8)
         add(f"Bay {i + 1} number", _door_rot(num, hx, hy, rot), C_WHITE, "painted", 2, "shell", ED)
-        add(f"Bay {i + 1} lock indicator and hinges", _door_rot(_comp([lock, hinges]), hx, hy, rot),
+        add(f"Bay {i + 1} lock indicator and hinge leaf", _door_rot(_comp([lock, leaf]), hx, hy, rot),
             C_METAL, "metal", 2, "shell", ED)
-        led = _ycyl(xc + 50, YF - 7, BZ1 - 30, 5.0, 2.0)
+        hinge_static += [B(xc - dw / 2 - 18, xc - dw / 2 - 7, YF - t, YF, o0 + 15, o1 - 15),
+                         _zcyl(hx, hy, (o0 + o1) / 2, 3.5, o1 - o0 - 30)]
+        led = _ycyl(xc + 50, DF - 1, o1 - 25, 5.0, 2.0)
         led = _fillet_try(led, _front(led), [1.5, 1.0])
         st = BAY_LIGHTS[i]
         col, mat, lbl = {"green": (C_LED_G, "emissive", "green, lit"), "amber": (C_LED_A, "emissive", "amber, lit"),
                          "off": (C_LED_OFF, "plastic", "off")}[st]
         add(f"Bay {i + 1} status light ({lbl})", _door_rot(led, hx, hy, rot), col, mat, 2, "shell", ED)
+    add("Bay door piano hinges, stainless", _comp(hinge_static), C_METAL, "metal", 2, "shell", (0, -1000, 0))
+    add("Solenoid locks", M["locks"].shape, C_DARK, "metal", 2, "internal", (0, -700, 0))
 
-    # ------------------------------------------------------------ 3 bay compartments (as model.py)
+    # ------------------------------------------------------------ 3 bay compartments (model.py)
     hw, hd = P["pack_w"] / 2, P["pack_d"] / 2
-    gc = P["guide_clear"]
     yc = P["plug_offset"]
-    liners, cradles, recs, guides, catches = [], [], [], [], []
+    EBay = (0, -450, 0)
+    add("Bay liners, galvanized steel", M["liners"].shape, C_LINER, "metal", 3, "internal", EBay)
+    cradles, recs = [], []
     for xc in xs:
-        liners.append(B(xc - 90, xc + 90, YF + t, LY1, BZ0, BZ1 + 10)
-                      - B(xc - 90 + t, xc + 90 - t, YF, LY1 - t, BZ0 + t, BZ1 + 10 - t)
-                      - B(xc - 30, xc + 30, LY1 - t - 1, LY1 + 1, BZ1 - 80, BZ1 - 20))
-        cr = B(xc - 75, xc + 75, -75, 75, BZ0 + t, pz0)
-        cr = _fillet_try(cr, _par(cr, Axis.Z), [6.0, 4.0])
-        cr = _fillet_try(cr, _top(cr), [2.0, 1.0])
-        cr -= B(xc - P["plug_w"] / 2 - 1, xc + P["plug_w"] / 2 + 1, yc - P["plug_d"] / 2 - 1,
-                yc + P["plug_d"] / 2 + 1, pz0 - P["plug_h"] - 1, pz0 + 1)
+        cr = M["cradles"].shape & B(xc - 100, xc + 100, -200, 200, 0, 2000)
         cradles.append(cr)
         rc = B(xc - P["plug_w"] / 2 - 8, xc + P["plug_w"] / 2 + 8, yc - P["plug_d"] / 2 - 8,
-               yc + P["plug_d"] / 2 + 8, BZ0 + t, pz0 - P["plug_h"] - 1)
+               yc + P["plug_d"] / 2 + 8, P["bay_z0"] + t, pz0 - P["plug_h"] - 1.5)
         for k in range(5):
-            rc += B(xc - 20 + 10 * k - 2, xc - 20 + 10 * k + 2, yc - 6, yc + 6, pz0 - P["plug_h"] - 1, pz0 - P["plug_h"] + 3)
+            rc += B(xc - 20 + 10 * k - 2, xc - 20 + 10 * k + 2, yc - 6, yc + 6, pz0 - P["plug_h"] - 1.5, pz0 - P["plug_h"] + 3)
         recs.append(rc)
-        for s in (-1, 1):
-            g = B(xc + s * (hw + gc) + (0 if s > 0 else -5), xc + s * (hw + gc) + (5 if s > 0 else 0), -45, 45,
-                  pz0, pz0 + P["guide_h"])
-            guides.append(_fillet_try(g, _top(g), [2.0, 1.0]))
-        zl = pz0 + P["pack_l"] - P["latch_from_top"]
-        yb = hd + P["latch_proud"] + 1
-        catches.append(B(xc - 30, xc + 30, yb + 8, yb + 14, pz0, zl + 30)
-                       + B(xc - 25, xc + 25, yb, yb + 8, zl + P["latch_h"] / 2 + 1, zl + P["latch_h"] / 2 + 9))
-    EBay = (0, -450, 0)
-    add("Bay liners, galvanized steel", _comp(liners), C_LINER, "metal", 3, "internal", EBay)
-    add("Bay cradles with guide faces", _comp(cradles), C_DARK, "plastic", 3, "internal", EBay)
+    add("Bay cradles with guide faces (printed)", _comp(cradles), C_DARK, "plastic", 3, "internal", EBay)
     add("Blind-mate receptacles", _comp(recs), C_BLACK, "plastic", 3, "internal", EBay)
-    add("Pack side guides", _comp(guides), C_DARK, "plastic", 3, "internal", EBay)
-    add("Class D latch catches", _comp(catches), C_METAL, "metal", 3, "internal", EBay)
+    add("Class D catch brackets", M["catches"].shape, C_METAL, "metal", 3, "internal", EBay)
 
     # ------------------------------------------------------------ 4 packs in bays 2 to 4
     groups = {}
@@ -337,89 +330,67 @@ def product_parts(P=PARAMS):
     for nm, (col, mat, ss) in groups.items():
         add(f"SwapCell packs, {nm}", _comp(ss), col, mat, 4, "internal", (0, -250, 1050))
 
-    # ------------------------------------------------------------ 5 chargers on their rack
+    # ------------------------------------------------------------ 5 chargers on the shelf
     EC = (0, -520, -60)
-    rack = B(-470, 470, -60, 230, 380, 390)
-    rack += _comp([B(x - 10, x + 10, -60, -40, 150, 380) for x in (-460, 460)])
-    add("Charger rack", rack, C_PLINTH, "painted", 16, "internal", EC)
+    sz = dv["shelf_z"]
     chg, fins, clab = [], [], []
-    for x in (-345.0, -115.0, 115.0, 345.0):
-        c = B(x - 80, x + 80, -20, 180, 390, 452)
+    for x in dv["charger_x"]:
+        c = B(x - 80, x + 80, -20, 180, sz, sz + 62)
         c = _fillet_try(c, _par(c, Axis.Y), [4.0, 2.0])
         chg.append(c)
         for k in range(9):
-            fins.append(B(x - 72 + 18 * k - 1.5, x - 72 + 18 * k + 1.5, -18, 178, 452, 460))
-        clab.append(B(x - 40, x + 40, -20.4, -19.9, 405, 437))
+            fins.append(B(x - 72 + 18 * k - 1.5, x - 72 + 18 * k + 1.5, -18, 178, sz + 62, sz + 70))
+        clab.append(B(x - 40, x + 40, -20.4, -19.9, sz + 12, sz + 44))
     add("Chargers, 54.6 V 5 A", _comp(chg), C_DARK, "metal", 5, "internal", EC)
     add("Charger heat sink fins", _comp(fins), C_ALU, "metal", 5, "internal", EC)
     add("Charger rating labels", _comp(clab), C_WHITE, "paper", 5, "internal", EC)
 
-    # ------------------------------------------------------------ 6 controller, 8 grid unit, 13 MPPT
-    ctl = B(-450, -230, 140, 240, 150, 340)
+    # ------------------------------------------------------------ 6 controller, 8 grid unit, 13 MPPT (on the back panel)
+    ybi = YB - t
+    ctl = B(-450, -230, ybi - 100, ybi, 150, 340)
     ctl = _fillet_try(ctl, _par(ctl, Axis.Y), [6.0, 4.0])
     add("Dock controller enclosure (ESP32, CAN, LTE-M)", ctl, C_BODY2, "plastic", 6, "internal", (-800, 300, 750))
-    cled = _comp([_ycyl(-420 + 14 * k, 139.2, 320, 2.5, 1.6) for k in range(4)])
+    cled = _comp([_ycyl(-420 + 14 * k, ybi - 100.8, 320, 2.5, 1.6) for k in range(4)])
     add("Dock controller status lights (lit)", cled, C_LED_G, "emissive", 6, "internal", (-800, 300, 750))
-    ant = _zcyl(-250, 190, 360, 6, 40)
+    ant = _zcyl(-250, ybi - 50, 360, 6, 40)
     ant = _fillet_try(ant, _top(ant), [5.0, 3.0])
     add("LTE-M antenna", ant, C_BLACK, "rubber", 6, "internal", (-800, 300, 750))
 
-    grid = B(230, 450, 150, 242, 150, 360)
+    gy0 = ybi - 92
+    grid = B(230, 450, gy0, ybi, 150, 350)
     grid = _fillet_try(grid, _par(grid, Axis.Y), [6.0, 4.0])
-    grid -= B(250, 430, 149, 156, 230, 320)
+    grid -= B(250, 430, gy0 - 1, gy0 + 6, 230, 320)
     add("Grid input enclosure", grid, C_BODY2, "plastic", 8, "internal", (900, 0, -40))
-    brk = _comp([B(258 + 18 * k, 274 + 18 * k, 156, 176, 240, 310) for k in range(9)])
+    brk = _comp([B(258 + 18 * k, 274 + 18 * k, gy0 + 6, gy0 + 26, 240, 310) for k in range(9)])
     add("RCBO, breakers and surge protector", brk, C_WHITE, "plastic", 8, "internal", (900, 0, -40))
-    tog = _comp([B(263 + 18 * k, 269 + 18 * k, 151, 158, 272, 284) for k in range(9)])
+    tog = _comp([B(263 + 18 * k, 269 + 18 * k, gy0 + 1, gy0 + 8, 272, 284) for k in range(9)])
     add("Breaker toggles", tog, C_BLACK, "plastic", 8, "internal", (900, 0, -40))
-    iso = _ycyl(340, 149, 190, 18, 4) + B(330, 350, 141, 147, 176, 204)
+    iso = _ycyl(340, gy0 - 1, 190, 18, 4) + B(330, 350, gy0 - 9, gy0 - 3, 176, 204)
     add("Lockable isolator", iso, C_RED, "plastic", 8, "internal", (900, 0, -40))
 
-    mppt = B(-190, -40, 170, 240, 150, 330)
+    my0 = ybi - 70
+    mppt = B(-190, -40, my0, ybi, 150, 330)
     mppt = _fillet_try(mppt, _par(mppt, Axis.Y), [4.0, 2.0])
     add("MPPT solar charge controller", mppt, C_DARK, "metal", 13, "internal", (1500, -450, -350))
-    mf = _comp([B(-186 + 12 * k, -180 + 12 * k, 240, 246, 160, 320) for k in range(12)])
+    mf = _comp([B(-186 + 12 * k, -180 + 12 * k, my0 - 6, my0, 160, 320) for k in range(12)])
     add("MPPT heat sink fins", mf, C_ALU, "metal", 13, "internal", (1500, -450, -350))
-    mscr = B(-160, -70, 169.4, 170, 280, 315)
+    mscr = B(-160, -70, my0 - 6.6, my0 - 6, 280, 315)
     add("MPPT display", mscr, C_SCREEN, "screen", 13, "internal", (1500, -450, -350))
 
-    # ------------------------------------------------------------ 9 fire detection and suppression
+    # ------------------------------------------------------------ 9 fire detection and suppression (model.py)
     EF = (0, 500, 350)
-    aer = Pos(-60, 200, 1420) * Rot(0, 90, 0) * Cylinder(38, 420)
-    aer = _fillet_try(aer, aer.edges(), [6.0, 4.0, 2.0])
-    add("Aerosol suppression unit", aer, C_RED, "painted", 9, "internal", EF)
-    bands = _comp([_xcyl(x, 200, 1420, 39.5, 12) for x in (-220, 100)])
-    add("Aerosol unit straps", bands, C_METAL, "metal", 9, "internal", EF)
-    det = Pos(250, 200, 1465) * Cylinder(45, 25)
-    det = _fillet_try(det, _bottom_edges(det), [8.0, 5.0])
-    add("Heat and smoke detector", det, C_WHITE, "plastic", 9, "internal", EF)
+    add("Aerosol suppression unit on its straps", M["fire"].shape, C_RED, "painted", 9, "internal", EF)
+    add("Heat and smoke detector", M["detector"].shape, C_WHITE, "plastic", 9, "internal", EF)
 
-    # ------------------------------------------------------------ 10 plenum, fans, roof louver
+    # ------------------------------------------------------------ 10 plenum wall, roof fans, vent hood (model.py)
     EP = (0, 900, 250)
-    plen = B(-W / 2 + t, W / 2 - t, LY1, LY1 + P["plenum_t"], BZ0, Z1 - t)
-    for xc in xs:
-        plen -= B(xc - 30, xc + 30, LY1 - 1, LY1 + P["plenum_t"] + 1, BZ1 - 80, BZ1 - 20)
-    add("Vent plenum wall", plen, C_LINER, "metal", 10, "internal", EP)
-    fans, grills = [], []
-    for x in (-380, 380):
-        f = Pos(x, 185, Z1 - t - 13) * Cylinder(60, 25) - Pos(x, 185, Z1 - t - 27) * Cylinder(56, 20)
-        fans.append(f + Pos(x, 185, Z1 - t - 15) * Cylinder(18, 22))
-        for r in (22, 36, 50):
-            grills.append(Pos(x, 185, Z1 - t - 26) * (Cylinder(r + 1.5, 2) - Cylinder(r - 1.5, 3)))
-    add("Plenum fans, 120 mm", _comp(fans), C_BLACK, "plastic", 10, "internal", EP)
-    add("Fan guards", _comp(grills), C_METAL, "metal", 10, "internal", EP)
-
-    lv = B(-420, 420, 160, 240, Z1, Z1 + 70)
-    for i in range(9):
-        x = -380 + i * 90
-        lv -= B(x, x + 50, 150, 250, Z1 + 20, Z1 + 55)
-    add("Roof louver", lv, C_BODY2, "painted", 10, "shell", (0, 900, 250))
-    hood = B(-435, 435, 145, 255, Z1 + 70, Z1 + 76)
-    hood = _fillet_try(hood, _par(hood, Axis.Z), [8.0, 5.0])
-    hood = _fillet_try(hood, _top(hood), [2.0, 1.0])
-    add("Louver rain hood", hood, C_BODY2, "painted", 10, "shell", (0, 900, 330))
-    mesh = B(-418, 418, 162, 238, Z1 + 1, Z1 + 3)
-    add("Louver insect mesh", mesh, C_DARK, "fabric", 10, "shell", (0, 900, 250))
+    add("Vent plenum wall", M["plenum"].shape, C_LINER, "metal", 10, "internal", EP)
+    add("Roof fans, 120 mm", M["fans"].shape, C_BLACK, "plastic", 10, "internal", (0, 900, 450))
+    hood = M["hood"].shape
+    add("Vent hood with rear slots and rain lip", hood, C_BODY2, "painted", 10, "shell", (0, 900, 600))
+    hx_, hyf, hyb, hh = P["hood"]
+    mesh = B(-hx_ + t, hx_ - t, hyb - t - 1.2, hyb - t - 0.2, Z1 + 8, Z1 + 56)
+    add("Vent hood insect mesh", mesh, C_DARK, "fabric", 10, "shell", (0, 900, 600))
 
     # ------------------------------------------------------------ 7 access panel
     EA = (700, -300, 0)
@@ -429,19 +400,19 @@ def product_parts(P=PARAMS):
     col = _fillet_try(col, _par(col, Axis.Y), [10.0, 6.0])
     col = _fillet_try(col, _front(col), [1.5, 1.0])
     add("Access panel bezel, steel", col, C_DARK, "painted", 7, "shell", EA)
-    dz0, dz1 = P["display_z"]
-    disp = B(ax0 + 20, ax1 - 20, YF - 8, YF - 4, dz0, dz1)
+    dz0_, dz1_ = P["display_z"]
+    disp = B(ax0 + 20, ax1 - 20, YF - 8, YF - 4, dz0_, dz1_)
     disp = _fillet_try(disp, _par(disp, Axis.Y), [4.0, 2.0])
     add("Display bezel", disp, C_BLACK, "plastic", 7, "shell", EA)
-    glass = B(ax0 + 26, ax1 - 26, YF - 8.6, YF - 7.9, dz0 + 6, dz1 - 6)
+    glass = B(ax0 + 26, ax1 - 26, YF - 8.6, YF - 7.9, dz0_ + 6, dz1_ - 6)
     add("Display glass", glass, C_SCREEN, "screen", 7, "shell", EA)
     ym = YF - 8.9
-    ui = [B(ax0 + 30, ax1 - 30, ym, YF - 8.5, dz1 - 22, dz1 - 12)]                        # title bar
-    ui_w = [_text_front("Tap to swap", (ax0 + ax1) / 2, YF - 8.6, dz1 - 44, 15, 0.3)]
+    ui = [B(ax0 + 30, ax1 - 30, ym, YF - 8.5, dz1_ - 22, dz1_ - 12)]
+    ui_w = [_text_front("Tap to swap", (ax0 + ax1) / 2, YF - 8.6, dz1_ - 44, 15, 0.3)]
     tiles_g, tiles_a = [], []
     for k in range(4):
         x0 = ax0 + 32 + 30 * k
-        tl = B(x0, x0 + 24, ym, YF - 8.5, dz0 + 14, dz0 + 52)
+        tl = B(x0, x0 + 24, ym, YF - 8.5, dz0_ + 14, dz0_ + 52)
         (tiles_a if BAY_LIGHTS[k] == "amber" else tiles_g if BAY_LIGHTS[k] == "green" else ui_w).append(tl)
     add("Display screen content, teal (lit)", _comp(ui), C_UI, "emissive", 7, "shell", EA)
     add("Display screen content, white (lit)", _comp(ui_w), C_UI_W, "emissive", 7, "shell", EA)
@@ -460,73 +431,45 @@ def product_parts(P=PARAMS):
         a = _ycyl(rx - 6, YF - 8.3, rzc, r + 1.3, 0.6) - _ycyl(rx - 6, YF - 8.3, rzc, r - 1.3, 2)
         arcs.append(a & B(rx - 6, rx + 30, YF - 10, YF - 6, rzc - 12, rzc + 12))
     add("Contactless symbol", _comp(arcs), C_DARK, "painted", 7, "shell", EA)
-    sl = []
     for k in range(4):
         x = ax0 + 45 + 30 * k
         d = _ycyl(x, YF - 5.5, 1025, 4.0, 3.0)
         d = _fillet_try(d, _front(d), [1.5, 1.0])
-        sl.append((k, d))
-    for k, d in sl:
-        st = BAY_LIGHTS[k]
-        col_, mat_ = {"green": (C_LED_G, "emissive"), "amber": (C_LED_A, "emissive"), "off": (C_LED_OFF, "plastic")}[st]
+        col_, mat_ = {"green": (C_LED_G, "emissive"), "amber": (C_LED_A, "emissive"), "off": (C_LED_OFF, "plastic")}[BAY_LIGHTS[k]]
         add(f"Access panel bay {k + 1} light", d, col_, mat_, 7, "shell", EA)
     buz = _comp([_ycyl(rx - 15 + 10 * i, YF - 4.2, az0 + 22, 2.0, 0.6) for i in range(4)])
     add("Buzzer grille", buz, C_BLACK, "plastic", 7, "shell", EA)
     scr = _comp([_ycyl(x, YF - 4.6, z, 3.0, 1.2) for x in (ax0 + 10, ax1 - 10) for z in (az0 + 10, az1 - 10)])
     add("Bezel security screws", scr, C_METAL, "metal", 16, "shell", EA)
 
-    # ------------------------------------------------------------ 15 service door
+    # ------------------------------------------------------------ 15 service door (model.py: piano hinge, intake slot, cam lock)
     ES = (0, -1100, -150)
-    sd = B(-480, 480, YF - 6, YF - 2, 140, 660)
-    sd = _fillet_try(sd, _par(sd, Axis.Y), [5.0, 3.0])
-    sd = _fillet_try(sd, _front(sd), [1.2, 0.8])
-    for k in range(6):
-        z = 175 + 22 * k
-        sd -= B(-420, -120, YF - 7, YF - 1, z, z + 8)
-    for k in range(6):
-        z = 175 + 22 * k
-        sd -= B(120, 320, YF - 7, YF - 1, z, z + 8)
+    sd = M["service"].shape
+    sd = _fillet_try(sd, _par(sd, Axis.Y), [3.0, 2.0])
     add("Service door, steel", sd, C_BODY, "painted", 15, "shell", ES)
-    sflt = B(-422, 322, YF - 1.5, YF - 0.5, 170, 300)
-    add("Service door intake filter", sflt, C_DARK, "fabric", 10, "shell", ES)
-    cam = _ycyl(400, YF - 9, 400, 16, 6)
-    cam = _fillet_try(cam, _front(cam), [2.0, 1.0])
-    cam -= B(398, 402, YF - 13, YF - 10, 390, 410)
-    add("Service door cam lock", cam, C_METAL, "metal", 15, "shell", ES)
-    shng = _comp([_zcyl(-483, YF - 6, z, 5.0, 70) for z in (220, 580)])
-    add("Service door hinges", shng, C_METAL, "metal", 15, "shell", ES)
-    warn = B(-440, -320, YF - 6.4, YF - 5.9, 470, 620)
+    add("Service door intake filter pad", M["filter"].shape, C_DARK, "fabric", 10, "shell", ES)
+    add("Service door cam lock", M["cam_lock"].shape, C_METAL, "metal", 15, "shell", ES)
+    add("Service door piano hinge, stainless", M["service_hinge"].shape, C_METAL, "metal", 15, "shell", ES)
+    warn = B(-440, -320, DF - 0.5, DF, 470, 620)
     add("Lithium battery warning label", warn, C_WARN, "paper", 16, "shell", ES)
-    wtri = _text_front("!", -380, YF - 6.4, 560, 70, 0.3)
-    wbar = _comp([B(-430, -330, YF - 6.7, YF - 6.3, 480 + 12 * k, 486 + 12 * k) for k in range(3)])
+    wtri = _text_front("!", -380, DF - 0.5, 560, 70, 0.3)
+    wbar = _comp([B(-430, -330, DF - 0.8, DF - 0.4, 480 + 12 * k, 486 + 12 * k) for k in range(3)])
     add("Warning label print", _comp([wtri, wbar]), C_BLACK, "paper", 16, "shell", ES)
-    info = B(-280, 20, YF - 6.4, YF - 5.9, 540, 620)
+    info = B(-280, 20, DF - 0.5, DF, 540, 620)
     add("Operator information plate", info, C_WHITE, "paper", 16, "shell", ES)
-    ink = _comp([B(-270, -40, YF - 6.7, YF - 6.3, 596, 608)]
-                + [B(-270, 10 - 40 * (k % 2), YF - 6.7, YF - 6.3, 552 + 12 * k, 557 + 12 * k) for k in range(3)])
+    ink = _comp([B(-270, -40, DF - 0.8, DF - 0.4, 596, 608)]
+                + [B(-270, 10 - 40 * (k % 2), DF - 0.8, DF - 0.4, 552 + 12 * k, 557 + 12 * k) for k in range(3)])
     add("Operator plate print", ink, C_DARK, "paper", 16, "shell", ES)
 
-    # ------------------------------------------------------------ 14 plinth
-    ai = P["anchor_inset"]
-    pl = B(-W / 2, W / 2, YF, YB, 0, Z0)
-    pl = _fillet_try(pl, _par(pl, Axis.Z), [12.0, 8.0, 5.0])
-    pl -= B(-W / 2 + 60, W / 2 - 60, YF + 60, YB - 60, -1, Z0 + 1)
-    for x in (-W / 2 + ai, W / 2 - ai):
-        for y in (YF + ai / 2, YB - ai / 2):
-            pl -= Pos(x, y, Z0 / 2) * Cylinder(7, Z0 + 2)
+    # ------------------------------------------------------------ 14 plinth: welded channel frame (model.py)
+    pl = M["plinth"].shape
     pl -= B(-W / 2 - 1, W / 2 + 1, YF - 1, YF + 1, Z0 - 12, Z0 - 10)       # shadow line under the body
-    add("Plinth and anchor frame", pl, C_PLINTH, "painted", 14, "shell", (0, 0, -350))
+    add("Plinth, welded steel channel", pl, C_PLINTH, "painted", 14, "shell", (0, 0, -350))
+    add("Floor bolts", M["floor_bolts"].shape, C_BLACK, "metal", 16, "internal", (0, 0, -350))
 
     # ------------------------------------------------------------ 11, 12 canopy (group accessory)
     pw, pd, pt = P["panel"]
-    a = P["tilt_deg"]
-    PY, PZ = P["panel_y"], P["panel_z"]
-    tanA = math.tan(math.radians(a))
-    place = Pos(0, PY, PZ) * Rot(-a, 0, 0)
-
-    def under(y):
-        return PZ - pt / 2 / math.cos(math.radians(a)) - (y - PY) * tanA
-
+    place = panel_frame(P)
     fr = B(-pw / 2, pw / 2, -pd / 2, pd / 2, -pt / 2, pt / 2)
     fr = _fillet_try(fr, _par(fr, Axis.Z), [6.0, 4.0])
     fr -= B(-pw / 2 + 22, pw / 2 - 22, -pd / 2 + 22, pd / 2 - 22, -pt / 2 + 4, pt / 2 + 1)
@@ -545,27 +488,12 @@ def product_parts(P=PARAMS):
     add("Solar cell gaps", place * _comp(lines), "#C9CED6", "metal", 11, "accessory", (0, 0, 1900))
     jb = B(-60, 60, -40, 40, -pt / 2 - 18, -pt / 2)
     add("Solar junction box", place * jb, C_BLACK, "plastic", 11, "accessory", (0, 0, 1900))
+    add("Canopy posts on base and cap plates", M["posts"].shape, C_PLINTH, "painted", 12, "accessory", (0, 0, 1500))
+    add("Canopy post bolts", M["post_bolts"].shape, C_METAL, "metal", 12, "accessory", (0, 0, 1500))
+    add("Canopy rails", M["rails"].shape, C_PLINTH, "painted", 12, "accessory", (0, 0, 1700))
+    add("Solar panel end clamps", M["clamps"].shape, C_ALU, "metal", 12, "accessory", (0, 0, 1900))
 
-    rh = P["rail_h"]
-    rails = _comp([Pos(x, PY, PZ - pt / 2 - rh / 2 - 2) * Rot(-a, 0, 0) * B(-25, 25, -(pd - 80) / 2, (pd - 80) / 2, -rh / 2, rh / 2)
-                   for x in (-P["post_x"], P["post_x"])])
-    s = P["post"] / 2
-    posts, plates, bolts = [], [], []
-    for x in (-P["post_x"], P["post_x"]):
-        for y in (-P["post_y"], P["post_y"]):
-            ps = B(x - s, x + s, y - s, y + s, Z1, under(y) - rh - 5)
-            posts.append(_fillet_try(ps, _par(ps, Axis.Z), [4.0, 3.0]))
-            bp = B(x - 55, x + 55, y - 55, y + 55, Z1, Z1 + 8)
-            plates.append(_fillet_try(bp, _par(bp, Axis.Z), [8.0, 5.0]))
-            for dx in (-38, 38):
-                for dy in (-38, 38):
-                    bolts.append(Pos(x + dx, y + dy, Z1 + 11) * Cylinder(8, 6))
-    add("Canopy rails", rails, C_PLINTH, "painted", 12, "accessory", (0, 0, 1500))
-    add("Canopy posts, 50 x 50 steel", _comp(posts), C_PLINTH, "painted", 12, "accessory", (0, 0, 1500))
-    add("Canopy post base plates", _comp(plates), C_PLINTH, "painted", 12, "accessory", (0, 0, 1200))
-    add("Canopy base bolts", _comp(bolts), C_METAL, "metal", 12, "accessory", (0, 0, 1200))
-
-    # ------------------------------------------------------------ context: sidewalk, rider, pack in hand
+    # ------------------------------------------------------------ context: paved patch, rider, pack in hand
     tiles = []
     step = 600.0
     x0, x1, y0, y1 = -1200.0, 1050.0, -1200.0, 700.0

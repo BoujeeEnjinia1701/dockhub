@@ -1,5 +1,69 @@
 # Review note: DockHub
 
+## Session 2026-10-02: Photoreal renders redone on the constructable design
+
+Amish, 2026-10-02: "Photoreal renders are out of date in most repos ... COMPLETE THESE". Rendered with Blender Cycles on Amish's Mac (batch F1) from the scenes exported from `cad/src/product_model.py`, captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` regenerated with `.kit/cards.py`. Each raw render was looked at once. No commit or push; `trl` unchanged.
+
+- Views: `media/render-hero.png`, `media/render-exploded.png`, `media/render-detail.png`.
+- Re-renders: none.
+- Appearance deviations already logged (2026-09-26 session and decision 12, Proposed, awaiting Amish): clear windows in the bay doors (renders only; the caption says the built doors are solid steel); bay 1 open with its pack in the rider's hand; header sign, bay numbers, warning label and information plate; four-bay fit shown; the paved street setting. The louver rain hood and post base plates are now in `model.py`, so they are no longer deviations. Sign wording still to be settled by Amish.
+- `python3 .kit/image_qc.py`: 5 images, 0 problems. `python3 .kit/render.py --check`: no FAIL, no storefront warning.
+- The "Stale media" note of the 2026-10-01 session is removed; this work resolves it.
+
+## Session 2026-10-02: approved follow-ups carried out
+
+Amish, 2026-10-02: "497 follow-up actions that need CAD, drawing, picture, BOM or calculation work ... APPROVED CHANGES, COMPLETE THESE" and "Photoreal renders are out of date in most repos ... COMPLETE THESE". The nine follow-ups listed in the session below were worked through; no hardware was built or bought and `trl` stays 3.
+
+### Follow-ups
+
+1. Decision 3, solar switched to the flattest pack: **done as far as TRL 3 allows.** `sizing.py` now runs the rule as a sensitivity (not adopted): solar share 16.1 % with all 20 riders served, against 9.3 % with normal routing. The controller change itself is TRL 4 work; R6 is rerun on it if it is adopted.
+2. Decision 4, R9 limits: **done.** DKH-CAL-001 section 7 states the restated limits (full rate up to about 30 °C, no start for cold-soaked packs below about -1 °C, calculated -1.1 °C).
+3. Decision 7, self-run propagation trial plan: **not done.** A test plan is TRL 4 work and the portfolio is capped at TRL 3 (CLAUDE.md section 1). The trial variant it needs (item 4) is ready. Recommendation for TRL 4: plan the heater-triggered trial with plain and vermiculite floors side by side.
+4. Decision 8, vermiculite floor variant: **done.** `build_components(variant="vermiculite")` adds a 175 x 168 x 20 mm stainless tray of vermiculite in front of each cradle (fit check clean, 3 mm to the cradle, rim 10.5 mm below the pack connector face); STEP `cad/step/dockhub-bay-vermiculite.step`; making sketch DKH-DWG-119; BOM line 19 at USD 11 a bay, quantity 0 (trial option, not in the total).
+5. Decision 9, anchors and pad: **done.** Four M12 x 160 stainless wedge anchors at 100 mm embedment (BOM line 17, USD 40) into a cast reinforced pad 1,400 x 1,100 x 300 mm, about 1,109 kg (line 18, USD 265), chosen to work on any private host ground. With the cabinet the pad gives an equilibrium factor of 1.12 at a 30 m/s gust (0.9 on weight, 1.5 on wind). Modelled with `site=True` (STEP `cad/step/dockhub-site-pad.step`), making sketch DKH-DWG-120, build plan section 9 and safety stop S7. **Found while modelling the anchor nuts:** the plinth's top flange covered the anchor holes, so the socket path of DDR-003 P10 was blocked; 32 mm socket holes were added in the top flange and `model.py --check` now checks the socket path (clear).
+6. Decision 10, anonymous prepaid NFC cards: **done.** Token entry restated (20 B: card identifier hash, type, deposit held, prepaid swaps left, expiry, flags) in DKH-PRC-001 and DKH-CAL-001 section 9; token list 160 to 200 kB. No cabinet change.
+7. Decision 12, caption and sign: **caption done**: every view note in `cad/src/product_model.py` starts "Four-bay fit shown" and says the door windows are in renders only. **Sign wording not settled**: the render keeps "DockHub / SWAPCELL BATTERY SWAP / tap, return, take"; the final wording is for Amish with branding.
+8. Decision 13, re-render to the constructable design: **scenes ready, renders not made here.** `cad/src/product_model.py` rebuilt from `cad/src/model.py` (piano hinges, 172 mm doors over 150 mm openings, vent hood with rear slots, square roof fans, roof beams, post base and cap plates, rails, end clamps, service door with intake slot; side intake slots and the louver block removed). Scenes exported to `/home/claude/renders/dockhub` (hero, exploded, detail). `media/render-*.png`, `media/card.png` and `media/social-preview.png` are made on Amish's Mac next.
+9. Decision 6, approach Los Deliveristas Unidos: **not done.** Contacting a partner is Amish's action; nothing is agreed.
+
+### Requirement status changes (DKH-CAL-001 v0.6)
+
+- R6: not met to **met (thin margin)** in the calculation, against the restated target of about 9 % (9.3 %).
+- R9: not met to **at risk** in the calculation, against the restated target (warmest bay may pause just under 30 °C).
+- R15: at risk to **met on paper** (anchors and pad chosen; anchor rating to confirm from the maker's approval data).
+- R16: still over the target, now by USD 319 (was USD 14), because the anchors and pad are now in the BOM.
+- Counts: 11 met, 2 at risk (R8, R9), 2 not verifiable (R7, R14), 1 over its value-engineering target (R16).
+
+### Cost and mass
+
+Value-engineering target: USD 1,200. Estimated cost of the constructable design: USD 1,519 (USD 319 over the target); USD 1,214 without the anchors and pad; USD 1,743 with four bays. `budget_usd` unchanged. Mass unchanged: 217 kg (two-bay prototype, no packs), 247 kg (four bays, three packs); the site pad adds about 1,109 kg.
+
+### Documents changed
+
+- `cad/src/model.py` (variant and site options, plinth socket holes, socket access check, new clearances); STEP and STL regenerated, two new: `dockhub-bay-vermiculite`, `dockhub-site-pad`. Fit check: 0 overlaps in the two-bay, four-bay, vermiculite and site configurations; all joints touch.
+- `bom/bom.csv` (lines 9 and 14 notes, new lines 17, 18, 19), `bom/bom-notes.md`.
+- `docs/04-calcs/sizing.py` and `results.csv`; DKH-CAL-001 v0.6; DKH-REQ-001 v0.8; DKH-PRC-001 v0.8; DKH-BLD-001 v0.4; DKH-DEC-001 v0.4 (value engineering, To confirm item 9); DKH-DDR-003 v0.4 (consequences); `README.md`.
+- Drawings: DKH-DWG-001 Rev P3; DKH-DWG-101 Rev P2; new DKH-DWG-119 and DKH-DWG-120 (P1); DKH-DWG-102 regenerated (no change of revision).
+- Pictures: `docs/05-build-plan/overview.png`, `step-01.png`, `joint-01.png`; concept media (hero, blueprint DKH-DWG-010 Rev P2, exploded, cutaway, flow, `model.glb`, `viewer.html`).
+- `cad/src/product_model.py`, `cad/src/build_plan_media.py`, `cad/src/sheets.py`, `cad/src/concept_media.py`.
+
+### Proposed, awaiting Amish
+
+- Render context: the renders keep the paved street setting although the first pilot is on private ground. Recommendation: keep it as the product image; option: a private frontage scene.
+- The cast pad is the main cost driver (USD 265). Recommendation: keep it in the estimate; drop it only where an engineer confirms the host's own slab does the job.
+
+### Cross-repo actions
+
+None. No follow-up for this repo needs work in another repo.
+
+### Safety
+
+The site pad and anchors add work at the site: excavation, about 1.1 t of concrete and drilling into concrete (dust: wear a mask and eye protection). Safety stop S7 now names the pad, its 7 day cure and the anchor torque. The vermiculite tray is for the propagation trial only. Earlier hazards are unchanged.
+
+### Recommended next step
+
+Amish to render the three views on the Mac and settle the sign wording; at TRL 4, plan the self-run propagation trial with plain and vermiculite floors and try flattest-pack solar switching.
+
 ## Session 2026-10-02: open decisions decided
 
 Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." The recommendations written for this repo's open decisions are recorded as decided.
@@ -79,10 +143,6 @@ Kit 1.7.0 installed (`.kit/`, `.claude/commands/`, `CLAUDE.md`). Following `/bui
 - R16: raise `budget_usd` to $1,250 (recommended), recover $14 at supplier selection, or accept not met. `budget_usd` is unchanged.
 - Door hinges outside the front panel (R10): piano hinges with peened pins for the prototype (recommended), or concealed hinges.
 - The earlier open items (pack ownership, pilot site, R6, R9 and the render choices) are carried into the register.
-
-### Stale media (made on Amish's Mac, not regenerated here)
-
-`media/render-hero.png`, `media/render-exploded.png`, `media/render-detail.png`, `media/card.png` and `media/social-preview.png`, and the appearance model `cad/src/product_model.py`, still show the concept: 172 mm door openings, no hinges, a louver block rather than the vent hood, and no roof beams or post plates. They need re-rendering once DKH-DDR-003 is decided.
 
 ### Safety
 

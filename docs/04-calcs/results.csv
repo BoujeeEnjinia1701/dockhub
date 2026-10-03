@@ -1,9 +1,7 @@
 id,value,target,status
-R6,"9.3 % of charging energy (0.74 of 1.38 kWh used); 11.4 % with solar steering, which turns 1 rider away","10 % or more (relaxed from 20 %, DKH-DDR-001)",Not met
-R9,Charging pauses above about 29 to 39 degC ambient and for cold-soaked packs below about -1 degC; charge window enforced by pack and controller,-10 to 45 degC ambient; never charge outside the pack window,Not met
-R16,"$1,214 with 2 of 4 bays fitted ($1,438 with 4)","$1,200, packs excluded (two bays fitted, DKH-DDR-001)",Not met
+R16,"$1,519 with 2 of 4 bays fitted, anchors and pad included ($1,743 with 4)","$1,200, packs excluded (two bays fitted, DKH-DDR-001)",Not met
 R8,Two 1.5 mm steel walls and a gap between packs; propagation needs a test,No spread for 30 min,At risk (not verifiable at TRL 3)
-R15,Overturning 2.9 kN m against 0.53 kN m self-weight; anchors 3.8 kN design tension each,Upright at a 30 m/s gust,At risk (anchors and pad not yet chosen)
+R9,Full-rate charging up to about 29 to 39 degC ambient; cold-soaked packs start only above about -1 degC; charge window enforced by pack and controller,Full-rate charging up to about 30 degC; cold-soak limit near -1 degC stated (restated 2026-10-02),At risk (warmest bay may pause just under 30 degC)
 R7,Electronic latency 3.1 s; contactor 0.15 s; vent path to the roof louver by design,Detect in 10 s; contactor in 1 s,Not verifiable at TRL 3
 R14,All parts through the service door or bay door with hand tools,15 min per part,Not verifiable at TRL 3
 R1,31 s task analysis,60 s or less,Met
@@ -11,7 +9,9 @@ R2,"Interface v0.3: coded INTERLOCK receptacle, dock host type 1, class D catch,
 R3,20 to 80 % in 1.2 h; full in 2.3 h,1.5 h; 2.5 h,Met
 R4,"4 bays: 20 of 20 served, longest wait 4 min; ceiling 36 a day (55 at 80 % release). 2-bay prototype: 9 of 20 served",20 a day from 4 bays,Met (4 bays)
 R5,1.25 kW; 11.0 A at 120 V with PF 0.95 (17.2 A at PF 0.6),1.5 kW; one 120 V 15 A or 230 V 10 A circuit,Met (PF 0.9 or better chargers)
+R6,"9.3 % of charging energy (0.74 of 1.38 kWh used); 11.4 % with solar steering, which turns 1 rider away; 16.1 % if the MPPT is switched to the flattest pack (TRL 4 trial)","About 9 % with normal routing (restated 2026-10-02, DKH-DEC-001)",Met (thin margin)
 R10,"1.5 mm steel, fail-secure locks, anchored plinth, token plus returned pack",Security features,Met (design review)
 R11,Operable parts 0.73 to 1.10 m,0.38 to 1.22 m,Met
-R12,1.28 kB of log a day; offline token list 160 kB,No cameras; 24 h offline,Met (design review)
+R12,1.28 kB of log a day; offline token list 200 kB,No cameras; 24 h offline,Met (design review)
 R13,1.0 x 0.5 m; canopy lowest point over the sidewalk 2.17 m,1.0 x 0.6 m; 2.1 m,Met
+R15,"Overturning 2.9 kN m against 0.53 kN m self-weight; four M12 anchors at 3.8 kN design tension into a 1109 kg pad, equilibrium factor 1.12",Upright at a 30 m/s gust,Met (anchor rating to confirm from the maker's data)

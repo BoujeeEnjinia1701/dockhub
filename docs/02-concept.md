@@ -3,7 +3,7 @@ doc_id: DKH-PRC-001
 title: DockHub design precis
 project: DockHub
 doc_type: Design precis
-version: "0.7"
+version: "0.8"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -37,6 +37,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "R6, R9, pack ownership, pilot partner, propagation test, suppression, siting and anonymous cards as decided on 2026-10-02 (DKH-DEC-001)"
+- version: "0.8"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Approved follow-ups carried into the design: anchors and site pad (BOM 17, 18; R15 met), vermiculite floor trial option (BOM 19), anonymous prepaid cards in the token list, flattest-pack solar sensitivity; numbers from DKH-CAL-001 v0.6"
 ---
 
 # DockHub design precis
@@ -45,7 +49,7 @@ revisions:
 
 DockHub is a sidewalk cabinet, 1.0 m wide and 0.5 m deep, with four lockable steel bays that each hold and charge one SwapCell pack. A rider taps a card or phone, returns a flat pack to the empty bay and takes a charged one from another, in about 31 seconds. Each bay is a copy of the SwapCell wall dock built to SwapCell interface v0.3: a cradle with the blind-mate receptacle and its 10 kΩ INTERLOCK coding resistor, a certified 54.6 V 5 A charger and a CAN channel that checks the pack before charging. Every bay is its own steel compartment venting to a rear plenum, so a pack fault is detected, cut off and ducted away from the user side. A 400 W solar canopy shades the front and feeds bay 1; the grid supplies the rest through one single-phase circuit.
 
-The sizing note DKH-CAL-001 confirms the swap time, charge speed, throughput (with four bays), grid draw, reach heights and footprint. It also showed two requirements not met: the canopy supplies 9.3 % of the charging energy against the relaxed 10 % target (R6), and the pack's 45 °C charge limit stops charging whenever ambient air is above about 29 to 39 °C (R9). On 2026-10-02 Amish restated R6 as about 9 % and R9 as full-rate charging up to about 30 °C ambient, with daytime pauses accepted (DKH-DEC-001); R6 is now met on paper and R9 at risk. Making the design buildable (DKH-DDR-003) added parts that take the estimated cost to $1,214 against the $1,200 value-engineering target with two of four bays fitted, so R16 is over the target by $14. Fire containment (R8) and anchoring (R15) are at risk. Because a swap needs an empty bay, the four-bay station runs with three packs and the two-bay first prototype with one (DKH-REQ-001, DKH-DDR-001).
+The sizing note DKH-CAL-001 confirms the swap time, charge speed, throughput (with four bays), grid draw, reach heights and footprint. It also showed two requirements not met: the canopy supplies 9.3 % of the charging energy against the relaxed 10 % target (R6), and the pack's 45 °C charge limit stops charging whenever ambient air is above about 29 to 39 °C (R9). On 2026-10-02 Amish restated R6 as about 9 % and R9 as full-rate charging up to about 30 °C ambient, with daytime pauses accepted (DKH-DEC-001); R6 is now met on paper and R9 at risk. Making the design buildable (DKH-DDR-003) took the estimated cost to $1,214, and the anchors and cast site pad chosen for the first pilot on private ground add $305, so the two-bay prototype is estimated at $1,519 against the $1,200 value-engineering target (R16, $319 over). With the anchors and pad, anchoring (R15) is met on paper; fire containment (R8) remains at risk. Because a swap needs an empty bay, the four-bay station runs with three packs and the two-bay first prototype with one (DKH-REQ-001, DKH-DDR-001).
 
 ![DockHub on a sidewalk](../media/hero.png)
 
@@ -53,7 +57,7 @@ The sizing note DKH-CAL-001 confirms the swap time, charge speed, throughput (wi
 
 ## How it works
 
-1. **Identify.** The rider taps an NFC card or phone on the access panel (BOM 7). The controller (6) checks the token against its local list, so the station works without a network connection.
+1. **Identify.** The rider taps an NFC card or phone on the access panel (BOM 7). The controller (6) checks the token against its local list, so the station works without a network connection. The list holds named tokens and anonymous prepaid cards sold by the partner, each card carrying a pack deposit and a number of prepaid swaps; an anonymous card is known to the station only by a hash of its identifier.
 2. **Return.** The empty bay's door (2) unlocks. The rider places the flat pack connector down in the cradle (3) and closes the door. The receptacle mates ground first, then power and CAN, and the interlock last. The 10 kΩ coding resistor in the INTERLOCK loop wakes the pack, as SwapCell interface v0.3 requires (item W).
 3. **Check.** The controller sends the SwapCell heartbeat as a dock (host type 1) on that bay's CAN channel. The pack reports its identity, limits, temperatures and state of health. A pack with a fault, a damage flag or a state of health below 70 % stays locked in and is flagged for a technician; the rider still gets a charged pack.
 4. **Release.** The door of the fullest healthy pack at 80 % state of charge or more unlocks; the rider lifts it out by its handle and closes the door. That bay becomes the empty bay for the next rider. The controller logs the pair of pack IDs against the rider token.
@@ -78,17 +82,20 @@ Table 1. Main components. Numbers match the exploded view (Figure 3) and `bom/bo
 | 6 | Dock controller | ESP32, four SPI CAN controllers (one channel per bay), DC contactors, current sensors, LTE-M modem, SD card | One channel per bay because every SwapCell pack answers as node 0 by default |
 | 7 | Access panel | NFC reader at 0.90 to 0.99 m, display and per-bay status lights, in a column at 0.85 to 1.21 m | Beside bay 4 |
 | 8 | Grid input and protection | RCBO (30 mA), a breaker per charger, surge protection and lockable isolator | Installed by a qualified electrician |
-| 9 | Fire detection and suppression | Heat and smoke detector under the roof, condensed-aerosol unit strapped to the back panel at the plenum top | Aerosol can suppress flame but cannot stop a cell in runaway |
+| 9 | Fire detection and suppression | Heat and smoke detector under the roof, condensed-aerosol unit strapped to the back panel at the plenum top | Aerosol can suppress flame but cannot stop a cell in runaway; vermiculite floors are tested against it (line 19) |
 | 10 | Vent plenum and roof vent hood | Rear plenum 137 mm deep behind the bays, two 120 mm fans under the roof blowing through it into a vent hood with slots in its back face and a rain lip; filtered intake in the service door | Takes charger heat and any vented gas up and out at the back |
 | 11 | Solar panel | 400 W monocrystalline, tilted 10 degrees, front top edge at 2.45 m, rear edge underside at 2.21 m | Shades the rider and the front of the cabinet |
 | 12 | Canopy frame | Four 50 x 50 x 3 mm steel posts on welded base and cap plates, bolted through the roof into the roof beams; two 50 x 40 x 3 mm rails; four panel end clamps | Front posts see about 1.25 kN of uplift at a 30 m/s gust |
 | 13 | MPPT controller | Programmable lithium profile at 54.6 V, output limited to 5 A, feeding bay 1 | Bay 1 keeps its AC charger as a fallback |
-| 14 | Plinth and anchor frame | Welded 100 x 50 x 5 mm steel channel frame flush with the body (1,000 x 500 mm), floor bolted to it, with four M12 anchor points to a concrete pad | Pad and anchors not in BOM; anchors need 3.8 kN design tension each |
+| 14 | Plinth and anchor frame | Welded 100 x 50 x 5 mm steel channel frame flush with the body (1,000 x 500 mm), floor bolted to it, with four M12 anchor holes and socket holes above them | Anchors and pad are lines 17 and 18 |
 | 15 | Service door | 920 x 520 mm steel door on a piano hinge over the technical compartment, with a cam lock and a filtered intake slot | Technician access only |
+| 17 | Anchors (site) | Four M12 x 160 mm stainless wedge anchors, 100 mm embedment, tamper-resistant nuts | 3.8 kN design tension each; not in the exploded view |
+| 18 | Site pad | Cast reinforced concrete pad 1,400 x 1,100 x 300 mm, about 1,109 kg, top flush with the ground | For the first pilot on private ground; not in the exploded view |
+| 19 | Vermiculite bay floor (trial option) | Stainless tray 175 x 168 x 20 mm of exfoliated vermiculite on each bay floor in front of the cradle | Propagation trial only; not fitted to the first prototype or counted in its cost |
 
 ![Exploded view](../media/exploded.png)
 
-*Figure 3. Exploded view of the four-bay fit with BOM numbers. Line 16 (wiring and hardware) is not shown.*
+*Figure 3. Exploded view of the four-bay fit with BOM numbers. Lines 16 to 19 (wiring and hardware, site anchors and pad, trial floor trays) are not shown.*
 
 ![Cutaway](../media/cutaway.png)
 
@@ -110,14 +117,14 @@ Table 2. Key numbers.
 | Throughput ceiling | 36 swaps a day with four bays (three packs, released full); 12 with two bays | |
 | Design day, 20 swaps | Four bays: 20 served, longest wait 4 min. Two bays: 9 served | R4 met by four bays |
 | Daily energy at 20 swaps | 8.76 kWh from the grid (0.72 kWh cabinet loads), 0.77 kWh from the panel, 7.58 kWh stored in packs | |
-| Solar share | 9.3 % of charging energy; 11.4 % if flat packs are routed to bay 1 in daylight, at the cost of one rider in 20 | **R6 not met** |
+| Solar share | 9.3 % of charging energy; 11.4 % if flat packs are routed to bay 1 in daylight, at the cost of one rider in 20; 16.1 % if the solar output is switched to the flattest pack (TRL 4 trial, not adopted) | R6 met (thin margin) against about 9 % |
 | Peak grid draw | 1.25 kW with four chargers; 11.0 A at 120 V and 5.7 A at 230 V with power factor 0.95 | R5 met with power-factor-corrected chargers |
 | Cabinet air at 45 °C ambient | about 49 °C (4.2 to 4.8 K rise with fans and sun on two walls) | |
-| Charging ambient limit | Uninterrupted 5 A charging only below about 29 to 39 °C ambient; cold-soaked packs cannot start below about -1 °C | **R9 not met** |
+| Charging ambient limit | Uninterrupted 5 A charging only below about 29 to 39 °C ambient; cold-soaked packs cannot start below about -1 °C | **R9 at risk** against full-rate charging up to about 30 °C |
 | Fire response | Electronic detection latency 3.1 s; contactor opens in about 0.15 s | R7 not verifiable at TRL 3 |
-| Mass | 217 kg for the two-bay prototype without packs; 247 kg for four bays with three packs | |
-| Wind at a 30 m/s gust | 1,590 N uplift and 1.5 kN drag; 2.91 kN·m overturning against 0.53 kN·m self-weight | R15 at risk until anchors and pad are chosen |
-| Parts cost | $1,214 with two of four bays fitted; $1,438 with four | **R16 over the value-engineering target by $14** |
+| Mass | 217 kg for the two-bay prototype without packs; 247 kg for four bays with three packs; site pad about 1,109 kg | |
+| Wind at a 30 m/s gust | 1,590 N uplift and 1.5 kN drag; 2.91 kN·m overturning against 0.53 kN·m self-weight; with the pad, factor 1.12 against tipping after safety factors | R15 met with four M12 anchors and the cast pad |
+| Parts cost | $1,519 with two of four bays fitted, anchors and pad included ($1,214 without them); $1,743 with four | **R16 over the value-engineering target by $319** |
 
 ## Key design choices
 
@@ -129,7 +136,7 @@ Items 1 to 8 are the TRL 2 recommendations, decided by Amish on 2026-09-25: go w
 4. **Doors stay locked during a fire alarm.** Keeps people from opening a bay with a pack in runaway; the fire service opens the cabinet with a key. The trade-off is that a rider cannot retrieve a returned pack during an alarm; a warning light and a sign explain why.
 5. **Grid first, solar as a supplement.** The 400 W canopy stays as shade and supplement, and R6 is relaxed to 10 %. DKH-CAL-001 finds 9.3 %; on 2026-10-02 Amish restated R6 as about 9 % with normal routing, and switching the solar charger to the bay with the flattest pack is a TRL 4 controller change to try (DKH-DEC-001).
 6. **Solar feeds one bay directly through an MPPT controller.** Avoids an inverter and keeps all mains parts certified. It is also why the solar share is low: bay 1 can use the sun only while it holds a pack that needs charge.
-7. **Offline-first access with NFC tokens.** The station keeps a token list and a log and syncs over LTE-M when it can, with an optional phone app.
+7. **Offline-first access with NFC tokens.** The station keeps a token list and a log and syncs over LTE-M when it can, with an optional phone app. Each 20 B token entry records a hash of the card identifier, whether it is a named token or an anonymous prepaid card, whether a pack deposit is held, the prepaid swaps left and an expiry date (anonymous cards decided by Amish, 2026-10-02). The cabinet is unchanged.
 8. **Pack health gate.** Packs below 70 % state of health, with a fault record or outside the charge temperature window are held for a technician, using the SwapCell in-pack log.
 
 Engineering proposals made at TRL 3, decided by Amish on 2026-09-25: go with recommendation (DKH-DDR-001 items 12 and 13, DKH-DDR-002): build to SwapCell interface v0.3; release packs at 80 % state of charge or more; specify chargers with a power factor of 0.9 or better; a plinth flush with the body.
@@ -148,7 +155,7 @@ Engineering proposals made at TRL 3, decided by Amish on 2026-09-25: go with rec
 - **Mains voltage.** The technical compartment holds 120 V or 230 V AC wiring. It must be installed or checked by a qualified electrician under local electrical code, with an RCD (GFCI), per-charger breakers, surge protection, a lockable isolator and bonding of all metal parts to protective earth. Keep mains and the 54.6 V DC side physically separated and labeled. Use chargers with a power factor of 0.9 or better, or the circuit can be overloaded (DKH-CAL-001 section 6).
 - **DC contacts and faults.** Receptacle contacts are at up to 54.6 V DC and a pack can deliver about 500 A into a short. Contacts stay dead until the SwapCell coded interlock and a valid heartbeat enable the pack. Each bay's DC line needs a fuse rated for 60 V DC with at least 1 kA breaking capacity.
 - **Heat.** A sunlit cabinet in hot weather takes packs above their 45 °C charge limit; the pack and controller must pause charging, and the station must not be relied on for charging in the hottest hours.
-- **Public siting and wind.** Place the cabinet away from building entrances, exits and windows, with the vent hood slots venting away from people. The canopy lifts and tips the cabinet in a strong gust: anchor the plinth to a concrete pad with four anchors rated for at least 3.8 kN design tension each, and bolt the canopy posts through to the roof frame. Keep a clear pedestrian path beside the cabinet.
+- **Public siting and wind.** Place the cabinet away from building entrances, exits and windows, with the vent hood slots venting away from people. The canopy lifts and tips the cabinet in a strong gust: anchor the plinth to the cast site pad (1,400 x 1,100 x 300 mm) with the four M12 wedge anchors, each rated for at least 3.8 kN design tension, and bolt the canopy posts through to the roof frame. Keep a clear pedestrian path beside the cabinet.
 - **Pinch, lifting and sharp edges.** Fold or hem all sheet edges; door locks must not pinch fingers. Canopy edges above head height need rounded corners. The cabinet weighs about 217 kg empty: move it with lifting equipment, not by hand.
 
 ## Open questions
