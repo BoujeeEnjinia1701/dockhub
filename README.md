@@ -62,7 +62,15 @@ A street-side battery swap and charging station for SwapCell packs, serving e-bi
 
 The TRL 3 sizing note (DKH-CAL-001) finds 1.2 h to charge a pack from 20 to 80 %, all 20 riders served on the design day (up to 36 swaps a day), 1.25 kW peak from one single-phase circuit with power-factor-corrected chargers, and a mass of about 217 kg for the two-bay prototype. The 400 W canopy supplies 9.3 % of the charging energy, and the SwapCell pack's 45 °C charge limit pauses charging when ambient air is above about 29 to 39 °C. Amish restated both targets on 2026-10-02: about 9 % solar, and full-rate charging up to about 30 °C ambient with daytime pauses accepted, so the first pilot goes where summer highs sit near that. The parts added to make the design buildable bring the estimated cost to $1,214, and the four M12 anchors and cast concrete pad chosen for the first pilot on private ground add $305, for $1,519 against the $1,200 value-engineering target. With the pad, the cabinet stays upright at a 30 m/s gust on paper; fire containment remains at risk.
 
-Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Decisions: [docs/decisions/0001-trl2-review-decisions.md](docs/decisions/0001-trl2-review-decisions.md), [docs/decisions/0002-recommendations-accepted.md](docs/decisions/0002-recommendations-accepted.md), [docs/decisions/0003-design-for-construction.md](docs/decisions/0003-design-for-construction.md)
+Full design precis: [docs/02-concept.md](docs/02-concept.md) · Product requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Decisions: [docs/decisions/0001-trl2-review-decisions.md](docs/decisions/0001-trl2-review-decisions.md), [docs/decisions/0002-recommendations-accepted.md](docs/decisions/0002-recommendations-accepted.md), [docs/decisions/0003-design-for-construction.md](docs/decisions/0003-design-for-construction.md)
+
+### Concept options and pipeline documents
+
+Three options with different working principles are modelled at detail level D3 in `cad/src/model.py` and scored in [docs/02a-concept-options.md](docs/02a-concept-options.md): **A** swap bays in a steel cabinet (the current design, 120 of 155), **B** a rotary magazine behind one hatch (102) and **C** a locker bank where riders charge in place (90). Option A is recommended; the choice is **proposed, awaiting Amish**.
+
+![Concept options side by side at one scale](media/options.png)
+
+STEM check: [docs/01b-stem-check.md](docs/01b-stem-check.md) (17 of 27 claims within known science, 10 plausible and open, one fix made) · User requirements: [docs/03a-user-requirements.md](docs/03a-user-requirements.md) · Traceability: [docs/03b-traceability.md](docs/03b-traceability.md) · Regulatory: [docs/07-regulatory.md](docs/07-regulatory.md) · Feasibility: [docs/08-feasibility.md](docs/08-feasibility.md) · Risk and design FMEA: [docs/09-risk.md](docs/09-risk.md) · Market: [docs/10-market.md](docs/10-market.md) · Plan: [docs/11-plan.md](docs/11-plan.md)
 
 ## Key components
 
@@ -90,7 +98,7 @@ The [prototype build plan](docs/05-build-plan.md) (DKH-BLD-001) shows how to mak
 
 | Folder | Contents |
 | --- | --- |
-| `docs/` | Problem, concept, requirements, calculations and design decisions |
+| `docs/` | Problem, STEM check, concept and options, user and product requirements, traceability, calculations, build plan, regulatory, feasibility, risk, market, plan and design decisions |
 | `cad/src/` | build123d Python source, the source of truth for all geometry |
 | `cad/step/`, `cad/stl/` | Exported models for FreeCAD, other CAD tools and printing |
 | `cad/drawings/` | 2D sketches and dimensioned drawings |

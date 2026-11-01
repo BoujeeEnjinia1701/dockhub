@@ -1,0 +1,63 @@
+{
+ "level": "D3",
+ "stage": "P3",
+ "hash": "d24488f0bdae7fd3",
+ "options": {
+  "A": {
+   "title": "Swap bays in a steel cabinet",
+   "parts": 537,
+   "made_or_bought": 104,
+   "fasteners": 397,
+   "welds": 36,
+   "bare": [
+    "Bay 1 lock plunger",
+    "Bay 2 lock plunger",
+    "Panel lead, 4 mm2 solar cable",
+    "Panel lead, 4 mm2 solar cable"
+   ],
+   "bare_share": 0.038,
+   "interference": [],
+   "mass_kg": 1343.8,
+   "step_files": 104
+  },
+  "B": {
+   "title": "Rotary magazine behind one hatch",
+   "parts": 550,
+   "made_or_bought": 108,
+   "fasteners": 406,
+   "welds": 36,
+   "bare": [
+    "Panel lead, 4 mm2 solar cable",
+    "Panel lead, 4 mm2 solar cable",
+    "Hatch 1 lock plunger"
+   ],
+   "bare_share": 0.028,
+   "interference": [],
+   "mass_kg": 1374.1,
+   "step_files": 0
+  },
+  "C": {
+   "title": "Locker bank, charge in place",
+   "parts": 572,
+   "made_or_bought": 116,
+   "fasteners": 452,
+   "welds": 4,
+   "bare": [
+    "Locker 1 lock plunger",
+    "Locker 2 lock plunger",
+    "Locker 3 lock plunger",
+    "Locker 4 lock plunger",
+    "Locker 5 lock plunger",
+    "Locker 6 lock plunger"
+   ],
+   "bare_share": 0.052,
+   "interference": [],
+   "mass_kg": 1318.3,
+   "step_files": 0
+  }
+ },
+ "failures": [],
+ "warnings": [],
+ "passed": true,
+ "seconds": 160.6
+}

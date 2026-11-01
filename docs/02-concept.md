@@ -3,9 +3,9 @@ doc_id: DKH-PRC-001
 title: DockHub design precis
 project: DockHub
 doc_type: Design precis
-version: "0.8"
+version: "0.9"
 status: Draft
-date: '2026-10-02'
+date: '2026-10-31'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -41,9 +41,16 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Approved follow-ups carried into the design: anchors and site pad (BOM 17, 18; R15 met), vermiculite floor trial option (BOM 19), anonymous prepaid cards in the token list, flattest-pack solar sensitivity; numbers from DKH-CAL-001 v0.6"
+- version: "0.9"
+  date: '2026-10-31'
+  author: Amish Chadha
+  change: "Kit 1.9.1 upgrade: R1 to R16 are PR-001 to PR-016 in DKH-PRS-001 (Was column); concept options DKH-OPT-001 (option A recommended, awaiting Amish); fan rule on aerosol discharge (DKH-DEC-001 D1); the design itself is unchanged"
+
 ---
 
 # DockHub design precis
+
+*Kit 1.9.1 note, 2026-10-31.* The requirement numbers R1 to R16 below are now PR-001 to PR-016 in DKH-PRS-001 (its Was column maps them; the calculation note and build plan still use R numbers). This precis describes option A, swap bays in a steel cabinet; the concept options are scored in DKH-OPT-001 and the choice is proposed, awaiting Amish (DKH-DDR-004). One rule is added by the STEM check (DKH-STM-001 S13, DKH-DEC-001 D1): on an aerosol discharge the roof fans stop and the plenum vents through the passive hood slot.
 
 ## Summary
 

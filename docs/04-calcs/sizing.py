@@ -507,6 +507,22 @@ print(f"Pad {P['pad'][0]:.0f} x {P['pad'][1]:.0f} x {P['pad'][2]:.0f} mm, {m_pad
       f"rear edge {M_ot_pad / 1000:.2f} kN m against {M_res_pad / 1000:.2f} kN m; equilibrium factor {equ:.2f} "
       f"(0.9 x restoring / 1.5 x overturning, 1.0 needed); sliding resistance {slide_pad:.0f} N against {LOAD_FACTOR * F_h:.0f} N design; "
       f"bearing {bear:.1f} kPa")
+# Independent review (DKH-STM-001, 2026-10-31): the same partial factors on the anchors (1.5 on wind, 0.9 on weight), and the pad edge pressure
+T_alt = max(0.0, LOAD_FACTOR * M_ot - G_STB * M_res) / arm / 2
+Wp = (M2 + m_pad) * 9.81 - Nv                              # vertical load on the pad with the panel uplift taken off
+x_res = (M_res_pad - M_ot_pad) / Wp                        # resultant from the rear edge, m
+x_fac = (G_STB * (M2 + m_pad) * 9.81 * piv - LOAD_FACTOR * M_ot_pad) / (G_STB * (M2 + m_pad) * 9.81 - LOAD_FACTOR * Nv)
+
+
+def _edge(x, load):
+    e = pB / 2 - x
+    return load / (pL * pB) * (1 + 6 * e / pB) if e <= pB / 6 else 2 * load / (3 * x * pL)
+
+
+p_edge, p_edge_f = _edge(x_res, Wp) / 1000, _edge(x_fac, G_STB * (M2 + m_pad) * 9.81 - LOAD_FACTOR * Nv) / 1000
+print(f"Sensitivity (not adopted): anchor design tension {T_alt / 1000:.2f} kN with 0.9 on weight and 1.5 on wind; pad resultant {x_res * 1000:.0f} mm "
+      f"from the rear edge (middle third from {pB / 3 * 1000:.0f} mm); edge pressure {p_edge:.0f} kPa unfactored, {p_edge_f:.0f} kPa factored; "
+      f"soil bearing capacity to assess at the site; wind from the front only")
 print(f"Anchors: four M12 stainless wedge anchors, 100 mm embedment, {P['pad'][0] / 2 - P['anchor_x']:.0f} and "
       f"{P['pad'][1] / 2 - (P['D'] / 2 - P['anchor_inset'] / 2):.0f} mm from the pad edges; design tension {Td / 1000:.2f} kN each "
       f"to be at or below the approved design resistance")

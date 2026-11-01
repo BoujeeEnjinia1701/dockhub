@@ -3,9 +3,9 @@ doc_id: DKH-CAL-001
 title: DockHub sizing calculations
 project: DockHub
 doc_type: Calculation note
-version: "0.6"
+version: "0.7"
 status: Draft
-date: '2026-10-02'
+date: '2026-10-31'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -33,6 +33,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Approved follow-ups: sizing.py rerun against the restated R6 and R9; flattest-pack solar switching as a sensitivity; R9 limits stated; anonymous prepaid cards in the token list; anchors and site pad chosen and checked (R15 met); cost with anchors and pad (USD 1,519)"
+- version: "0.7"
+  date: '2026-10-31'
+  author: Amish Chadha
+  change: "Independent review at the kit 1.9.1 upgrade (DKH-STM-001): sensitivities added to section 11 (anchor tension with matching factors 4.13 kN, pad edge pressure); results unchanged"
 ---
 
 # DockHub sizing calculations
@@ -172,6 +176,8 @@ The two-bay prototype without packs weighs about **217 kg**, which is used for t
 At a 30 m/s gust the dynamic pressure is 551 Pa. The 1.95 m² panel takes a normal force of 1,615 N, which at 10° of tilt is 280 N sideways and **1,590 N of uplift**, acting 429 mm in front of the cabinet centre; the posts add 158 N and the body 1,075 N of drag. About the rear bottom edge this gives an overturning moment of **2.91 kN·m**, against 0.53 kN·m from the prototype's own weight: a factor of 0.18. Unanchored, the cabinet would tip, and friction alone (215 N) would not stop it sliding either. The TRL 2 note treated the canopy force as horizontal and missed the uplift; the corrected moment is lower than its 3.6 kN·m, but the conclusion stands.
 
 With four M12 anchors 30 mm in from the front and rear edges (and 25 mm in from the ends, where a socket reaches them through capped holes in the floor), each front anchor carries **2.53 kN** of tension, **3.79 kN** with the 1.5 load factor, and each anchor about 0.57 kN of design shear. Each front canopy post pulls up on the roof frame with about 1,251 N, so each post bolts through the roof sheet into a 40 x 40 x 4 mm angle roof beam, which is bolted at each end to the front and back panels (DKH-DDR-003); the posts themselves see only 9.4 MPa in bending (50 x 50 x 3 mm hollow section, 714 mm long). **Anchors and pad (chosen 2026-10-02).** The first pilot is on private ground, so the cabinet gets its own cast pad rather than relying on the host's ground: reinforced concrete 1,400 x 1,100 x 300 mm (about **1,109 kg**), top flush with the ground, the cabinet centred on it, and four M12 x 160 mm stainless wedge anchors at 100 mm embedment (BOM lines 17 and 18). The anchors sit 225 mm from the pad's ends and 330 mm from its front and back edges. Taking the cabinet and pad together about the pad's rear bottom edge, the gust gives an overturning moment of **3.84 kN·m** against **7.15 kN·m** of restoring moment; with a factor of 0.9 on the weight and 1.5 on the wind the ratio is **1.12**, above the 1.0 needed. Friction under the pad (coefficient 0.5) resists 5,708 N against 2,269 N of factored sliding force, and the bearing pressure is only 8.4 kPa. The anchors still carry 3.79 kN of design tension each, which must be at or below the design resistance in the chosen anchor's approval data. A socket reaches each anchor nut through the floor and a 32 mm hole in the plinth's top flange (added on 2026-10-02; the flange had blocked it). **R15 is met** on paper, subject to that confirmation.
+
+*Sensitivity from the independent review (2026-10-31, not adopted; `sizing.py` prints it).* Applying the pad check's own factors (1.5 on wind, 0.9 on self-weight) to the anchors gives **4.13 kN** design tension each, 9 % above the 3.79 kN above; asking the maker for a design resistance of at least 4.2 kN is proposed, awaiting Amish (DKH-DEC-001 O5). The pad's resultant sits 290 mm from its rear edge, outside the middle third (from 367 mm), so the edge pressure is about **19 kPa** unfactored and 61 kPa factored, not the 8.4 kPa average; the soil bearing capacity is to assess at the site. Only wind from the front is checked; other directions, the canopy fixings and the panel clamps are open items.
 
 ## 12. Cost (R16)
 

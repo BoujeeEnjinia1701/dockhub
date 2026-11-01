@@ -37,8 +37,11 @@ from model import PARAMS, bay_x, build_components, derived, pack_z0, panel_frame
 
 TITLE = "DockHub: street-side battery swap and charging station"
 
+_SITE = ["--scene=outdoor", "--ground=concrete", "--ground-z=0", "--sun=38,-20", "--lens=35"]
+
 RENDER_VIEWS = [
     {"name": "hero", "groups": ["shell", "internal", "accessory", "context"], "explode": False, "el": 22, "az": -38,
+     "args": _SITE,
      "note": "Four-bay fit shown. Product render from the front right and above (about 22 deg elevation); rider at "
              "left lifting a charged pack from the open bay 1, doors on piano hinges, access panel with its lit "
              "display at right, vent hood and solar canopy overhead. Door windows are shown in renders only; "
@@ -504,12 +507,12 @@ def product_parts(P=PARAMS):
             tiles.append(B(xx + 3, min(xx + step, x1) - 3, yy + 3, min(yy + step, y1) - 3, -20, 0))
             xx += step
         yy += step
-    add("Sidewalk paving slabs", _comp(tiles), C_PAVE, "paper", None, "context", (0, 0, 0))
+    add("Sidewalk paving slabs (site)", _comp(tiles), C_PAVE, "paper", None, "context", (0, 0, 0))
     base = B(x0, x1, y0, y1, -150, -20)
-    add("Sidewalk bedding", base, C_PAVE2, "paper", None, "context", (0, 0, 0))
+    add("Sidewalk bedding (site)", base, C_PAVE2, "paper", None, "context", (0, 0, 0))
     curb = B(x0, x1, y0 - 160, y0, -150, 0)
     curb = _fillet_try(curb, _front(curb), [20.0, 10.0])
-    add("Granite curb", curb, C_CURB, "paper", None, "context", (0, 0, 0))
+    add("Granite curb (site)", curb, C_CURB, "paper", None, "context", (0, 0, 0))
 
     from context_parts import mannequin, mannequin_landmarks
     lm = mannequin_landmarks(1750, "stand", **RIDER_POSE)
@@ -518,7 +521,7 @@ def product_parts(P=PARAMS):
     rx_, ry_ = hx_ * math.cos(th) - hy_ * math.sin(th), hx_ * math.sin(th) + hy_ * math.cos(th)
     px, py = RIDER_AT[0] - rx_, RIDER_AT[1] - ry_
     person = Pos(px, py, 0) * Rot(0, 0, RIDER_TURN) * mannequin(1750, "stand", **RIDER_POSE)
-    add("Rider, 1.75 m (clay mannequin)", person, C_CLAY, "clay", None, "context", (0, 0, 0))
+    add("Rider, 1.75 m (scale)", person, C_CLAY, "clay", None, "context", (0, 0, 0))
     # the charged pack from bay 1, hanging from the right hand by its handle bar
     z1 = hz_ - (P["handle_h"] - 5)
     zp0 = z1 - P["pack_l"]

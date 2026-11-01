@@ -3,9 +3,9 @@ doc_id: DKH-PRB-001
 title: DockHub problem statement
 project: DockHub
 doc_type: Problem statement
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-10-02'
+date: '2026-10-31'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,6 +29,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "First site, partner and pack ownership as decided on 2026-10-02 (DKH-DEC-001)"
+- version: "0.6"
+  date: '2026-10-31'
+  author: Amish Chadha
+  change: "Kit 1.9.1 upgrade: users and stakeholders as numbered tables (Tables 1 and 2) feeding the user requirements DKH-URS-001"
 ---
 
 # DockHub problem statement
@@ -45,6 +49,8 @@ Commercial swap networks exist, but each is closed: the pack, cabinet, protocol 
 
 ## Users and context
 
+Table 1. Users and needs (they feed DKH-URS-001).
+
 | User | Need | Context |
 | --- | --- | --- |
 | App-based delivery rider | A charged pack in under a minute, near the delivery zone, at any hour; no pack in the bedroom overnight | Dense city centers; long shifts, often evenings and weekends |
@@ -53,6 +59,17 @@ Commercial swap networks exist, but each is closed: the pack, cabinet, protocol 
 | City transport or fire safety department | Fewer home battery fires; a safe, visible alternative that uses little sidewalk | Sidewalks, plazas, parking lanes |
 | Host (shop, restaurant, building owner) | Low-effort hosting with a clear electrical load and safety case | Shopfronts, parking areas with a power supply |
 | Technician | Replace a charger, lock or bay in minutes; read pack logs | Field service with hand tools |
+
+Table 2. Stakeholders (people who do not use the station but can stop it or shape it).
+
+| Stakeholder | Interest | Influence | Source of requirement |
+| --- | --- | --- | --- |
+| City transport department | Sidewalk use, public safety, permits | High: consent for public land | UR-003, UR-004, UR-006, UR-009 |
+| Fire department | Lithium fire risk, cabinet certification | High: approval of the cabinet and site | UR-003 |
+| Power utility and electrician | Connection, protection, load | Medium | UR-009 |
+| SwapCell project | The interface and pack the station must not change | High for the pack | UR-005 |
+| Delivery platforms and fleet operators | Rider uptime, pack data | Medium | UR-002, UR-011 |
+| Neighbors and passers-by | Noise, light, obstruction, fire | Low to medium | UR-003, UR-009 |
 
 ## Operating environment
 

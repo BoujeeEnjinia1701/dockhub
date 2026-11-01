@@ -1,7 +1,7 @@
 """DockHub general arrangement drawing DKH-DWG-001 (Rev P3, constructable design DKH-DDR-003; site pad and anchors).
 
 Run from the repo root:  python cad/src/sheets.py
-Builds cad/drawings/DKH-DWG-001.svg, .pdf and .png from the parametric model, in the
+Builds cad/drawings/DKH-DWG-001.svg, .pdf and .png from cad/src/model.py (kit 1.9, option A), in the
 first-prototype fit (bays 1 and 2 fitted, bays 3 and 4 blanked; DKH-DDR-001 item 1).
 """
 import shutil
@@ -11,22 +11,25 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / ".kit"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from build123d import Compound  # noqa: E402
 from drawing import Sheet, project_views  # noqa: E402
-from model import PARAMS as P, assemblies, build_parts, canopy_heights, pack_z0  # noqa: E402
+from model import CHOSEN, PARAMS as P, canopy_heights, components, pack_z0  # noqa: E402
 
-parts = build_parts()
-asm = assemblies(parts)["dockhub-assembly"]
+# kit 1.9: the drawing is of the chosen option's model, first-prototype fit (bays 1 and 2 fitted), site pad omitted
+parts = [q for q in components(CHOSEN, site=False) if q["kind"] != "context"]
+asm = Compound(children=[q["shape"] for q in parts])
 work = ROOT / "cad/drawings/_views"
 views = project_views(asm, work)
 zr, zf, _, _ = canopy_heights()
 pz = pack_z0()
 
 s = Sheet(project="DockHub", title="General arrangement, first prototype (2 of 4 bays)", dwg_no="DKH-DWG-001",
-          rev="P3", author="Amish Chadha", date="2026-10-02", concept=True,
+          rev="P4", author="Amish Chadha", date="2026-10-31", concept=True,
           material="1.5 mm galvanized steel, powder coat. See bom/bom.csv",
           revisions=[("P1", "Preliminary GA, SwapCell interface v0.3 (DKH-CAL-001)", "2026-09-25", "AC"),
                      ("P2", "Constructable design (DKH-DDR-003)", "2026-10-01", "AC"),
-                     ("P3", "Anchors and site pad chosen; socket holes in plinth", "2026-10-02", "AC")])
+                     ("P3", "Anchors and site pad chosen; socket holes in plinth", "2026-10-02", "AC"),
+                     ("P4", "Redrawn from the kit 1.9 detailed model (rivets, welds, hinges, fasteners)", "2026-10-31", "AC")])
 s.add_ortho(views, ["front", "top", "right"])
 s.add_svg(views["iso"], 276, 37, 140, 78, label="Isometric view", sublabel="Not to scale")
 s.add_notes("Key dimensions and interfaces (mm)", [
